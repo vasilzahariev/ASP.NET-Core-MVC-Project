@@ -12,9 +12,5 @@ namespace UltimateMovies.Models
 
         [Required]
         public string ImageUrl { get; set; }
-
-        public int MovieId { get; set; }
-
-        public virtual Movie Movie { get; set; }
     }
 }

@@ -12,5 +12,9 @@ namespace UltimateMovies.Models
         public string Name { get; set; }
 
         public DateTime BirthDate { get; set; }
+
+        public int PictureId { get; set; }
+
+        public virtual Image Picture { get; set; }
     }
 }
