@@ -1,0 +1,22 @@
+﻿<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp2.2</TargetFramework>
+    <UserSecretsId>aspnet-UltimateMovies-C3AD9F7B-67B9-48CE-8A98-1D694AC54B5F</UserSecretsId>
+    <AspNetCoreHostingModel>InProcess</AspNetCoreHostingModel>
+  </PropertyGroup>
+
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.AspNetCore.App" />
+    <PackageReference Include="Microsoft.AspNetCore.Razor.Design" Version="2.2.0" PrivateAssets="All" />
+  </ItemGroup>
+
+
+  <ItemGroup>
+    <ProjectReference Include="..\UltimateMovies.Data\UltimateMovies.Data.csproj" />
+    <ProjectReference Include="..\UltimateMovies.Models\UltimateMovies.Models.csproj" />
+    <ProjectReference Include="..\UltimateMovies.Services\UltimateMovies.Services.csproj" />
+  </ItemGroup>
+
+</Project>
