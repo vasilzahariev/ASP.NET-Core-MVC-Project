@@ -1,14 +1,40 @@
-﻿using System.Diagnostics;
+﻿using System;
+using System.Collections.Generic;
+using System.Diagnostics;
+using System.Linq;
 using Microsoft.AspNetCore.Mvc;
+using UltimateMovies.Services;
 using UltimateMovies.ViewModels;
+using UltimateMovies.ViewModels.Home;
 
 namespace UltimateMovies.Controllers
 {
     public class HomeController : Controller
     {
+        private IHomeServices homeServices;
+
+        public HomeController(IHomeServices homeServices)
+        {
+            this.homeServices = homeServices;
+        }
+
         public IActionResult Index()
         {
-            return View();
+            HomeMoviesListingModel model = new HomeMoviesListingModel
+            {
+                HomeMovies = this.homeServices.GetMovies().Select(x => new HomeMovieModelView
+                {
+                    Id = x.Id,
+                    Name = x.Name,
+                    ImageUrl = homeServices.GetImageUrl(x.PosterId),
+                    IMDbScore = x.IMDbScore,
+                    Length = x.Length,
+                    ReleaseDate = x.ReleaseDate,
+                    RottenTomatoes = x.RottenTomatoes
+                })
+            };
+
+            return View("Index", model);
         }
 
         public IActionResult Privacy()

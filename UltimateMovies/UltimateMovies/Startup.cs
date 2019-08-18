@@ -13,6 +13,7 @@ using Microsoft.EntityFrameworkCore;
 using UltimateMovies.Data;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using UltimateMovies.Services;
 
 namespace UltimateMovies
 {
@@ -43,6 +44,11 @@ namespace UltimateMovies
                 .AddEntityFrameworkStores<UltimateMoviesDbContext>();
 
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
+
+            services.AddTransient<IActorsService, ActorsService>();
+            services.AddTransient<IImageService, ImageService>();
+            services.AddTransient<IMoviesService, MoviesService>();
+            services.AddTransient<IHomeServices, HomeServices>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

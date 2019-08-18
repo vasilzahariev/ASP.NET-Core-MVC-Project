@@ -1,11 +1,35 @@
-﻿@{
+﻿@model UltimateMovies.ViewModels.Home.HomeMoviesListingModel
+@{
     ViewData["Title"] = "Home Page";
 }
 
-<div class="text-center">
+<div class="text-center" style="margin-bottom: 50px">
     <h1 class="display-4">Welcome to UltimateMovies</h1>
     <h3 class="d-block">Here you can find the best movies!</h3>
     <h3 class="d-block">Scroll down, select the movie you want and watch it!</h3>
 </div>
 
+
+@foreach (var movie in Model.HomeMovies)
+{
+    <div class="col-md-3 d-inline-block" style="margin-right: 49px; margin-left: 40px">
+        <div class="card mb-4 shadow-sm">
+            <div class="bd-placeholder-img card-img-top homeMovieImageDiv">
+                <img src="@movie.ImageUrl" alt="Poster" width="100%" height="350" />
+            </div>
+            <div class="card-body homeMovieImageBody">
+                <p style="float: left;"><b>@movie.ReleaseDate.Year</b></p>
+                <p style="float: right;"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/6/69/IMDB_Logo_2016.svg/250px-IMDB_Logo_2016.svg.png" alt="Alternate Text" width="50px" height="25px" /> <b>@movie.IMDbScore / 10</b></p>
+                <br />
+                <br />
+                <p style="float: left; padding-top: 10px"><b>@movie.Length</b> mins</p>
+                <p style="float: right;"><img src="https://www.smdp.com/wp-content/uploads/2018/08/RT.png" alt="Alternate Text" width="55px" height="40px" style="margin-bottom: 5px" /> <b>@(movie.RottenTomatoes)%</b></p>
+
+                <div style="text-align: center; margin-top: 70px">
+                    <a href="/Movies/Details/@movie.Id" class="btn btn-outline-primary">Watch!</a>
+                </div>
+            </div>
+        </div>
+    </div>
+}
 
