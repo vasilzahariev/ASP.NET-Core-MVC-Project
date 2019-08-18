@@ -17,6 +17,15 @@ namespace UltimateMovies.Models
         public string Name { get; set; }
 
         [Required]
+        public decimal OnlinePrice { get; set; }
+
+        [Required]
+        public decimal BluRayPrice { get; set; }
+
+        [Required]
+        public decimal DvdPrice { get; set; }
+
+        [Required]
         public string Description { get; set; }
 
         [Required]
