@@ -56,14 +56,16 @@ namespace UltimateMovies.Services
 
             movie.PosterId = imageService.GetImageByUrl(posterUrl);
 
+            movie.Poster = this.db.Images.FirstOrDefault(x => x.Id == movie.PosterId);
+
             this.db.Movies.Add(movie);
 
             this.db.SaveChanges();
 
-            this.ParseActors(actors, movie.Id);
+            this.ParseActors(actors, movie);
         }
 
-        private void ParseActors(string actors, int movieId)
+        private void ParseActors(string actors, Movie movie)
         {
             string[] actorsNames = actors.Split("\r\n");
             List<Actor> result = new List<Actor>();
@@ -95,7 +97,9 @@ namespace UltimateMovies.Services
                 ActorMovie am = new ActorMovie
                 {
                     ActorId = actor.Id,
-                    MovieId = movieId
+                    Actor = actor,
+                    Movie = movie,
+                    MovieId = movie.Id
                 };
 
                 result.Add(actor);
@@ -117,6 +121,64 @@ namespace UltimateMovies.Services
             }
 
             return count;
+        }
+
+        public Movie GetMovie(int id)
+        {
+            Movie resultMovie = null;
+
+            foreach (Movie movie in this.db.Movies)
+            {
+                if (movie.Id == id)
+                {
+                    resultMovie = movie;
+
+                    foreach (ActorMovie actorMovie in this.db.ActorsMovies)
+                    {
+                        if (actorMovie.MovieId == id)
+                        {
+                            resultMovie.Actors.Add(actorMovie);
+                        }
+                    }
+
+                    break;
+                }
+            }
+
+            if (resultMovie == null)
+            {
+                throw new Exception();
+            }
+
+            return resultMovie;
+        }
+
+        public string GetPosterUrl(int id)
+        {
+            foreach (var image in this.db.Images)
+            {
+                if (image.Id == id)
+                {
+                    return image.ImageUrl;
+                }
+            }
+
+            return "";
+        }
+
+        public List<string> GetActorsNames(int movieId)
+        {
+            List<string> results = new List<string>();
+
+            foreach (var am in this.db.ActorsMovies)
+            {
+                if (am.MovieId == movieId)
+                {
+                    results.Add(this.db.Actors.FirstOrDefault(x => x.Id == am.ActorId).Name);
+                }
+            }
+
+            return results;
         }
     }
 }

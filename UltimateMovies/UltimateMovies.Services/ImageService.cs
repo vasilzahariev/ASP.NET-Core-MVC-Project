@@ -40,6 +40,19 @@ namespace UltimateMovies.Services
             this.db.SaveChanges();
         }
 
+        public Image GetImage(int id)
+        {
+            foreach (var image in this.db.Images)
+            {
+                if (image.Id == id)
+                {
+                    return image;
+                }
+            }
+
+            return null;
+        }
+
         public int GetImageByUrl(string url)
         {
             foreach (var image in this.db.Images)

@@ -38,7 +38,7 @@ namespace UltimateMovies.ViewModels.Movies
 
         public string IMDbUrl { get; set; }
 
-        // public virtual ICollection<ActorMovie> Actors { get; set; }
+        public ICollection<string> Actors { get; set; }
 
         public string PosterUrl { get; set; }
     }

@@ -24,7 +24,7 @@ namespace UltimateMovies.Data
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            modelBuilder.Entity<ActorMovie>().HasKey(x => new { x.ActorId, x.MovieId});
+            modelBuilder.Entity<ActorMovie>().HasKey(x => new { x.ActorId, x.MovieId });
 
             modelBuilder.Entity<ActorMovie>()
                 .HasOne(am => am.Actor)

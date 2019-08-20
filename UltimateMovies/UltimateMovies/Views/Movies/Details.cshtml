@@ -1,0 +1,54 @@
+﻿@model UltimateMovies.ViewModels.Movies.MoviesViewModel
+
+@{
+    ViewData["Title"] = "Details";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    CultureInfo us = CultureInfo.GetCultureInfo("en-US");
+}
+
+<h1>@Model.Name (@Model.ReleaseDate.Year)</h1>
+
+<hr />
+
+<div class="col-md-5 d-inline-block">
+    <p style="font-size: 20px; width: 700px;">
+        <b>Story:</b>
+        <i>@Model.Description</i>
+        <br />
+        <b>Directors: </b> <span>@Model.Directors</span>
+        <br />
+        <b>Genres:</b> @Model.Genre | @Model.Genre2 | @Model.Genre3
+        <br />
+        <b>Release Date: </b> @(Model.ReleaseDate.Day).@(Model.ReleaseDate.Month).@Model.ReleaseDate.Year
+        <br />
+        <b>Actors: </b> <span>@String.Join(", ", Model.Actors)</span>
+        <br />
+        <br />
+        <div class="col-md-7 mt-4">
+            <div class="mb-2" style="padding-bottom: 10px">
+                <img src="https://upload.wikimedia.org/wikipedia/commons/8/8c/Blu_ray_logo.png" alt="Alternate Text" width="50" height="40" style="margin-right: 41px" /> <a href="/Movies/Details/@Model.Id" class="btn btn-outline-primary">@(string.Format(us, "{0:C}", Model.BlueRayPrice))</a>
+            </div>
+            <div class="mb-2">
+                <a href="/Movies/Details/@Model.Id" class="btn btn-outline-primary">Buy Online! (@(string.Format(us, "{0:C}", Model.OnlinePrice)))</a>
+            </div>
+        </div>
+    </p>
+</div>
+
+<div class="col-md-4 d-inline-block float-right">
+    <div class="card mb-4 shadow-sm">
+        <div class="bd-placeholder-img card-img-top homeMovieImageDiv">
+            <img src="@Model.PosterUrl" alt="Poster" width="100%" height="500" />
+        </div>
+        <div class="card-body homeMovieImageBody">
+            <p style="float: left;"><b>@Model.ReleaseDate.Year</b></p>
+            <p style="float: right;"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/6/69/IMDB_Logo_2016.svg/250px-IMDB_Logo_2016.svg.png" alt="Alternate Text" width="50px" height="25px" /> <b>@Model.IMDbScore / 10</b></p>
+            <br />
+            <br />
+            <p style="float: left; padding-top: 10px"><b>@Model.Length</b> mins</p>
+            <p style="float: right;"><img src="https://www.smdp.com/wp-content/uploads/2018/08/RT.png" alt="Alternate Text" width="55px" height="40px" style="margin-bottom: 5px" /> <b>@(Model.RottenTomatoes)%</b></p>
+        </div>
+    </div>
+</div>
+
+

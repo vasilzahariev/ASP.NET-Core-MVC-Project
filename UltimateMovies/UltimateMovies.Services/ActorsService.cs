@@ -21,8 +21,12 @@ namespace UltimateMovies.Services
             {
                 Name = name,
                 BirthDate = new DateTime(1, 1, 1, 0, 0, 0),
-                PictureId = 2
+                PictureId = 1
             };
+
+            IImageService imageService = new ImageService(this.db);
+
+            actor.Picture = imageService.GetImage(actor.PictureId);
 
             this.db.Actors.Add(actor);
 

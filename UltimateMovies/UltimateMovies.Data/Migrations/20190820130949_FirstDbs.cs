@@ -4,7 +4,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace UltimateMovies.Data.Migrations
 {
-    public partial class FirstDBs : Migration
+    public partial class FirstDbs : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {

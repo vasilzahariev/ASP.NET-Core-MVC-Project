@@ -2,9 +2,12 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using UltimateMovies.Models;
 using UltimateMovies.Services;
 using UltimateMovies.ViewModels.Home;
+using UltimateMovies.ViewModels.Movies;
 
 namespace UltimateMovies.Controllers
 {
@@ -20,12 +23,35 @@ namespace UltimateMovies.Controllers
         [HttpGet("Movies/Details/{movieId}")]
         public IActionResult Details(int movieId)
         {
-            return this.View();
+            Movie m = this.moviesService.GetMovie(movieId);
+
+            MoviesViewModel movie = new MoviesViewModel();
+            movie.Id = m.Id;
+            movie.BlueRayPrice = m.BluRayPrice;
+            movie.OnlinePrice = m.OnlinePrice;
+            movie.PosterUrl = this.moviesService.GetPosterUrl(m.PosterId);
+            movie.Genre = m.Genre;
+            movie.Genre2 = m.Genre2;
+            movie.Genre3 = m.Genre3;
+            movie.Description = m.Description;
+            movie.DvdPrice = m.DvdPrice;
+            movie.Directors = m.Directors;
+            movie.IMDbScore = m.IMDbScore;
+            movie.IMDbUrl = m.IMDbUrl;
+            movie.ReleaseDate = m.ReleaseDate;
+            movie.Length = m.Length;
+            movie.RottenTomatoes = m.RottenTomatoes;
+            movie.Name = m.Name;
+            movie.Actors = this.moviesService.GetActorsNames(m.Id);
+
+            return this.View(movie);
         }
 
         [HttpGet]
+        [Authorize]
         public IActionResult CreateMovie()
         {
+
             return this.View();
         }
 
