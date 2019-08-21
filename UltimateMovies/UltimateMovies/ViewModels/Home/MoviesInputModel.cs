@@ -73,5 +73,9 @@ namespace UltimateMovies.ViewModels.Home
         [Display(Name = "Movie's Poster Url")]
         [Required]
         public string PosterUrl { get; set; }
+
+        [Display(Name = "Movie's Trailer Url")]
+        [Required]
+        public string TrailerUrl { get; set; }
     }
 }

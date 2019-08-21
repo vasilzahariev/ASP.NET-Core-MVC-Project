@@ -20,7 +20,7 @@ namespace UltimateMovies.Services
         public void CreateMovie(string name, double onlinePrice, double bluRayPrice, double dvdPrice,
             string description, string directors, MovieGenre genre, MovieGenre? genre2, MovieGenre? genre3,
             DateTime releaseDate, int length, double imdbScore, int rottenTomatoes, string imdbUrl, string actors,
-            string posterUrl)
+            string posterUrl, string trailerUrl)
         {
             Movie movie = new Movie
             {
@@ -34,7 +34,8 @@ namespace UltimateMovies.Services
                 Length = length,
                 IMDbScore = imdbScore,
                 RottenTomatoes = rottenTomatoes,
-                IMDbUrl = imdbUrl
+                IMDbUrl = imdbUrl,
+                TrailerUrl = trailerUrl
             };
 
             if (genre2 != null)
@@ -179,6 +180,11 @@ namespace UltimateMovies.Services
             }
 
             return results;
+        }
+
+        public IEnumerable<Movie> GetAllMovies()
+        {
+            return this.db.Movies;
         }
     }
 }

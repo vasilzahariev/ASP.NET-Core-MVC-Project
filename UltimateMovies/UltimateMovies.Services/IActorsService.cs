@@ -11,7 +11,10 @@ namespace UltimateMovies.Services
 
         Actor GetActor(int id);
 
+        IEnumerable<Actor> GetAllActors();
+
         Image GetActorPicture(int pictureId);
+
         IDictionary<int, KeyValuePair<string, string>> GetActorsMoviesAndPosters(int actorId);
     }
 }

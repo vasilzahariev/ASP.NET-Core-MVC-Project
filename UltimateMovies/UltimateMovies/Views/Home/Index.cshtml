@@ -3,6 +3,13 @@
     ViewData["Title"] = "Home Page";
 }
 
+@if (ViewData["ValidationError"] != null)
+{
+    <div>
+        <h1 class="text-danger">You have entered wrong data! The movie was not created! @ViewData["ValidationError"]</h1>
+    </div>
+}
+
 <div class="text-center" style="margin-bottom: 50px">
     <h1 class="display-4">Welcome to UltimateMovies</h1>
     <h3 class="d-block">Here you can find the best movies!</h3>
@@ -18,7 +25,7 @@
                 <img src="@movie.ImageUrl" alt="Poster" width="100%" height="350" />
             </div>
             <div class="card-body homeMovieImageBody">
-                <p style="text-align: center; border-bottom: 1px solid black; border-top: 1px solid black; padding : 10px;">@movie.Name</p>
+                <p style="border-bottom: 1px solid black; border-top: 1px solid black; text-align: center; height: 95px; padding-top: 30px"><b>@movie.Name</b> </p>
                 <p style="float: left;"><b>@movie.ReleaseDate.Year</b></p>
                 <p style="float: right;"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/6/69/IMDB_Logo_2016.svg/250px-IMDB_Logo_2016.svg.png" alt="Alternate Text" width="50px" height="25px" /> <b>@movie.IMDbScore / 10</b></p>
                 <br />

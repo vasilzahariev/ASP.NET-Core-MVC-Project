@@ -42,5 +42,7 @@ namespace UltimateMovies.ViewModels.Movies
         public IDictionary<string, int> Actors { get; set; }
 
         public string PosterUrl { get; set; }
+
+        public string TrailerUrl { get; set; }
     }
 }

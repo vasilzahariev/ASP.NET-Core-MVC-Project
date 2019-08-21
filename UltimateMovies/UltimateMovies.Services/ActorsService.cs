@@ -62,6 +62,11 @@ namespace UltimateMovies.Services
             return result;
         }
 
+        public IEnumerable<Actor> GetAllActors()
+        {
+            return this.db.Actors;
+        }
+
         private int ActorsCount()
         {
             int count = 0;

@@ -53,6 +53,9 @@ namespace UltimateMovies.Models
         [Required]
         public string IMDbUrl { get; set; }
 
+        [Required]
+        public string TrailerUrl { get; set; }
+
         public virtual ICollection<ActorMovie> Actors { get; set; }
 
         public int PosterId { get; set; }

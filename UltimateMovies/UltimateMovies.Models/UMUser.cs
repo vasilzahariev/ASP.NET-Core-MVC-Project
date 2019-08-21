@@ -24,5 +24,9 @@ namespace UltimateMovies.Models
         public int LibraryId { get; set; }
 
         public virtual Library Library { get; set; }
+
+        public int WishListId { get; set; }
+
+        public virtual WishList WishList { get; set; }
     }
 }

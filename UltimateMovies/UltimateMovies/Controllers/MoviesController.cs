@@ -43,6 +43,7 @@ namespace UltimateMovies.Controllers
             movie.RottenTomatoes = m.RottenTomatoes;
             movie.Name = m.Name;
             movie.Actors = this.moviesService.GetActorsNames(m.Id);
+            movie.TrailerUrl = m.TrailerUrl;
 
             return this.View(movie);
         }
@@ -58,9 +59,15 @@ namespace UltimateMovies.Controllers
         [HttpPost]
         public IActionResult CreateMovie(MoviesInputModel movie)
         {
+            if (!this.ModelState.IsValid)
+            {
+                this.ViewData["ValidationError"] = this.ModelState.ValidationState.ToString();
+                return this.Redirect("/");
+            }
+
             this.moviesService.CreateMovie(movie.Name, movie.OnlinePrice, movie.BluRayPrice, movie.DvdPrice,
                 movie.Description, movie.Directors, movie.Genre, movie.Genre2, movie.Genre3, movie.ReleaseDate,
-                movie.Length, movie.IMDbScore, movie.RottenTomatoes, movie.IMDbUrl, movie.Actors, movie.PosterUrl);
+                movie.Length, movie.IMDbScore, movie.RottenTomatoes, movie.IMDbUrl, movie.Actors, movie.PosterUrl, movie.TrailerUrl);
 
             return this.Redirect("~/");
         }
