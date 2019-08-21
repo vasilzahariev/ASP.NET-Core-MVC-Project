@@ -14,6 +14,6 @@ namespace UltimateMovies.Services
 
         string GetPosterUrl(int id);
 
-        List<string> GetActorsNames(int movieId);
+        Dictionary<string, int> GetActorsNames(int movieId);
     }
 }

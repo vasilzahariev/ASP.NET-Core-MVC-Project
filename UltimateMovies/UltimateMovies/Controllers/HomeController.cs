@@ -42,6 +42,12 @@ namespace UltimateMovies.Controllers
             return View();
         }
 
+        //[HttpGet("/Home/Error/{statusErrorCode}")]
+        //public IActionResult StatusCodeError(int statusErrorCode)
+        //{
+        //    return this.Content(statusErrorCode.ToString());
+        //}
+
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()
         {

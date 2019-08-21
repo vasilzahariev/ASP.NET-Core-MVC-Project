@@ -21,7 +21,18 @@
         <br />
         <b>Release Date: </b> @(Model.ReleaseDate.Day).@(Model.ReleaseDate.Month).@Model.ReleaseDate.Year
         <br />
-        <b>Actors: </b> <span>@String.Join(", ", Model.Actors)</span>
+        <b>Actors: </b>
+        @foreach (var am in Model.Actors)
+        {
+            if (am.Value == Model.Actors.Last().Value)
+            {
+                <a href="/Actors/Details/@am.Value">@am.Key</a>
+            }
+            else
+            {
+                <a href="/Actors/Details/@am.Value">@am.Key</a><span>, </span>
+            }
+        }
         <br />
         <br />
         <div class="col-md-7 mt-4">

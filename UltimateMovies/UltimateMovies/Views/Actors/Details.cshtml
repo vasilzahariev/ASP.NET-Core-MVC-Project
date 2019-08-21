@@ -1,0 +1,38 @@
+﻿@using UltimateMovies.ViewModels.Actors
+
+@model ActorViewModel
+@{
+    ViewData["Title"] = "Details";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h1>@Model.Name (<a href="@Model.ImdbUrl">IMDb</a>)</h1>
+
+<div>
+    <img src="@Model.PictureUrl" alt="Actor's picture" style="display: block; margin-left: auto; margin-right: auto; width: 30%" height="400" />
+</div>
+
+<br />
+<br />
+
+<div class="container justify-content-center" style="font-size: 20px; display: inline-block;">
+    <table class="table table-hover table-striped text-center">
+        <thead>
+            <tr class="row">
+                <th scope="col" class="col-lg-4">Poster</th>
+                <th scope="col" class="col-lg-4">Name</th>
+                <th scope="col" class="col-lg-4">Watch</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var mp in Model.MoviesPosters)
+            {
+                <tr class="row">
+                    <td class="col-lg-4"><img src="@mp.Value.Value" alt="Alternate Text" width="100" height="150" /></td>
+                    <td class="col-lg-4" style="margin-top: auto; margin-bottom: auto; border-top: none">@mp.Value.Key</td>
+                    <td class="col-lg-4" style="margin-top: auto; margin-bottom: auto; border-top: none"><a href="/Movies/Details/@mp.Key" class="btn btn-outline-primary">Watch now!</a></td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>

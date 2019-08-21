@@ -16,6 +16,8 @@ namespace UltimateMovies.Models
 
         public int PictureId { get; set; }
 
+        public string ImdbUrl { get; set; }
+
         public virtual Image Picture { get; set; }
 
         public virtual ICollection<ActorMovie> Movies { get; set; }

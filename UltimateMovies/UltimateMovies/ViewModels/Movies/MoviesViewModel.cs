@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using UltimateMovies.Models;
 using UltimateMovies.Models.Enums;
 
 namespace UltimateMovies.ViewModels.Movies
@@ -38,7 +39,7 @@ namespace UltimateMovies.ViewModels.Movies
 
         public string IMDbUrl { get; set; }
 
-        public ICollection<string> Actors { get; set; }
+        public IDictionary<string, int> Actors { get; set; }
 
         public string PosterUrl { get; set; }
     }

@@ -166,15 +166,15 @@ namespace UltimateMovies.Services
             return "";
         }
 
-        public List<string> GetActorsNames(int movieId)
+        public Dictionary<string, int> GetActorsNames(int movieId)
         {
-            List<string> results = new List<string>();
+            Dictionary<string, int> results = new Dictionary<string, int>();
 
             foreach (var am in this.db.ActorsMovies)
             {
                 if (am.MovieId == movieId)
                 {
-                    results.Add(this.db.Actors.FirstOrDefault(x => x.Id == am.ActorId).Name);
+                    results[this.db.Actors.FirstOrDefault(x => x.Id == am.ActorId).Name] = am.ActorId;
                 }
             }
 

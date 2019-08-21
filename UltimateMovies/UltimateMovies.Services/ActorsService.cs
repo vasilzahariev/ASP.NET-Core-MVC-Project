@@ -21,6 +21,7 @@ namespace UltimateMovies.Services
             {
                 Name = name,
                 BirthDate = new DateTime(1, 1, 1, 0, 0, 0),
+                ImdbUrl = "https://www.imdb.com/",
                 PictureId = 1
             };
 
@@ -31,6 +32,34 @@ namespace UltimateMovies.Services
             this.db.Actors.Add(actor);
 
             this.db.SaveChanges();
+        }
+
+        public Actor GetActor(int id)
+        {
+            return this.db.Actors.FirstOrDefault(a => a.Id == id);
+        }
+
+        public Image GetActorPicture(int pictureId)
+        {
+            return this.db.Images.FirstOrDefault(i => i.Id == pictureId);
+        }
+
+        public IDictionary<int, KeyValuePair<string, string>> GetActorsMoviesAndPosters(int actorId)
+        {
+            Dictionary<int, KeyValuePair<string, string>> result = new Dictionary<int, KeyValuePair<string, string>>();
+
+            foreach (var am in this.db.ActorsMovies)
+            {
+                if (am.ActorId == actorId)
+                {
+                    result[am.MovieId] = new KeyValuePair<string, string>
+                        (this.db.Movies.FirstOrDefault(m => m.Id == am.MovieId).Name,
+                         this.db.Images.FirstOrDefault(i =>
+                                        i.Id == this.db.Movies.FirstOrDefault(m => m.Id == am.MovieId).PosterId).ImageUrl);
+                }
+            }
+
+            return result;
         }
 
         private int ActorsCount()

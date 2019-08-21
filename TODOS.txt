@@ -1,0 +1,3 @@
+Movies:
+	- Add "Add to wishlist" button in the view
+	- Add Trailer to the view and in the models
