@@ -37,13 +37,23 @@ namespace UltimateMovies.Controllers
         [HttpGet("/Actors/")]
         public IActionResult Actors()
         {
-            return this.View(this.actorService.GetAllActors());
-        }
+            ActorsListingModel actors = new ActorsListingModel
+            {
+                Actors = this.actorService.GetAllActors()
+                                          .Select(a => new ActorsListModelView()
+                                          {
+                                              Id = a.Id,
+                                              Name = a.Name
+                                          })
+            };
 
-        [HttpGet("/Actors/Edit/{actorId}")]
-        public IActionResult Edit(int actorId)
-        {
-            return this.View();
+            return this.View(actors);
         }
     }
+
+    //[HttpGet("/Actors/Edit/{actorId}")]
+    //public IActionResult Edit(int actorId)
+    //{
+    //    return this.View();
+    //}
 }

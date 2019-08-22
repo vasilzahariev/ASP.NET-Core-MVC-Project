@@ -1,54 +1,32 @@
-﻿@model IEnumerable<UltimateMovies.Models.Actor>
+﻿@using UltimateMovies.ViewModels.Actors
+@model ActorsListingModel
 
 @{
     ViewData["Title"] = "Actors";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h1>Actors</h1>
+<h1 style="margin-bottom: 20px">Actors</h1>
 
-<p>
-    <a asp-action="Create">Create New</a>
-</p>
-<table class="table">
-    <thead>
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.Name)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.BirthDate)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.ImdbUrl)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Picture)
-            </th>
-            <th></th>
-        </tr>
-    </thead>
-    <tbody>
-@foreach (var item in Model) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.Name)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.BirthDate)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.ImdbUrl)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Picture.ImageUrl)
-            </td>
-            <td>
-                <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
-                <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
-                <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
-            </td>
-        </tr>
-}
-    </tbody>
-</table>
+<div class="container">
+    <table class="table">
+        <thead>
+            <tr class="row">
+                <th scope="col" class="col-lg-4">Id</th>
+                <th scope="col" class="col-lg-4">Name</th>
+                <th scope="col" class="col-lg-4">Functionalities</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var actor in Model.Actors)
+            {
+                <tr class="row">
+                    <th class="col-lg-4">@actor.Id</th>
+                    <th class="col-lg-4">@actor.Name</th>
+                    <th class="col-lg-4"><a href="#">Edit</a> | <a href="/Actors/Details/@actor.Id">Details</a> | <a href="#">Delete</a></th>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
+
