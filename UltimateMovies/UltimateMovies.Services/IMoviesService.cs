@@ -14,8 +14,6 @@ namespace UltimateMovies.Services
 
         IEnumerable<Movie> GetAllMovies();
 
-        string GetPosterUrl(int id);
-
         Dictionary<string, int> GetActorsNames(int movieId);
     }
 }

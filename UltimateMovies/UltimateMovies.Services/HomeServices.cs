@@ -16,11 +16,6 @@ namespace UltimateMovies.Services
             this.db = db;
         }
 
-        public string GetImageUrl(int id)
-        {
-            return this.db.Images.FirstOrDefault(x => x.Id == id).ImageUrl;
-        }
-
         public List<Movie> GetMovies()
         {
             return this.db.Movies.ToList();

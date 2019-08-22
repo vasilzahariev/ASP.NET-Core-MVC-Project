@@ -8,7 +8,5 @@ namespace UltimateMovies.Services
     public interface IHomeServices
     {
         List<Movie> GetMovies();
-
-        string GetImageUrl(int id);
     }
 }

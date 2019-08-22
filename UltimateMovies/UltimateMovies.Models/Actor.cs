@@ -14,11 +14,9 @@ namespace UltimateMovies.Models
 
         public DateTime BirthDate { get; set; }
 
-        public int PictureId { get; set; }
-
         public string ImdbUrl { get; set; }
 
-        public virtual Image Picture { get; set; }
+        public string PictureUrl { get; set; }
 
         public virtual ICollection<ActorMovie> Movies { get; set; }
     }

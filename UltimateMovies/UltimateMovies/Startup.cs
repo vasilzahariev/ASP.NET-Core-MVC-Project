@@ -46,7 +46,6 @@ namespace UltimateMovies
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
 
             services.AddTransient<IActorsService, ActorsService>();
-            services.AddTransient<IImageService, ImageService>();
             services.AddTransient<IMoviesService, MoviesService>();
             services.AddTransient<IHomeServices, HomeServices>();
         }

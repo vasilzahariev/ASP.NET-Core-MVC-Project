@@ -26,7 +26,7 @@ namespace UltimateMovies.Controllers
                 {
                     Id = x.Id,
                     Name = x.Name,
-                    ImageUrl = homeServices.GetImageUrl(x.PosterId),
+                    ImageUrl = x.PosterUrl,
                     IMDbScore = x.IMDbScore,
                     Length = x.Length,
                     ReleaseDate = x.ReleaseDate,

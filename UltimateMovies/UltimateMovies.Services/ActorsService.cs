@@ -22,12 +22,8 @@ namespace UltimateMovies.Services
                 Name = name,
                 BirthDate = new DateTime(1, 1, 1, 0, 0, 0),
                 ImdbUrl = "https://www.imdb.com/",
-                PictureId = 1
+                PictureUrl = "https://upload.wikimedia.org/wikipedia/commons/thumb/a/ac/No_image_available.svg/1024px-No_image_available.svg.png"
             };
-
-            IImageService imageService = new ImageService(this.db);
-
-            actor.Picture = imageService.GetImage(actor.PictureId);
 
             this.db.Actors.Add(actor);
 
@@ -37,11 +33,6 @@ namespace UltimateMovies.Services
         public Actor GetActor(int id)
         {
             return this.db.Actors.FirstOrDefault(a => a.Id == id);
-        }
-
-        public Image GetActorPicture(int pictureId)
-        {
-            return this.db.Images.FirstOrDefault(i => i.Id == pictureId);
         }
 
         public IDictionary<int, KeyValuePair<string, string>> GetActorsMoviesAndPosters(int actorId)
@@ -54,8 +45,7 @@ namespace UltimateMovies.Services
                 {
                     result[am.MovieId] = new KeyValuePair<string, string>
                         (this.db.Movies.FirstOrDefault(m => m.Id == am.MovieId).Name,
-                         this.db.Images.FirstOrDefault(i =>
-                                        i.Id == this.db.Movies.FirstOrDefault(m => m.Id == am.MovieId).PosterId).ImageUrl);
+                         this.db.Movies.FirstOrDefault(m => m.Id == am.MovieId).PosterUrl);
                 }
             }
 

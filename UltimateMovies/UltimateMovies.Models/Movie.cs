@@ -58,8 +58,7 @@ namespace UltimateMovies.Models
 
         public virtual ICollection<ActorMovie> Actors { get; set; }
 
-        public int PosterId { get; set; }
-
-        public virtual Image Poster { get; set; }
+        [Required]
+        public string PosterUrl { get; set; }
     }
 }

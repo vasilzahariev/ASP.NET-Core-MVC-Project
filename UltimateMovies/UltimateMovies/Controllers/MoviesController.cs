@@ -29,7 +29,7 @@ namespace UltimateMovies.Controllers
             movie.Id = m.Id;
             movie.BlueRayPrice = m.BluRayPrice;
             movie.OnlinePrice = m.OnlinePrice;
-            movie.PosterUrl = this.moviesService.GetPosterUrl(m.PosterId);
+            movie.PosterUrl = m.PosterUrl;
             movie.Genre = m.Genre;
             movie.Genre2 = m.Genre2;
             movie.Genre3 = m.Genre3;

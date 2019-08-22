@@ -28,7 +28,7 @@ namespace UltimateMovies.Controllers
             actor.Id = actorId;
             actor.Name = a.Name;
             actor.ImdbUrl = a.ImdbUrl;
-            actor.PictureUrl = this.actorService.GetActorPicture(a.PictureId).ImageUrl;
+            actor.PictureUrl = a.PictureUrl;
             actor.MoviesPosters = this.actorService.GetActorsMoviesAndPosters(actorId);
 
             return View(actor);

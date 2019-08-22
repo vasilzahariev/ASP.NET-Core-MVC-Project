@@ -13,8 +13,6 @@ namespace UltimateMovies.Data
 
         public DbSet<ActorMovie> ActorsMovies { get; set; }
 
-        public DbSet<Image> Images { get; set; }
-
         public DbSet<Movie> Movies { get; set; }
 
         public UltimateMoviesDbContext(DbContextOptions<UltimateMoviesDbContext> options)

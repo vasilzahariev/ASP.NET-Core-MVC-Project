@@ -35,7 +35,8 @@ namespace UltimateMovies.Services
                 IMDbScore = imdbScore,
                 RottenTomatoes = rottenTomatoes,
                 IMDbUrl = imdbUrl,
-                TrailerUrl = trailerUrl
+                TrailerUrl = trailerUrl,
+                PosterUrl = posterUrl
             };
 
             if (genre2 != null)
@@ -47,17 +48,6 @@ namespace UltimateMovies.Services
             {
                 movie.Genre3 = (MovieGenre)genre3;
             }
-
-            IImageService imageService = new ImageService(this.db);
-
-            if (!imageService.ContainsImage(posterUrl))
-            {
-                imageService.CreateImage(posterUrl);
-            }
-
-            movie.PosterId = imageService.GetImageByUrl(posterUrl);
-
-            movie.Poster = this.db.Images.FirstOrDefault(x => x.Id == movie.PosterId);
 
             this.db.Movies.Add(movie);
 
@@ -152,19 +142,6 @@ namespace UltimateMovies.Services
             }
 
             return resultMovie;
-        }
-
-        public string GetPosterUrl(int id)
-        {
-            foreach (var image in this.db.Images)
-            {
-                if (image.Id == id)
-                {
-                    return image.ImageUrl;
-                }
-            }
-
-            return "";
         }
 
         public Dictionary<string, int> GetActorsNames(int movieId)
