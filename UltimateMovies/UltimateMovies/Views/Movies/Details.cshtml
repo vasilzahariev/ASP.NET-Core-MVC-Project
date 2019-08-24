@@ -38,10 +38,10 @@
 
         <div class="col-md-7 mt-4">
             <div class="mb-2" style="padding-bottom: 10px">
-                <img src="https://upload.wikimedia.org/wikipedia/commons/8/8c/Blu_ray_logo.png" alt="Alternate Text" width="50" height="40" style="margin-right: 41px" /> <a href="/Movies/Details/@Model.Id" class="btn btn-outline-primary">@(string.Format(us, "{0:C}", Model.BlueRayPrice))</a>
+                <img src="https://upload.wikimedia.org/wikipedia/commons/8/8c/Blu_ray_logo.png" alt="Alternate Text" width="50" height="40" style="margin-right: 41px" /> <a href="/Movies/Details/@Model.Id" class="btn btn-success">@(string.Format(us, "{0:C}", Model.BlueRayPrice))</a>
             </div>
             <div class="mb-2">
-                <a href="/Movies/Details/@Model.Id" class="btn btn-outline-primary">Buy Digital! (@(string.Format(us, "{0:C}", Model.OnlinePrice)))</a>
+                <a href="/Movies/Details/@Model.Id" class="btn btn-primary">Buy Digital! (@(string.Format(us, "{0:C}", Model.OnlinePrice)))</a>
             </div>
         </div>
 
@@ -66,6 +66,9 @@
             <br />
             <p style="float: left; padding-top: 10px"><b>@Model.Length</b> mins</p>
             <p style="float: right;"><img src="https://www.smdp.com/wp-content/uploads/2018/08/RT.png" alt="Alternate Text" width="55px" height="40px" style="margin-bottom: 5px" /> <b>@(Model.RottenTomatoes)%</b></p>
+            <div style="text-align: center; margin-top: 70px">
+                <a href="/User/AddToWishList/@Model.Id" class="btn btn-danger"><i class="fas fa-heart"></i></a>
+            </div>
         </div>
     </div>
 </div>
