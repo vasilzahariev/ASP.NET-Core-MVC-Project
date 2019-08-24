@@ -56,9 +56,11 @@ namespace UltimateMovies.Models
         [Required]
         public string TrailerUrl { get; set; }
 
-        public virtual ICollection<ActorMovie> Actors { get; set; }
-
         [Required]
         public string PosterUrl { get; set; }
+
+        public virtual ICollection<ActorMovie> Actors { get; set; }
+
+        public virtual ICollection<WishListMovie> WishList { get; set; }
     }
 }

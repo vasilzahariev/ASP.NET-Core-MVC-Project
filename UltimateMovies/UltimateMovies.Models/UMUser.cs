@@ -21,12 +21,10 @@ namespace UltimateMovies.Models
 
         public virtual ICollection<Address> Addresses { get; set; }
 
-        public int LibraryId { get; set; }
+        //public int LibraryId { get; set; }
 
-        public virtual Library Library { get; set; }
+        //public virtual Library Library { get; set; }
 
-        public int WishListId { get; set; }
-
-        public virtual WishList WishList { get; set; }
+        public virtual ICollection<WishListMovie> WishList { get; set; }
     }
 }

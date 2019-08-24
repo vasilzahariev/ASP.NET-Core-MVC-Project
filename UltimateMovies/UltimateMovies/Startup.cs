@@ -14,6 +14,7 @@ using UltimateMovies.Data;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using UltimateMovies.Services;
+using UltimateMovies.Models;
 
 namespace UltimateMovies
 {
@@ -39,7 +40,7 @@ namespace UltimateMovies
             services.AddDbContext<UltimateMoviesDbContext>(options =>
                 options.UseSqlServer(
                     Configuration.GetConnectionString("DefaultConnection")));
-            services.AddDefaultIdentity<IdentityUser>()
+            services.AddDefaultIdentity<UMUser>()
                 .AddDefaultUI(UIFramework.Bootstrap4)
                 .AddEntityFrameworkStores<UltimateMoviesDbContext>();
 
