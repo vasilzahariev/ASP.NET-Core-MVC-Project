@@ -30,7 +30,8 @@ namespace UltimateMovies.Controllers
                     IMDbScore = x.IMDbScore,
                     Length = x.Length,
                     ReleaseDate = x.ReleaseDate,
-                    RottenTomatoes = x.RottenTomatoes
+                    RottenTomatoes = x.RottenTomatoes,
+                    IsInUserWishList = this.User.Identity.IsAuthenticated ? this.homeServices.IsMovieInUserWishlist(this.User.Identity.Name, x.Id) : false
                 })
             };
 

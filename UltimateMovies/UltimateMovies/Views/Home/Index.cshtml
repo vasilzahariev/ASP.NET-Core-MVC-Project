@@ -38,7 +38,14 @@
 
                     <div style="text-align: center; margin-top: 70px">
                         <a href="/Movies/Details/@movie.Id" class="btn btn-primary"><i class="fas fa-film"></i> Watch!</a>
-                        <a href="/User/AddToWishList/@movie.Id" class="btn btn-danger"><i class="fas fa-heart"></i></a>
+                        @if (movie.IsInUserWishList == true)
+                        {
+                            <a href="/User/AddToWishList/@movie.Id" class="btn btn-danger"><i class="fas fa-heart"></i></a>
+                        }
+                        else
+                        {
+                            <a href="/User/AddToWishList/@movie.Id" class="btn btn-outline-danger"><i class="fas fa-heart"></i></a>
+                        }
                     </div>
                 </div>
             </div>

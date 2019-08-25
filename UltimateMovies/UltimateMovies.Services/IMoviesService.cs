@@ -15,5 +15,7 @@ namespace UltimateMovies.Services
         IEnumerable<Movie> GetAllMovies();
 
         Dictionary<string, int> GetActorsNames(int movieId);
+
+        bool IsMovieInUserWishList(string username, int movieId);
     }
 }

@@ -44,6 +44,7 @@ namespace UltimateMovies.Controllers
             movie.Name = m.Name;
             movie.Actors = this.moviesService.GetActorsNames(m.Id);
             movie.TrailerUrl = m.TrailerUrl;
+            movie.IsInUserWishList = this.User.Identity.IsAuthenticated ? this.moviesService.IsMovieInUserWishList(this.User.Identity.Name, m.Id) : false;
 
             return this.View(movie);
         }

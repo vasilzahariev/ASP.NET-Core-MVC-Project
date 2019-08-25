@@ -20,5 +20,7 @@ namespace UltimateMovies.ViewModels.Home
         public double IMDbScore { get; set; }
 
         public int RottenTomatoes { get; set; }
+
+        public bool IsInUserWishList { get; set; }
     }
 }

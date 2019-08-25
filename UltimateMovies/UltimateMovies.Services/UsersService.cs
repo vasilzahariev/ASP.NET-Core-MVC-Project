@@ -21,6 +21,16 @@ namespace UltimateMovies.Services
             UMUser user = this.db.Users.FirstOrDefault(u => u.UserName == username);
             Movie movie = this.db.Movies.FirstOrDefault(m => m.Id == movieId);
 
+            if (user == null || movie == null)
+            {
+                return;
+            }
+
+            if (this.db.WishListMovies.Any(x => x.UserId == user.Id && x.MovieId == movie.Id))
+            {
+                return;
+            }
+
             WishListMovie wishListMovie = new WishListMovie();
 
             wishListMovie.MovieId = movie.Id;
@@ -51,6 +61,31 @@ namespace UltimateMovies.Services
             }
 
             return result;
+        }
+
+        public void RemoveMovieFromWishList(string username, int movieId)
+        {
+            UMUser user = this.db.Users.FirstOrDefault(u => u.UserName == username);
+            Movie movie = this.db.Movies.FirstOrDefault(m => m.Id == movieId);
+
+            if (user == null || movie == null)
+            {
+                return;
+            }
+
+            if (!this.db.WishListMovies.Any(x => x.UserId == user.Id && x.MovieId == movie.Id))
+            {
+                return;
+            }
+
+            if (user.WishList != null)
+            {
+                user.WishList.Remove(user.WishList.FirstOrDefault(x => x.MovieId == movie.Id && x.UserId == user.Id));
+            }
+
+            this.db.WishListMovies.Remove(this.db.WishListMovies.FirstOrDefault(x => x.MovieId == movie.Id && x.UserId == user.Id));
+
+            this.db.SaveChanges();
         }
     }
 }

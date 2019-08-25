@@ -9,5 +9,7 @@ namespace UltimateMovies.Services
     {
         void AddMovieToWishList(string username, int movieId);
         List<Movie> GetMoviesFromWishList(string username);
+
+        void RemoveMovieFromWishList(string username, int movieId);
     }
 }

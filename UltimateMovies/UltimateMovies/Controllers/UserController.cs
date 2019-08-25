@@ -41,5 +41,13 @@ namespace UltimateMovies.Controllers
 
             return this.View(wishList);
         }
+
+        [HttpGet("/User/RemoveMovieFromWishList/{movieId}")]
+        public IActionResult RemoveMovieFromWishList(int movieId)
+        {
+            this.usersService.RemoveMovieFromWishList(this.User.Identity.Name, movieId);
+
+            return this.Redirect("/User/WishList");
+        }
     }
 }

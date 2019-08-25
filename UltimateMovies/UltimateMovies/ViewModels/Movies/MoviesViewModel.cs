@@ -44,5 +44,7 @@ namespace UltimateMovies.ViewModels.Movies
         public string PosterUrl { get; set; }
 
         public string TrailerUrl { get; set; }
+
+        public bool IsInUserWishList { get; set; }
     }
 }

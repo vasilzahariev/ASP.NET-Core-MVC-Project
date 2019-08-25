@@ -67,7 +67,14 @@
             <p style="float: left; padding-top: 10px"><b>@Model.Length</b> mins</p>
             <p style="float: right;"><img src="https://www.smdp.com/wp-content/uploads/2018/08/RT.png" alt="Alternate Text" width="55px" height="40px" style="margin-bottom: 5px" /> <b>@(Model.RottenTomatoes)%</b></p>
             <div style="text-align: center; margin-top: 70px">
-                <a href="/User/AddToWishList/@Model.Id" class="btn btn-danger"><i class="fas fa-heart"></i></a>
+                @if (Model.IsInUserWishList)
+                {
+                    <a href="/User/AddToWishList/@Model.Id" class="btn btn-danger"><i class="fas fa-heart"></i></a>
+                }
+                else
+                {
+                    <a href="/User/AddToWishList/@Model.Id" class="btn btn-outline-danger"><i class="fas fa-heart"></i></a>
+                }
             </div>
         </div>
     </div>

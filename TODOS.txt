@@ -1,3 +1,1 @@
-Movies:
-	- Add "Add to wishlist" button in the view
-	- Add Trailer to the view and in the models
+Make it so it doesn't redirect you to another page, but just adds it to the wish list, when you press the wishlist btn

@@ -163,5 +163,15 @@ namespace UltimateMovies.Services
         {
             return this.db.Movies;
         }
+
+        public bool IsMovieInUserWishList(string username, int movieId)
+        {
+            if (!this.db.Movies.Any(x => x.Id == movieId))
+            {
+                return false;
+            }
+
+            return this.db.WishListMovies.Any(x => x.MovieId == movieId && x.UserId == this.db.Users.FirstOrDefault(u => u.UserName == username).Id);
+        }
     }
 }
