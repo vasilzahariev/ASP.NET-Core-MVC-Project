@@ -20,7 +20,7 @@ namespace UltimateMovies.Controllers
 
         public IActionResult Index()
         {
-            HomeMoviesListingModel model = new HomeMoviesListingModel
+            HomeListingModel model = new HomeListingModel
             {
                 HomeMovies = this.homeServices.GetMovies().Select(x => new HomeMovieModelView
                 {

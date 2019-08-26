@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 
 namespace UltimateMovies.ViewModels.Home
 {
-    public class HomeMoviesListingModel
+    public class HomeListingModel
     {
         public IEnumerable<HomeMovieModelView> HomeMovies { get; set; }
     }
