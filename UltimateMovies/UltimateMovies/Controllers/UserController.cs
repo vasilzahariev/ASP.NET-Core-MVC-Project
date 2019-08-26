@@ -23,7 +23,7 @@ namespace UltimateMovies.Controllers
         {
             this.usersService.AddMovieToWishList(this.User.Identity.Name, movieId);
 
-            return this.Redirect("/");
+            return this.Redirect(this.Request.Headers["Referer"].ToString());
         }
 
         [HttpGet("/User/WishList")]
@@ -47,7 +47,7 @@ namespace UltimateMovies.Controllers
         {
             this.usersService.RemoveMovieFromWishList(this.User.Identity.Name, movieId);
 
-            return this.Redirect("/User/WishList");
+            return this.Redirect(this.Request.Headers["Referer"].ToString());
         }
     }
 }

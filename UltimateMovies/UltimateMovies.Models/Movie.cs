@@ -62,5 +62,7 @@ namespace UltimateMovies.Models
         public virtual ICollection<ActorMovie> Actors { get; set; }
 
         public virtual ICollection<WishListMovie> WishList { get; set; }
+
+        public virtual ICollection<CartMovie> Cart { get; set; }
     }
 }

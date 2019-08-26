@@ -28,6 +28,7 @@ namespace UltimateMovies.Services
 
             if (this.db.WishListMovies.Any(x => x.UserId == user.Id && x.MovieId == movie.Id))
             {
+                this.RemoveMovieFromWishList(username, movieId);
                 return;
             }
 
