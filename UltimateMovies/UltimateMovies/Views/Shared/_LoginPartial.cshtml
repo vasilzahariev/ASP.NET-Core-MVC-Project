@@ -16,7 +16,8 @@
             <a class="nav-link text-white dropdown-toggle" role="button" data-toggle="dropdown" data-hover="dropdown" href="#"><i class="fas fa-user"></i> Hello @User.Identity.Name!</a>
             <ul class="dropdown-menu bg-primary keep-open">
                 <li><a class="btn text-white dropdown" href="/User/WishList"><i class="fas fa-heart"></i> Wish List</a></li>
-                <li><a class="btn text-white dropdown" asp-area="Identity" asp-page="/Account/Manage/Index"><i class="fas fa-cog"></i> Profile</a></li>
+                <li><a class="btn text-white dropdown" href="#"><i class="fas fa-map-marker-alt"></i> Addresses</a></li>
+                <li><a class="btn text-white dropdown" asp-area="Identity" asp-page="/Account/Manage/Index"><i class="fas fa-cog"></i> Settings</a></li>
                 <li>
                     <form class="form-inline" asp-area="Identity" asp-page="/Account/Logout" asp-route-returnUrl="@Url.Action("Index", "Home", new { area = "" })">
                         <button type="submit" class="nav-link btn btn-link text-white"><i class="fas fa-sign-out-alt"></i> Logout</button>

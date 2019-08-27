@@ -11,12 +11,22 @@ namespace UltimateMovies.Models
         public int Id { get; set; }
 
         [Required]
-        public string Information { get; set; }
+        public string Country { get; set; }
 
         [Required]
         public string City { get; set; }
 
         [Required]
+        public string Street { get; set; }
+
+        [Required]
+        public string AdditionalInformation { get; set; }
+
+        [Required]
         public string Postcode { get; set; }
+
+        public int UserId { get; set; }
+
+        public virtual UMUser User { get; set; }
     }
 }

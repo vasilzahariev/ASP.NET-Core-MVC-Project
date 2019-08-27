@@ -13,11 +13,13 @@ namespace UltimateMovies.Data
 
         public DbSet<ActorMovie> ActorsMovies { get; set; }
 
+        public DbSet<Address> Addresses { get; set; }
+
+        public DbSet<CartMovie> CartMovies { get; set; }
+
         public DbSet<Movie> Movies { get; set; }
 
         public DbSet<WishListMovie> WishListMovies { get; set; }
-
-        public DbSet<CartMovie> CartMovies { get; set; }
 
         public UltimateMoviesDbContext(DbContextOptions<UltimateMoviesDbContext> options)
             : base(options)
@@ -59,6 +61,10 @@ namespace UltimateMovies.Data
                 .HasOne(cm => cm.Movie)
                 .WithMany(a => a.Cart)
                 .HasForeignKey(cm => cm.MovieId);
+
+            modelBuilder.Entity<UMUser>()
+                .HasMany(u => u.Addresses)
+                .WithOne(a => a.User);
 
             base.OnModelCreating(modelBuilder);
         }
