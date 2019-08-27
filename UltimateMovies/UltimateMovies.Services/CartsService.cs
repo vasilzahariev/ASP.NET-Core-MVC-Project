@@ -19,6 +19,12 @@ namespace UltimateMovies.Services
 
         public void AddMovieToCart(string username, int movieId)
         {
+            if (this.db.CartMovies.Any(c => c.MovieId == movieId
+                                            && c.UserId == this.db.Users.FirstOrDefault(u => u.UserName == username).Id))
+            {
+                return;
+            }
+
             this.db.CartMovies.Add(new CartMovie
             {
                 MovieId = movieId,

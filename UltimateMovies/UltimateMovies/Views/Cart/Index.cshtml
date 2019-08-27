@@ -2,7 +2,7 @@
 @model CartListingModel
 
 @{
-    ViewData["Title"] = "Index";
+    ViewData["Title"] = "My Cart";
     Layout = "~/Views/Shared/_Layout.cshtml";
     CultureInfo us = CultureInfo.GetCultureInfo("en-US");
 }
@@ -27,8 +27,10 @@
                 <tr class="row">
                     <th class="col-lg-1" style="border-top: none"><img src="@cartMovie.MoviePoster" alt="Alternate Text" width="125%" /></th>
                     <th class="col-lg-3" style="margin-top: auto; margin-bottom: auto; border-top: none">@cartMovie.MovieName</th>
-                    <th class="col-lg-2" style="margin-top: auto; margin-bottom: auto; border-top: none">  
-                    <a href="/Cart/Minus/@cartMovie.MovieId"><i class="fas fa-minus-circle"></i></a> @cartMovie.Quantity <a href="/Cart/Plus/@cartMovie.MovieId"><i class="fas fa-plus-circle"></i></a>
+                    <th class="col-lg-2" style="margin-top: auto; margin-bottom: auto; border-top: none">
+                        <a href="/Cart/Minus/@cartMovie.MovieId"><i class="fas fa-minus-circle"></i></a>
+                        <span style="margin-left: 5px; margin-right: 5px">@cartMovie.Quantity</span>
+                        <a href="/Cart/Plus/@cartMovie.MovieId"><i class="fas fa-plus-circle"></i></a>
                     </th>
                     <th class="col-lg-2" style="margin-top: auto; margin-bottom: auto; border-top: none">@(string.Format(us, "{0:C}", cartMovie.Price))</th>
                     <th class="col-lg-2" style="margin-top: auto; margin-bottom: auto; border-top: none">@(string.Format(us, "{0:C}", cartMovie.SumOverAllPrice()))</th>
@@ -37,5 +39,17 @@
             }
         </tbody>
     </table>
+</div>
+
+<hr class="bg-dark" />
+
+<div style="margin-bottom: 100px">
+    <div class="float-left">
+        <h2 class="text-primary">All Movies Price: @(string.Format(us, "{0:C}", Model.SumAll()))</h2>
+        <p class="text-primary"><b>This price doesn't include delivery</b></p>
+    </div>
+    <div class="float-right">
+        <a href="#" class="btn btn-success" style="font-size: 20px;">Continue With Order</a>
+    </div>
 </div>
 
