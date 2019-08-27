@@ -40,7 +40,12 @@ namespace UltimateMovies
             services.AddDbContext<UltimateMoviesDbContext>(options =>
                 options.UseSqlServer(
                     Configuration.GetConnectionString("DefaultConnection")));
-            services.AddDefaultIdentity<UMUser>()
+            services.AddDefaultIdentity<UMUser>(options =>
+            {
+                options.Password.RequireNonAlphanumeric = false;
+                options.Password.RequireUppercase = false;
+                options.Password.RequiredUniqueChars = 0;
+            })
                 .AddDefaultUI(UIFramework.Bootstrap4)
                 .AddEntityFrameworkStores<UltimateMoviesDbContext>();
 
