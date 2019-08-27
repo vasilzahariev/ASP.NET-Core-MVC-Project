@@ -1,1 +1,7 @@
-Make it so it doesn't redirect you to another page, but just adds it to the wish list, when you press the wishlist btn
+Orders
+Reviews
+Admin Panel
+Index update(sortings, search)
+Tests
+Azure
+Redesign
