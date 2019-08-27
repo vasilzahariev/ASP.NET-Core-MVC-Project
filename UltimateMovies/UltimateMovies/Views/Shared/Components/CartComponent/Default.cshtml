@@ -1,28 +1,39 @@
 ﻿@using UltimateMovies.ViewModels.Cart
 @model CartListingModel
 
+@{ 
+    CultureInfo us = CultureInfo.GetCultureInfo("en-US");
+}
+
 @if (Model.CartMovies.Count() != 0)
 {
-    <div class="container">
-        <table class="table">
+    <div class="container" style="width: 400px;">
+        <table class="table table-hover" style="font-size:12px;">
             <thead>
                 <tr class="row">
-                    <th scope="col" class="col-lg-4">Movie</th>
-                    <th scope="col" class="col-lg-4">Price</th>
-                    <th scope="col" class="col-lg-4">Quantity</th>
+                    <th scope="col" class="col-lg-4 bg-white">Movie</th>
+                    <th scope="col" class="col-lg-4 bg-white">Price</th>
+                    <th scope="col" class="col-lg-4 bg-white">Quantity</th>
                 </tr>
             </thead>
             <tbody>
                 @foreach (var cartMovie in Model.CartMovies)
                 {
                     <tr class="row">
-                        <th class="col-lg-4">@cartMovie.MovieName</th>
-                        <th class="col-lg-4">@cartMovie.Price</th>
-                        <th class="col-lg-4">@cartMovie.Quantity</th>
+                        <th class="col-lg-4 bg-white"><img src="@cartMovie.MoviePoster" alt="Alternate Text" width="50%" /></th>
+                        <th class="col-lg-4 bg-white">@(string.Format(us, "{0:C}", cartMovie.Price))</th>
+                        <th class="col-lg-4 bg-white">@cartMovie.Quantity</th>
                     </tr>
                 }
             </tbody>
         </table>
+
+        <hr />
+
+        <div>
+            <a href="/Cart/" class="float-left btn btn-primary" style="margin-top: -5px;">Go To Cart</a>
+            <p class="float-right" style=""><b>All Movies Price: @(string.Format(us, "{0:C}", Model.SumAll()))</b></p>
+        </div>
     </div>
 }
 else

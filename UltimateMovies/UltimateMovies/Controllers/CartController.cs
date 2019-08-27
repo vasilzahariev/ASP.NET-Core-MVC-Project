@@ -4,7 +4,9 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using UltimateMovies.Models;
 using UltimateMovies.Services;
+using UltimateMovies.ViewModels.Cart;
 
 namespace UltimateMovies.Controllers
 {
@@ -16,6 +18,26 @@ namespace UltimateMovies.Controllers
         public CartController(ICartsService cartsService)
         {
             this.cartsService = cartsService;
+        }
+
+        [HttpGet("/Cart/")]
+        public IActionResult Index()
+        {
+            CartListingModel model = new CartListingModel
+            {
+                CartMovies = this.cartsService
+                                    .GetAllMoviesFromUserCart(this.User.Identity.Name)
+                                    .Select(x => new CartMovieViewModel
+                                    {
+                                        MovieId = x.Key.Id,
+                                        MovieName = x.Key.Name,
+                                        MoviePoster = x.Key.PosterUrl,
+                                        Price = x.Key.BluRayPrice,
+                                        Quantity = x.Value
+                                    })
+            };
+
+            return this.View(model);
         }
 
         [HttpGet("/Cart/Add/{movieId}")]

@@ -27,9 +27,11 @@ namespace UltimateMovies.Components
             {
                 CartMovies = movies.Select(m => new CartMovieViewModel
                 {
+                    MovieId = m.Key.Id,
                     MovieName = m.Key.Name,
                     Price = m.Key.BluRayPrice,
-                    Quantity = m.Value
+                    Quantity = m.Value,
+                    MoviePoster = m.Key.PosterUrl
                 })
             };
 

@@ -22,7 +22,8 @@ namespace UltimateMovies.Services
             this.db.CartMovies.Add(new CartMovie
             {
                 MovieId = movieId,
-                UserId = this.db.Users.FirstOrDefault(u => u.UserName == username).Id
+                UserId = this.db.Users.FirstOrDefault(u => u.UserName == username).Id,
+                Quantity = 1
             });
 
             this.db.SaveChanges();
