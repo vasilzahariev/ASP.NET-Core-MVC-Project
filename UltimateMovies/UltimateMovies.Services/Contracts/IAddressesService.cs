@@ -12,5 +12,9 @@ namespace UltimateMovies.Services
         List<Address> GetAllUserAddresses(string username);
 
         void RemoveAddress(int addressId);
+
+        Address GetAddress(int id);
+
+        void EditAddress(string country, string city, string street, string additionalInformation, int postCode, int id);
     }
 }

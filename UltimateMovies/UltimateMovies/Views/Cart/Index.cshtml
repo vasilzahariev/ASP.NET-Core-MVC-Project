@@ -9,47 +9,54 @@
 
 <h1>My Cart</h1>
 
-<div class="container">
-    <table class="table table-hover text-center">
-        <thead>
-            <tr class="row">
-                <th scope="col" class="col-lg-1">Movie</th>
-                <th scope="col" class="col-lg-3"></th>
-                <th scope="col" class="col-lg-2">Quantity</th>
-                <th scope="col" class="col-lg-2">Price</th>
-                <th scope="col" class="col-lg-2">Overall Price</th>
-                <th scope="col" class="col-lg-2"></th>
-            </tr>
-        </thead>
-        <tbody>
-            @foreach (var cartMovie in Model.CartMovies)
-            {
+@if (Model.CartMovies.Count() == 0)
+{
+    <h1 class="text-primary">Your Cart Is Empty!</h1>
+}
+else
+{
+    <div class="container">
+        <table class="table table-hover text-center">
+            <thead>
                 <tr class="row">
-                    <th class="col-lg-1" style="border-top: none"><img src="@cartMovie.MoviePoster" alt="Alternate Text" width="125%" /></th>
-                    <th class="col-lg-3" style="margin-top: auto; margin-bottom: auto; border-top: none">@cartMovie.MovieName</th>
-                    <th class="col-lg-2" style="margin-top: auto; margin-bottom: auto; border-top: none">
-                        <a href="/Cart/Minus/@cartMovie.MovieId"><i class="fas fa-minus-circle"></i></a>
-                        <span style="margin-left: 5px; margin-right: 5px">@cartMovie.Quantity</span>
-                        <a href="/Cart/Plus/@cartMovie.MovieId"><i class="fas fa-plus-circle"></i></a>
-                    </th>
-                    <th class="col-lg-2" style="margin-top: auto; margin-bottom: auto; border-top: none">@(string.Format(us, "{0:C}", cartMovie.Price))</th>
-                    <th class="col-lg-2" style="margin-top: auto; margin-bottom: auto; border-top: none">@(string.Format(us, "{0:C}", cartMovie.SumOverAllPrice()))</th>
-                    <th class="col-lg-2" style="margin-top: auto; margin-bottom: auto; border-top: none"><a href="/Cart/Remove/@cartMovie.MovieId"><i class="fas fa-times-circle"></i></a></th>
+                    <th scope="col" class="col-lg-1">Movie</th>
+                    <th scope="col" class="col-lg-3"></th>
+                    <th scope="col" class="col-lg-2">Quantity</th>
+                    <th scope="col" class="col-lg-2">Price</th>
+                    <th scope="col" class="col-lg-2">Overall Price</th>
+                    <th scope="col" class="col-lg-2"></th>
                 </tr>
-            }
-        </tbody>
-    </table>
-</div>
-
-<hr class="bg-dark" />
-
-<div style="margin-bottom: 100px">
-    <div class="float-left">
-        <h2 class="text-primary">All Movies Price: @(string.Format(us, "{0:C}", Model.SumAll()))</h2>
-        <p class="text-primary"><b>This price doesn't include delivery</b></p>
+            </thead>
+            <tbody>
+                @foreach (var cartMovie in Model.CartMovies)
+                {
+                    <tr class="row">
+                        <th class="col-lg-1" style="border-top: none"><img src="@cartMovie.MoviePoster" alt="Alternate Text" width="125%" /></th>
+                        <th class="col-lg-3" style="margin-top: auto; margin-bottom: auto; border-top: none">@cartMovie.MovieName</th>
+                        <th class="col-lg-2" style="margin-top: auto; margin-bottom: auto; border-top: none">
+                            <a href="/Cart/Minus/@cartMovie.MovieId"><i class="fas fa-minus-circle"></i></a>
+                            <span style="margin-left: 5px; margin-right: 5px">@cartMovie.Quantity</span>
+                            <a href="/Cart/Plus/@cartMovie.MovieId"><i class="fas fa-plus-circle"></i></a>
+                        </th>
+                        <th class="col-lg-2" style="margin-top: auto; margin-bottom: auto; border-top: none">@(string.Format(us, "{0:C}", cartMovie.Price))</th>
+                        <th class="col-lg-2" style="margin-top: auto; margin-bottom: auto; border-top: none">@(string.Format(us, "{0:C}", cartMovie.SumOverAllPrice()))</th>
+                        <th class="col-lg-2" style="margin-top: auto; margin-bottom: auto; border-top: none"><a href="/Cart/Remove/@cartMovie.MovieId"><i class="fas fa-times-circle"></i></a></th>
+                    </tr>
+                }
+            </tbody>
+        </table>
     </div>
-    <div class="float-right">
-        <a href="#" class="btn btn-success" style="font-size: 20px;">Continue With Order</a>
+
+    <hr class="bg-dark" />
+
+    <div style="margin-bottom: 100px">
+        <div class="float-left">
+            <h2 class="text-primary">All Movies Price: @(string.Format(us, "{0:C}", Model.SumAll()))</h2>
+            <p class="text-primary"><b>This price doesn't include delivery</b></p>
+        </div>
+        <div class="float-right">
+            <a href="#" class="btn btn-success" style="font-size: 20px;">Continue With Order</a>
+        </div>
     </div>
-</div>
+}
 

@@ -65,7 +65,27 @@ namespace UltimateMovies.Controllers
         [HttpGet("/Addresses/Edit/{addressId}")]
         public IActionResult Edit(int addressId)
         {
-            return this.View();
+            Address address = this.addressesService.GetAddress(addressId);
+
+            AddressEditModel model = new AddressEditModel
+            {
+                Id = address.Id,
+                AdditionalInformation = address.AdditionalInformation,
+                City = address.City,
+                Country = address.Country,
+                Postcode = address.Postcode,
+                Street = address.Street
+            };
+
+            return this.View(model);
+        }
+
+        [HttpPost("/Addresses/Edit/{addressId}")]
+        public IActionResult Edit(AddressEditModel model)
+        {
+            this.addressesService.EditAddress(model.Country, model.City, model.Street, model.AdditionalInformation, model.Postcode, model.Id);
+
+            return this.Redirect("/Addresses/");
         }
     }
 }

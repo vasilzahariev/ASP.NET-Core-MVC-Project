@@ -34,6 +34,22 @@ namespace UltimateMovies.Services
             this.db.SaveChanges();
         }
 
+        public void EditAddress(string country, string city, string street, string additionalInformation, int postCode, int id)
+        {
+            this.db.Addresses.FirstOrDefault(a => a.Id == id).Country = country;
+            this.db.Addresses.FirstOrDefault(a => a.Id == id).City = city;
+            this.db.Addresses.FirstOrDefault(a => a.Id == id).Street = street;
+            this.db.Addresses.FirstOrDefault(a => a.Id == id).AdditionalInformation = additionalInformation;
+            this.db.Addresses.FirstOrDefault(a => a.Id == id).Postcode = postCode;
+
+            this.db.SaveChanges();
+        }
+
+        public Address GetAddress(int id)
+        {
+            return this.db.Addresses.FirstOrDefault(a => a.Id == id);
+        }
+
         public List<Address> GetAllUserAddresses(string username)
         {
             List<Address> result = new List<Address>();
