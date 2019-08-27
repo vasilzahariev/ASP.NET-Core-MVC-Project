@@ -1,0 +1,22 @@
+﻿@using UltimateMovies.ViewModels.Addresses
+@model AddressListingModel
+
+@{
+    ViewData["Title"] = "My Addresses";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h1>Index</h1>
+<a href="/Addresses/Create">Create An Address</a>
+
+@foreach (var address in Model.Addresses)
+{
+<div class="container text-center" style="width: 700px; border: 2px solid black; padding: 20px">
+    <div>
+        <p><b>Country: </b>@address.Country, @address.City, @address.Postcode</p>
+        <p><b>Street:</b> @address.Street, @address.AdditionalInforamtion</p>
+    </div>
+    <a href="/Addresses/Edit/@address.Id" class="btn btn-success" style="margin-top: auto; margin-bottom: auto">Edit</a>
+    <a href="/Addresses/Remove/@address.Id" class="btn btn-danger" style="margin-top: auto; margin-bottom: auto">Remove</a>
+</div>
+}

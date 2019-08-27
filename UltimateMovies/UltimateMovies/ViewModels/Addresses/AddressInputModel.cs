@@ -1,15 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using System.Text;
+using System.Linq;
+using System.Threading.Tasks;
 
-namespace UltimateMovies.Models
+namespace UltimateMovies.ViewModels.Addresses
 {
-    public class Address
+    public class AddressInputModel
     {
-        [Key]
-        public int Id { get; set; }
-
         [Required]
         public string Country { get; set; }
 
@@ -24,9 +22,5 @@ namespace UltimateMovies.Models
 
         [Required]
         public int Postcode { get; set; }
-
-        public string UserId { get; set; }
-
-        public virtual UMUser User { get; set; }
     }
 }

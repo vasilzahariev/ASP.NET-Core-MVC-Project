@@ -56,6 +56,7 @@ namespace UltimateMovies
             services.AddTransient<IHomeServices, HomeServices>();
             services.AddTransient<IUsersService, UsersService>();
             services.AddTransient<ICartsService, CartsService>();
+            services.AddTransient<IAddressesService, AddressService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

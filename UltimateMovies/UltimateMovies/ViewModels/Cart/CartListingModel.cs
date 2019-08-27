@@ -15,7 +15,7 @@ namespace UltimateMovies.ViewModels.Cart
 
             foreach (var cartMovie in this.CartMovies)
             {
-                result += cartMovie.Price;
+                result += cartMovie.SumOverAllPrice();
             }
 
             return result;
