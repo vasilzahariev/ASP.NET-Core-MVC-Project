@@ -21,6 +21,10 @@ namespace UltimateMovies.Data
 
         public DbSet<WishListMovie> WishListMovies { get; set; }
 
+        public DbSet<Order> Orders { get; set; }
+
+        public DbSet<OrderMovie> OrderMovies { get; set; }
+
         public UltimateMoviesDbContext(DbContextOptions<UltimateMoviesDbContext> options)
             : base(options)
         {
@@ -31,6 +35,7 @@ namespace UltimateMovies.Data
             modelBuilder.Entity<ActorMovie>().HasKey(x => new { x.ActorId, x.MovieId });
             modelBuilder.Entity<WishListMovie>().HasKey(x => new { x.MovieId, x.UserId });
             modelBuilder.Entity<CartMovie>().HasKey(x => new { x.UserId, x.MovieId });
+            modelBuilder.Entity<OrderMovie>().HasKey(x => new { x.MovieId, x.OrderId });
 
             modelBuilder.Entity<ActorMovie>()
                 .HasOne(am => am.Actor)
@@ -65,6 +70,15 @@ namespace UltimateMovies.Data
             modelBuilder.Entity<UMUser>()
                 .HasMany(u => u.Addresses)
                 .WithOne(a => a.User);
+
+            modelBuilder.Entity<UMUser>()
+                .HasMany(u => u.Orders)
+                .WithOne(o => o.User);
+
+            modelBuilder.Entity<OrderMovie>()
+                .HasOne(om => om.Order)
+                .WithMany(o => o.Movies)
+                .HasForeignKey(om => om.OrderId);
 
             base.OnModelCreating(modelBuilder);
         }

@@ -51,7 +51,7 @@ namespace UltimateMovies.Controllers
         {
             this.addressesService.CreateANewAddress(model.Country, model.City, model.Street, model.AdditionalInformation, model.Postcode, this.User.Identity.Name);
 
-            return this.Redirect("/Addresses/");
+            return this.Redirect(this.Request.Headers["Referer"].ToString());
         }
 
         [HttpGet("/Addresses/Remove/{addressId}")]

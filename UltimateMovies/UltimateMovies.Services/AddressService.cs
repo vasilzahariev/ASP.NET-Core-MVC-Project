@@ -29,6 +29,8 @@ namespace UltimateMovies.Services
                 User = this.db.Users.FirstOrDefault(u => u.UserName == username)
             };
 
+            this.db.Users.FirstOrDefault(u => u.UserName == username).Addresses.Add(address);
+
             this.db.Addresses.Add(address);
 
             this.db.SaveChanges();

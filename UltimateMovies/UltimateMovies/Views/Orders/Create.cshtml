@@ -1,0 +1,23 @@
+﻿@using UltimateMovies.ViewModels.Orders
+@model OrdersListingModel
+
+@{
+    ViewData["Title"] = "Create";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h1>Create</h1>
+
+<form action="Create" method="post">
+    <div>
+        <h3>Delivery Address:</h3>
+        <div style="border: 2px solid black">
+            @foreach (var address in Model.Addresses)
+            {
+                <input type="radio" name="addressId" checked value="@address.Id" /> @address.Country<span>, </span>@address.City<span>, </span>@address.Street<span> </span> @address.AdditionalInformation<span>, </span> @address.Postcode
+            }
+        </div>
+
+        <a href="/Addresses/Create" class="btn btn-primary">Add An Address</a>
+    </div>
+</form>
