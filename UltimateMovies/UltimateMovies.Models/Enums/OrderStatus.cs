@@ -7,7 +7,7 @@ namespace UltimateMovies.Models.Enums
 {
     public enum OrderStatus
     {
-        Processing = 1,
+        Unfinished = 1,
         Unprocessed = 2,
         Procesed = 3,
         Delivered = 4

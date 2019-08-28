@@ -1,0 +1,66 @@
+﻿@using UltimateMovies.ViewModels.Orders
+@model OrderSummaryViewModel
+
+@{
+    ViewData["Title"] = "Summary";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    CultureInfo us = CultureInfo.GetCultureInfo("en-US");
+}
+
+<h1>Summary</h1>
+<hr />
+<h2 class="text-success">Thank you for the order! Check the your Orders list for updates on your order!</h2>
+
+<div class="row">
+    <div class="col-md-6">
+        <ul class="list-group">
+            <li class="list-group-item"><b>Recipient's Name:</b> @Model.FullName</li>
+            <li class="list-group-item"><b>Phone:</b> @Model.Phone</li>
+            <li class="list-group-item">
+                <b>Address:</b> @Model.Address.Country
+                <span>, </span>@Model.Address.City
+                <span>, </span>@Model.Address.Street
+                <span> </span> @Model.Address.AdditionalInformation
+                <span>, </span> @Model.Address.Postcode
+            </li>
+            <li class="list-group-item"><b>Delivery Type:</b> @Model.DeliveryType.ToString()</li>
+            <li class="list-group-item"><b>Payment Type:</b> @Model.PaymentType.ToString()</li>
+        </ul>
+    </div>
+    <div class="col-md-6" style="font-size: 13px">
+        <div class="container">
+            <table class="table table-hover text-center">
+                <thead>
+                    <tr class="row">
+                        <th scope="col" class="col-lg-2">Movie</th>
+                        <th scope="col" class="col-lg-4"></th>
+                        <th scope="col" class="col-lg-2">Quantity</th>
+                        <th scope="col" class="col-lg-2">Price</th>
+                        <th scope="col" class="col-lg-2">Overall Price</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var cartMovie in Model.CartMovies)
+                    {
+                        <tr class="row">
+                            <th class="col-lg-2" style="border-top: none"><a href="/Movies/Details/@cartMovie.Id"><img src="@cartMovie.PosterUrl" alt="Alternate Text" width="100%" /></a></th>
+                            <th scope="col" class="col-lg-4" style="margin-top: auto; margin-bottom: auto; border-top: none"><a href="/Movies/Details/@cartMovie.Id">@cartMovie.Name</a></th>
+                            <th scope="col" class="col-lg-2" style="margin-top: auto; margin-bottom: auto; border-top: none">@cartMovie.Quantity</th>
+                            <th scope="col" class="col-lg-2" style="margin-top: auto; margin-bottom: auto; border-top: none">@(string.Format(us, "{0:C}", cartMovie.Price))</th>
+                            <th scope="col" class="col-lg-2" style="margin-top: auto; margin-bottom: auto; border-top: none">@(string.Format(us, "{0:C}", cartMovie.OverallPrice()))</th>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+
+        <hr />
+
+        <div>
+            <h4 class="text-primary"><b>Overall Movies Price:</b> @(string.Format(us, "{0:C}", Model.OverallCartPrice()))</h4>
+            <h4 class="text-primary"><b>Delivery Price:</b> @(string.Format(us, "{0:C}", Model.DeliveryPrice))</h4>
+            <hr />
+            <h4 class="text-primary"><b>Final Price:</b> @(string.Format(us, "{0:C}", Model.DeliveryPrice + Model.OverallCartPrice()))</h4>
+        </div>
+    </div>
+</div>

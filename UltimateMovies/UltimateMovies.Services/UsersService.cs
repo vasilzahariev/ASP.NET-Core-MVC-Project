@@ -48,6 +48,13 @@ namespace UltimateMovies.Services
             this.db.SaveChanges();
         }
 
+        public void AddPhoneToUser(string username, string phone)
+        {
+            this.db.Users.FirstOrDefault(u => u.UserName == username).PhoneNumber = phone;
+
+            this.db.SaveChanges();
+        }
+
         public List<Movie> GetMoviesFromWishList(string username)
         {
             UMUser user = this.db.Users.FirstOrDefault(u => u.UserName == username);
@@ -62,6 +69,11 @@ namespace UltimateMovies.Services
             }
 
             return result;
+        }
+
+        public UMUser GetUser(string username)
+        {
+            return this.db.Users.FirstOrDefault(u => u.UserName == username);
         }
 
         public void RemoveMovieFromWishList(string username, int movieId)

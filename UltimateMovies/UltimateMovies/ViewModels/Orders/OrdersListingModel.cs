@@ -10,6 +10,20 @@ namespace UltimateMovies.ViewModels.Orders
     {
         public ICollection<AddressViewModel> Addresses { get; set; }
 
-        public ICollection<CartMovieViewModel> Movies { get; set; }
+        public ICollection<CartMovieViewModel> CartMovies { get; set; }
+
+        public UserViewModel ResipientInformation { get; set; }
+
+        public double OverallCartPrice()
+        {
+            double result = 0;
+
+            foreach (var cartMovie in this.CartMovies)
+            {
+                result += cartMovie.OverallPrice();
+            }
+
+            return result;
+        }
     }
 }

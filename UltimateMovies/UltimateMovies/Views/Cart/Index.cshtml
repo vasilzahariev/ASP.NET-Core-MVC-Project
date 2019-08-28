@@ -31,8 +31,8 @@ else
                 @foreach (var cartMovie in Model.CartMovies)
                 {
                     <tr class="row">
-                        <th class="col-lg-1" style="border-top: none"><img src="@cartMovie.MoviePoster" alt="Alternate Text" width="125%" /></th>
-                        <th class="col-lg-3" style="margin-top: auto; margin-bottom: auto; border-top: none">@cartMovie.MovieName</th>
+                        <th class="col-lg-1" style="border-top: none"><a href="/Movies/Details/@cartMovie.MovieId"><img src="@cartMovie.MoviePoster" alt="Alternate Text" width="125%" /></a></th>
+                        <th class="col-lg-3" style="margin-top: auto; margin-bottom: auto; border-top: none"><a href="/Movies/Details/@cartMovie.MovieId">@cartMovie.MovieName</a></th>
                         <th class="col-lg-2" style="margin-top: auto; margin-bottom: auto; border-top: none">
                             <a href="/Cart/Minus/@cartMovie.MovieId"><i class="fas fa-minus-circle"></i></a>
                             <span style="margin-left: 5px; margin-right: 5px">@cartMovie.Quantity</span>
@@ -55,7 +55,7 @@ else
             <p class="text-primary"><b>This price doesn't include delivery</b></p>
         </div>
         <div class="float-right">
-            <a href="#" class="btn btn-success" style="font-size: 20px;">Continue With Order</a>
+            <a href="/Orders/Create" class="btn btn-success" style="font-size: 20px;">Continue With Order</a>
         </div>
     </div>
 }

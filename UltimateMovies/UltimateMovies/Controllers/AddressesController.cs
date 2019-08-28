@@ -43,15 +43,17 @@ namespace UltimateMovies.Controllers
         [HttpGet("/Addresses/Create")]
         public IActionResult Create()
         {
+            this.ViewData["refString"] = this.Request.Headers["Referer"].ToString();
+
             return this.View();
         }
 
         [HttpPost("/Addresses/Create")]
-        public IActionResult Create(AddressInputModel model)
+        public IActionResult Create(AddressInputModel model, string refString)
         {
             this.addressesService.CreateANewAddress(model.Country, model.City, model.Street, model.AdditionalInformation, model.Postcode, this.User.Identity.Name);
 
-            return this.Redirect(this.Request.Headers["Referer"].ToString());
+            return this.Redirect(refString);
         }
 
         [HttpGet("/Addresses/Remove/{addressId}")]

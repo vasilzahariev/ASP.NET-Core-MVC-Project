@@ -4,20 +4,118 @@
 @{
     ViewData["Title"] = "Create";
     Layout = "~/Views/Shared/_Layout.cshtml";
+    CultureInfo us = CultureInfo.GetCultureInfo("en-US");
 }
 
-<h1>Create</h1>
+<form action="Create" method="post" style="margin-top: 25px">
+    <input type="hidden" name="CartPrice" value="@Model.OverallCartPrice()" />
+    <div class="row">
+        <div class="col-md-6">
+            <h3 class="text-primary">Delivery Address:</h3>
+            <div class="form-group border-primary mb-0">
+                <ul class="list-group">
+                    @foreach (var address in Model.Addresses)
+                    {
+                        <li class="list-group-item">
+                            <label>
+                                <input type="radio" name="AddressId" checked value="@address.Id" /> @address.Country
+                                <span>, </span>@address.City
+                                <span>, </span>@address.Street
+                                <span> </span> @address.AdditionalInformation
+                                <span>, </span> @address.Postcode
+                                <br />
+                            </label>
+                        </li>
+                    }
+                </ul>
+            </div>
+            <div class="form-group" style="margin-top: 10px; text-align: center">
+                <a href="/Addresses/Create" class="btn btn-primary">Add An Address</a>
+            </div>
 
-<form action="Create" method="post">
-    <div>
-        <h3>Delivery Address:</h3>
-        <div style="border: 2px solid black">
-            @foreach (var address in Model.Addresses)
-            {
-                <input type="radio" name="addressId" checked value="@address.Id" /> @address.Country<span>, </span>@address.City<span>, </span>@address.Street<span> </span> @address.AdditionalInformation<span>, </span> @address.Postcode
-            }
+            <h3 class="text-primary">Resipient Information:</h3>
+            <div class="form-group">
+                <label asp-for="ResipientInformation.FullName" class="control-label"></label>
+                <input asp-for="ResipientInformation.FullName" name="ResipientName" value="@Model.ResipientInformation.FullName" class="form-control" />
+                <span asp-validation-for="ResipientInformation.FullName" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="ResipientInformation.PhoneNumber" class="control-label"></label>
+                <input asp-for="ResipientInformation.PhoneNumber" name="PhoneNumber" value="@Model.ResipientInformation.PhoneNumber" class="form-control" />
+                <span asp-validation-for="ResipientInformation.PhoneNumber" class="text-danger"></span>
+            </div>
+
+            <h3 class="text-primary">Delivery Type:</h3>
+            <div class="form-group">
+                <ul class="list-group" type="none">
+                    <li class="list-group-item">
+                        <label>
+                            <input type="radio" name="DeliveryType" checked value="@DeliveryType.Normal" /> <span>Normal (@(string.Format(us, "{0:C}", 4.99)))</span>
+                            <br />
+                        </label>
+                    </li>
+                    <li class="list-group-item">
+                        <label>
+                            <input type="radio" name="DeliveryType" value="@DeliveryType.Express" /> <span>Express (@(string.Format(us, "{0:C}", 9.99)))</span>
+                            <br />
+                        </label>
+                    </li>
+                </ul>
+            </div>
+
+            <h3 class="text-primary">Payment Type:</h3>
+            <div class="form-group">
+                <ul class="list-group" type="none">
+                    @foreach (var paymentType in (PaymentType[])Enum.GetValues(typeof(PaymentType)))
+                    {
+                        <li class="list-group-item">
+                            <label>
+                                <input type="radio" name="PaymentType" checked value="@paymentType.ToString()" /> <span>@paymentType.ToString()</span>
+                                <br />
+                            </label>
+                        </li>
+                    }
+                </ul>
+            </div>
+
+            <div class="form-group text-center">
+                <input type="submit" value="Continue with order" class="btn btn-success" />
+            </div>
         </div>
 
-        <a href="/Addresses/Create" class="btn btn-primary">Add An Address</a>
+        <div class="col-md-6" style="font-size: 13px">
+            <h3 class="text-primary">Cart:</h3>
+            <div class="container">
+                <table class="table table-hover text-center">
+                    <thead>
+                        <tr class="row">
+                            <th scope="col" class="col-lg-2">Movie</th>
+                            <th scope="col" class="col-lg-4"></th>
+                            <th scope="col" class="col-lg-2">Quantity</th>
+                            <th scope="col" class="col-lg-2">Price</th>
+                            <th scope="col" class="col-lg-2">Overall Price</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var cartMovie in Model.CartMovies)
+                        {
+                            <tr class="row">
+                                <th class="col-lg-2" style="border-top: none"><a href="/Movies/Details/@cartMovie.Id"><img src="@cartMovie.PosterUrl" alt="Alternate Text" width="100%" /></a></th>
+                                <th scope="col" class="col-lg-4" style="margin-top: auto; margin-bottom: auto; border-top: none"><a href="/Movies/Details/@cartMovie.Id">@cartMovie.Name</a></th>
+                                <th scope="col" class="col-lg-2" style="margin-top: auto; margin-bottom: auto; border-top: none">@cartMovie.Quantity</th>
+                                <th scope="col" class="col-lg-2" style="margin-top: auto; margin-bottom: auto; border-top: none">@(string.Format(us, "{0:C}", cartMovie.Price))</th>
+                                <th scope="col" class="col-lg-2" style="margin-top: auto; margin-bottom: auto; border-top: none">@(string.Format(us, "{0:C}", cartMovie.OverallPrice()))</th>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+
+            <hr />
+
+            <div>
+                <h4 class="text-primary">Overall Movies Price: @(string.Format(us, "{0:C}", Model.OverallCartPrice()))</h4>
+            </div>
+        </div>
     </div>
 </form>
