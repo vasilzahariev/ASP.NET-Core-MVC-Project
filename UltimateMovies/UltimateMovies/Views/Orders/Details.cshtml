@@ -1,0 +1,80 @@
+﻿@using UltimateMovies.ViewModels.Orders
+@model OrderDetailsViewModel
+
+@{
+    ViewData["Title"] = "Details";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    CultureInfo us = CultureInfo.GetCultureInfo("en-US");
+}
+
+<h1>Details</h1>
+
+<hr />
+
+<div class="row">
+    <div class="col-md-6">
+        <h4>Order Details:</h4>
+        <div class="shadow p-4 mb-4 bg-white text-primary">
+            <p><b>Recipient's Name: </b> @Model.RecipientName</p>
+            <p><b>Recipient's Phone: </b> @Model.RecipientPhoneNumber</p>
+            <p>
+                <b>Address: </b> @Model.Address.Country
+                <span>, </span>@Model.Address.City
+                <span>, </span>@Model.Address.Street
+                <span> </span> @Model.Address.AdditionalInformation
+                <span>, </span> @Model.Address.Postcode
+            </p>
+            <p><b>Delivery Price: </b> @(string.Format(us, "{0:C}", Model.DeliveryPrice))</p>
+            <p><b>Movies Price: </b> @(string.Format(us, "{0:C}", Model.CartPrice))</p>
+            <p><b>Order Status: </b> @Model.OrderStatus.ToString()</p>
+            <p><b>Payment Type: </b> @Model.PaymentType.ToString()</p>
+            <p><b>Delivery Type: </b> @Model.DeliveryType.ToString()</p>
+            <p><b>Order Date: </b> @Model.OrderDate.ToString()</p>
+            @if (Model.ProcesedDate == null)
+            {
+                <p><b>Processed Date: <span class="text-danger">The order hasn't been processed yet!</span> </b> </p>
+            }
+            else
+            {
+                <p><b>Processed Date: </b> @Convert.ToDateTime(Model.ProcesedDate).ToString()</p>
+            }
+            @if (Model.ProcesedDate == null)
+            {
+                <p><b>Delivered Date: <span class="text-danger">The order hasn't been delivered yet!</span> </b> </p>
+            }
+            else
+            {
+                <p><b>Delivered Date: </b> @Convert.ToDateTime(Model.DeliveredDate).ToString()</p>
+            }
+        </div>
+    </div>
+
+    <div class="col-md-6">
+        <div class="container">
+            <table class="table table-hover text-center">
+                <thead>
+                    <tr class="row">
+                        <th scope="col" class="col-lg-2">Movie</th>
+                        <th scope="col" class="col-lg-4"></th>
+                        <th scope="col" class="col-lg-2">Quantity</th>
+                        <th scope="col" class="col-lg-2">Price</th>
+                        <th scope="col" class="col-lg-2">Overall Price</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var cartMovie in Model.CartMovies)
+                    {
+                        <tr class="row">
+                            <th class="col-lg-2" style="border-top: none"><a href="/Movies/Details/@cartMovie.Id"><img src="@cartMovie.PosterUrl" alt="Alternate Text" width="100%" /></a></th>
+                            <th scope="col" class="col-lg-4" style="margin-top: auto; margin-bottom: auto; border-top: none"><a href="/Movies/Details/@cartMovie.Id">@cartMovie.Name</a></th>
+                            <th scope="col" class="col-lg-2" style="margin-top: auto; margin-bottom: auto; border-top: none">@cartMovie.Quantity</th>
+                            <th scope="col" class="col-lg-2" style="margin-top: auto; margin-bottom: auto; border-top: none">@(string.Format(us, "{0:C}", cartMovie.Price))</th>
+                            <th scope="col" class="col-lg-2" style="margin-top: auto; margin-bottom: auto; border-top: none">@(string.Format(us, "{0:C}", cartMovie.OverallPrice()))</th>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+

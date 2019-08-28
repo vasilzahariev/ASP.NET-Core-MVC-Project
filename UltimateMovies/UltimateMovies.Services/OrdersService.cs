@@ -163,5 +163,30 @@ namespace UltimateMovies.Services
 
             return orderMovies;
         }
+
+        public List<Order> GetAllUserOrders(string username)
+        {
+            List<Order> result = new List<Order>();
+
+            foreach (var order in this.db.Orders)
+            {
+                if (order.UserId == this.db.Users.FirstOrDefault(u => u.UserName == username).Id)
+                {
+                    result.Add(order);
+                }
+            }
+
+            return result;
+        }
+
+        public bool CheckIfOrderBelongsToUser(int orderId, string username)
+        {
+            return this.db.Orders.Any(o => o.Id == orderId && o.UserId == this.db.Users.FirstOrDefault(u => u.UserName == username).Id);
+        }
+
+        public Order GetOrder(int id)
+        {
+            return this.db.Orders.FirstOrDefault(o => o.Id == id);
+        }
     }
 }

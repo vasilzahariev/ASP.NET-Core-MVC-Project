@@ -21,5 +21,11 @@ namespace UltimateMovies.Services
         Order GetLastOrder(string username);
 
         List<OrderMovie> GetOrderMovies(int orderId);
+
+        Order GetOrder(int id);
+
+        List<Order> GetAllUserOrders(string username);
+
+        bool CheckIfOrderBelongsToUser(int orderId, string username);
     }
 }

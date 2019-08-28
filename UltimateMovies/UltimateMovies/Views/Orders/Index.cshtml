@@ -1,7 +1,10 @@
-﻿
+﻿@using UltimateMovies.ViewModels.Orders
+@model UserOrdersListingModel
+
 @{
     ViewData["Title"] = "My Orders";
     Layout = "~/Views/Shared/_Layout.cshtml";
+    CultureInfo us = CultureInfo.GetCultureInfo("en-US");
 }
 
 <h1>Orders</h1>
@@ -9,4 +12,30 @@
 <hr />
 
 <div class="container">
+    <table class="table table-hover text-center">
+        <thead>
+            <tr class="row">
+                <th scope="col" class="col-lg-1">Order Number</th>
+                <th scope="col" class="col-lg-3">Status</th>
+                <th scope="col" class="col-lg-3">Payment Type</th>
+                <th scope="col" class="col-lg-3">Price</th>
+                <th scope="col" class="col-lg-2"></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var order in Model.Orders)
+            {
+                @if (order.OrderStatus != OrderStatus.Unfinished)
+                {
+                    <tr class="row">
+                        <th class="col-lg-1">@order.OrderId</th>
+                        <th class="col-lg-3">@order.OrderStatus.ToString()</th>
+                        <th class="col-lg-3">@order.PaymentType.ToString()</th>
+                        <th class="col-lg-3">@(string.Format(us, "{0:C}", order.TotalPrice))</th>
+                        <th class="col-lg-2"><a href="/Orders/Details/@order.OrderId" class="btn btn-primary">Details</a></th>
+                    </tr>
+                }
+            }
+        </tbody>
+    </table>
 </div>
