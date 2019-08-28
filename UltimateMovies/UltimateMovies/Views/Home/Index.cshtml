@@ -10,47 +10,120 @@
     </div>
 }
 
-<div class="text-center" style="margin-bottom: 70px">
+<div class="text-center">
     <h1 class="display-4" style="color: darkred"><b>Welcome to UltimateMovies</b> </h1>
     <h3 class="d-block" style="margin-bottom: -5px;">Here you can find the best movies!</h3>
     <h3 class="d-block">Scroll down, select the movie you want and watch it!</h3>
     <hr class="bg-primary" style="border-width: 3px;" />
 </div>
 
+<div class="text-center" style="margin-top: 30px; margin-bottom: 40px;">
+    <form asp-controller="Home" asp-action="Index" method="get">
+        <div class="form-group">
+            <input type="text" name="search" id="search" placeholder="Search For A Movie" class="form-control" value="@Model.SearchString" />
+        </div>
+    </form>
+    <hr class="bg-primary" style="border-width: 3px;" />
+</div>
+
 
 <div class="row">
-    @foreach (var movie in Model.HomeMovies)
-    {
-        @*<div class="col-md-3 d-inline-block" style="margin-right: 48.5px; margin-left: 38.5px">*@
-        <div class="col-6 col-sm-6 col-md-4 col-lg-3 mb-5">
-            <div class="card mb-4 shadow-sm">
-                <div class="bd-placeholder-img card-img-top homeMovieImageDiv">
-                    <img src="@movie.ImageUrl" alt="Poster" width="100%" height="350" />
-                </div>
-                <div class="card-body homeMovieImageBody">
-                    <p style="border-bottom: 1px solid black; border-top: 1px solid black; text-align: center; height: 95px; padding-top: 30px"><b>@movie.Name</b> </p>
-                    <p style="float: left;"><b>@movie.ReleaseDate.Year</b></p>
-                    <p style="float: right;"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/6/69/IMDB_Logo_2016.svg/250px-IMDB_Logo_2016.svg.png" alt="Alternate Text" width="50px" height="25px" /> <b>@movie.IMDbScore / 10</b></p>
-                    <br />
-                    <br />
-                    <p style="float: left; padding-top: 10px"><b>@movie.Length</b> mins</p>
-                    <p style="float: right;"><img src="https://www.smdp.com/wp-content/uploads/2018/08/RT.png" alt="Alternate Text" width="55px" height="40px" style="margin-bottom: 5px" /> <b>@(movie.RottenTomatoes)%</b></p>
-
-                    <div style="text-align: center; margin-top: 70px">
-                        <a href="/Movies/Details/@movie.Id" class="btn btn-primary"><i class="fas fa-film"></i> Watch!</a>
-                        @if (movie.IsInUserWishList == true)
+    <div class="col-md-2">
+        <h3>Genre</h3>
+        <hr />
+        <form asp-controller="Home" asp-action="Index" method="get">
+            <ul class="list-group" type="none">
+                @foreach (var genre in (MovieGenre[])Enum.GetValues(typeof(MovieGenre)))
+                {
+                    <li>
+                        @if (genre == Model.GenreFilter)
                         {
-                            <a href="/User/AddToWishList/@movie.Id" class="btn btn-danger"><i class="fas fa-heart"></i></a>
+                            <label>
+                                <b><input type="radio" name="genre" checked value="@genre.ToString()" /> <span>@genre.ToString()</span></b>
+                            </label>
                         }
                         else
                         {
-                            <a href="/User/AddToWishList/@movie.Id" class="btn btn-outline-danger"><i class="fas fa-heart"></i></a>
+                            <label>
+                                <input type="radio" name="genre" value="@genre.ToString()" /> <span>@genre.ToString()</span>
+                            </label>
                         }
-                    </div>
+                    </li>
+                }
+            </ul>
+        </form>
+
+    </div>
+    <div class="col-md-10">
+        <div class="row">
+            @foreach (var movie in Model.HomeMovies)
+            {
+                @*<div class="col-md-3 d-inline-block" style="margin-right: 48.5px; margin-left: 38.5px">*@
+
+                @if (movie.Name.ToLower().Contains(Model.SearchString.ToLower()))
+                {
+                    @if (Model.GenreFilter == MovieGenre.All || (movie.Genre == Model.GenreFilter || movie.Genre2 == Model.GenreFilter || movie.Genre3 == Model.GenreFilter))
+                    {
+                        <div class="col-6 col-sm-6 col-md-4 col-lg-3 mb-5">
+                            <div class="card mb-4 shadow-sm">
+                                <div class="bd-placeholder-img card-img-top homeMovieImageDiv">
+                                    <img src="@movie.ImageUrl" alt="Poster" width="100%" height="350" />
+                                </div>
+                                <div class="card-body homeMovieImageBody">
+                                    <p style="border-bottom: 1px solid black; border-top: 1px solid black; text-align: center; height: 95px; padding-top: 30px"><b>@movie.Name</b> </p>
+                                    <p style="float: left;"><b>@movie.ReleaseDate.Year</b></p>
+                                    <p style="float: right;"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/6/69/IMDB_Logo_2016.svg/250px-IMDB_Logo_2016.svg.png" alt="Alternate Text" width="50px" height="25px" /> <b>@movie.IMDbScore / 10</b></p>
+                                    <br />
+                                    <br />
+                                    <p style="float: left; padding-top: 10px"><b>@movie.Length</b> mins</p>
+                                    <p style="float: right;"><img src="https://www.smdp.com/wp-content/uploads/2018/08/RT.png" alt="Alternate Text" width="55px" height="40px" style="margin-bottom: 5px" /> <b>@(movie.RottenTomatoes)%</b></p>
+
+                                    <div style="text-align: center; margin-top: 70px">
+                                        <a href="/Movies/Details/@movie.Id" class="btn btn-primary"><i class="fas fa-film"></i> Watch!</a>
+                                        @if (movie.IsInUserWishList == true)
+                                        {
+                                            <a href="/User/AddToWishList/@movie.Id" class="btn btn-danger"><i class="fas fa-heart"></i></a>
+                                        }
+                                        else
+                                        {
+                                            <a href="/User/AddToWishList/@movie.Id" class="btn btn-outline-danger"><i class="fas fa-heart"></i></a>
+                                        }
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <p style="display: none">@(Model.MoviesCount++)</p>
+                    }
+                }
+            }
+
+            @if (Model.MoviesCount == 0 && Model.SearchString == "")
+            {
+                <div class="text-center" style="margin-left: auto; margin-right: auto">
+                    <h2 class="text-info">
+                        We are sorry, but we don't have movies from this genre yet! <br /> <br />
+                        You can suggest a movie from this genre, by pressing this button:
+                    </h2>
+
+                    <a href="#" class="btn btn-info" style="margin-top: 15px">Suggest A Movie</a>
                 </div>
-            </div>
+            }
+
+            @if (Model.MoviesCount == 0 && Model.SearchString != "")
+            {
+                <div class="text-center" style="margin-left: auto; margin-right: auto">
+                    <h2 class="text-info">
+                        We are sorry, but we don't have movies with that name! <br />
+                        You might have misspelled the movie's name. <br /> <br />
+                        You can suggest a movie, by pressing this button:
+                    </h2>
+
+                    <a href="#" class="btn btn-info" style="margin-top: 15px">Suggest A Movie</a>
+                </div>
+            }
         </div>
-    }
+    </div>
 </div>
 
 @*//col-6 col-sm-6 col-md-4 col-lg-3 mb-3*@

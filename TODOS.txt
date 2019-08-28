@@ -1,7 +1,6 @@
-Orders
 Reviews
 Admin Panel
-Index update(sortings, search)
+Index update(Add ordering)
 Tests
 Azure
 Redesign

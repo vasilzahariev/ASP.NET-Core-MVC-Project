@@ -17,3 +17,8 @@ else {
     alertify.confirm().set({ 'reverseButtons': true });
     alertify.prompt().set({ 'reverseButtons': true });
 }
+
+
+$('input[type=radio]').on('change', function () {
+    $("form").submit();
+});

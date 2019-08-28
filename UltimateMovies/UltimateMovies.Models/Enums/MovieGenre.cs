@@ -7,6 +7,7 @@ namespace UltimateMovies.Models.Enums
 {
     public enum MovieGenre
     {
+        All = 0,
         Action = 1,
         Adventure = 2,
         Comedy = 3,

@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using UltimateMovies.Models.Enums;
 
 namespace UltimateMovies.ViewModels.Home
 {
@@ -22,5 +23,11 @@ namespace UltimateMovies.ViewModels.Home
         public int RottenTomatoes { get; set; }
 
         public bool IsInUserWishList { get; set; }
+
+        public MovieGenre Genre { get; set; }
+
+        public MovieGenre Genre2 { get; set; }
+
+        public MovieGenre Genre3 { get; set; }
     }
 }
