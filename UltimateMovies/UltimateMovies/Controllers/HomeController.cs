@@ -21,9 +21,130 @@ namespace UltimateMovies.Controllers
 
         //[HttpGet("/{genre}")]
         [HttpGet("/")]
-        public IActionResult Index(string search = "", MovieGenre genre = 0)
+        public IActionResult Index(string search = "", MovieGenre genre = 0, string sortBy = "")
         {
-            HomeListingModel model = new HomeListingModel
+            if (sortBy == "DAN" || sortBy == "")
+            {
+                HomeListingModel model = new HomeListingModel
+                {
+                    HomeMovies = this.homeServices.GetMovies().Select(x => new HomeMovieModelView
+                    {
+                        Id = x.Id,
+                        Name = x.Name,
+                        ImageUrl = x.PosterUrl,
+                        IMDbScore = x.IMDbScore,
+                        Length = x.Length,
+                        ReleaseDate = x.ReleaseDate,
+                        RottenTomatoes = x.RottenTomatoes,
+                        IsInUserWishList = this.User.Identity.IsAuthenticated ? this.homeServices.IsMovieInUserWishlist(this.User.Identity.Name, x.Id) : false,
+                        Genre = x.Genre,
+                        Genre2 = x.Genre2,
+                        Genre3 = x.Genre3
+                    }).ToList().OrderByDescending(m => m.Id).ToList(),
+                    GenreFilter = genre,
+                    SearchString = search,
+                    MoviesCount = 0,
+                    OrderBy = sortBy,
+                    OrderByOptions = new List<string>
+                {
+                    "Date Added (Newest)",
+                    "Date Added (Oldest)",
+                    "Release Date (Newest)",
+                    "Release Date (Oldest)"
+                },
+                    OrderByOptionsValues = new List<string>
+                {
+                    "DAN",
+                    "DAO",
+                    "RDN",
+                    "RDO"
+                }
+                };
+
+                return View("Index", model);
+            }
+            else if (sortBy == "DAO")
+            {
+                HomeListingModel model = new HomeListingModel
+                {
+                    HomeMovies = this.homeServices.GetMovies().Select(x => new HomeMovieModelView
+                    {
+                        Id = x.Id,
+                        Name = x.Name,
+                        ImageUrl = x.PosterUrl,
+                        IMDbScore = x.IMDbScore,
+                        Length = x.Length,
+                        ReleaseDate = x.ReleaseDate,
+                        RottenTomatoes = x.RottenTomatoes,
+                        IsInUserWishList = this.User.Identity.IsAuthenticated ? this.homeServices.IsMovieInUserWishlist(this.User.Identity.Name, x.Id) : false,
+                        Genre = x.Genre,
+                        Genre2 = x.Genre2,
+                        Genre3 = x.Genre3
+                    }).ToList().OrderBy(m => m.Id).ToList(),
+                    GenreFilter = genre,
+                    SearchString = search,
+                    MoviesCount = 0,
+                    OrderBy = sortBy,
+                    OrderByOptions = new List<string>
+                {
+                    "Date Added (Newest)",
+                    "Date Added (Oldest)",
+                    "Release Date (Newest)",
+                    "Release Date (Oldest)"
+                },
+                    OrderByOptionsValues = new List<string>
+                {
+                    "DAN",
+                    "DAO",
+                    "RDN",
+                    "RDO"
+                }
+                };
+
+                return View("Index", model);
+            }
+            else if (sortBy == "RDN")
+            {
+                HomeListingModel model = new HomeListingModel
+                {
+                    HomeMovies = this.homeServices.GetMovies().Select(x => new HomeMovieModelView
+                    {
+                        Id = x.Id,
+                        Name = x.Name,
+                        ImageUrl = x.PosterUrl,
+                        IMDbScore = x.IMDbScore,
+                        Length = x.Length,
+                        ReleaseDate = x.ReleaseDate,
+                        RottenTomatoes = x.RottenTomatoes,
+                        IsInUserWishList = this.User.Identity.IsAuthenticated ? this.homeServices.IsMovieInUserWishlist(this.User.Identity.Name, x.Id) : false,
+                        Genre = x.Genre,
+                        Genre2 = x.Genre2,
+                        Genre3 = x.Genre3
+                    }).ToList().OrderByDescending(m => m.ReleaseDate).ToList(),
+                    GenreFilter = genre,
+                    SearchString = search,
+                    MoviesCount = 0,
+                    OrderBy = sortBy,
+                    OrderByOptions = new List<string>
+                {
+                    "Date Added (Newest)",
+                    "Date Added (Oldest)",
+                    "Release Date (Newest)",
+                    "Release Date (Oldest)"
+                },
+                    OrderByOptionsValues = new List<string>
+                {
+                    "DAN",
+                    "DAO",
+                    "RDN",
+                    "RDO"
+                }
+                };
+
+                return View("Index", model);
+            }
+
+            HomeListingModel lastModel = new HomeListingModel
             {
                 HomeMovies = this.homeServices.GetMovies().Select(x => new HomeMovieModelView
                 {
@@ -38,19 +159,28 @@ namespace UltimateMovies.Controllers
                     Genre = x.Genre,
                     Genre2 = x.Genre2,
                     Genre3 = x.Genre3
-                }),
+                }).ToList().OrderBy(m => m.ReleaseDate).ToList(),
                 GenreFilter = genre,
                 SearchString = search,
-                MoviesCount = 0
+                MoviesCount = 0,
+                OrderBy = sortBy,
+                OrderByOptions = new List<string>
+                {
+                    "Date Added (Newest)",
+                    "Date Added (Oldest)",
+                    "Release Date (Newest)",
+                    "Release Date (Oldest)"
+                },
+                OrderByOptionsValues = new List<string>
+                {
+                    "DAN",
+                    "DAO",
+                    "RDN",
+                    "RDO"
+                }
             };
 
-            return View("Index", model);
-        }
-
-        [HttpGet]
-        public IActionResult Index(string search)
-        {
-            return this.Content(search);
+            return View("Index", lastModel);
         }
 
         public IActionResult Privacy()

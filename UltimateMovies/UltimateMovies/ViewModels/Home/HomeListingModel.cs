@@ -15,5 +15,11 @@ namespace UltimateMovies.ViewModels.Home
         public string SearchString { get; set; }
 
         public int MoviesCount { get; set; }
+
+        public string OrderBy { get; set; }
+
+        public List<string> OrderByOptions { get; set; }
+
+        public List<string> OrderByOptionsValues { get; set; }
     }
 }
