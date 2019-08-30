@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace UltimateMovies.ViewModels.Actors
+namespace UltimateMovies.Areas.Admin.ViewModels
 {
     public class ActorsListingModel
     {

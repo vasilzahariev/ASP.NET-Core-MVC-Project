@@ -55,7 +55,7 @@ namespace UltimateMovies.Services
             this.db.SaveChanges();
         }
 
-        public List<Movie> GetMoviesFromWishList(string username)
+        public ICollection<Movie> GetMoviesFromWishList(string username)
         {
             UMUser user = this.db.Users.FirstOrDefault(u => u.UserName == username);
             List<Movie> result = new List<Movie>();
@@ -74,6 +74,11 @@ namespace UltimateMovies.Services
         public UMUser GetUser(string username)
         {
             return this.db.Users.FirstOrDefault(u => u.UserName == username);
+        }
+
+        public UMUser GetUserById(string id)
+        {
+            return this.db.Users.FirstOrDefault(u => u.Id == id);
         }
 
         public void RemoveMovieFromWishList(string username, int movieId)
@@ -99,6 +104,23 @@ namespace UltimateMovies.Services
             this.db.WishListMovies.Remove(this.db.WishListMovies.FirstOrDefault(x => x.MovieId == movie.Id && x.UserId == user.Id));
 
             this.db.SaveChanges();
+        }
+
+        public ICollection<UMUser> GetAllUsers()
+        {
+            return this.db.Users.ToList();
+        }
+
+        public string GetUserRole(string id)
+        {
+            if (this.db.UserRoles.FirstOrDefault(ur => ur.UserId == id) == null)
+            {
+                return "";
+            }
+
+            string result = this.db.Roles.FirstOrDefault(r => r.Id == this.db.UserRoles.FirstOrDefault(ur => ur.UserId == id).RoleId).Name;
+
+            return result;
         }
     }
 }

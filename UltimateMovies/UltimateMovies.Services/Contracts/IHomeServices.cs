@@ -7,7 +7,7 @@ namespace UltimateMovies.Services
 {
     public interface IHomeServices
     {
-        List<Movie> GetMovies();
+        ICollection<Movie> GetMovies();
 
         bool IsMovieInUserWishlist(string username, int movieId);
     }

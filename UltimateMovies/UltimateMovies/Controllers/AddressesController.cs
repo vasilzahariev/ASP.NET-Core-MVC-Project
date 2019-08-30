@@ -67,7 +67,14 @@ namespace UltimateMovies.Controllers
         [HttpGet("/Addresses/Edit/{addressId}")]
         public IActionResult Edit(int addressId)
         {
+            //TODO: Make it so, only users can edit their address
+
             Address address = this.addressesService.GetAddress(addressId);
+
+            if (address == null)
+            {
+                return this.NotFound();
+            }
 
             AddressEditModel model = new AddressEditModel
             {

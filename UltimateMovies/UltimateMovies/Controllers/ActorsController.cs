@@ -23,31 +23,20 @@ namespace UltimateMovies.Controllers
         {
             Actor a = this.actorService.GetActor(actorId);
 
+            if (a == null)
+            {
+                return this.NotFound();
+            }
+
             ActorViewModel actor = new ActorViewModel();
 
             actor.Id = actorId;
             actor.Name = a.Name;
             actor.ImdbUrl = a.ImdbUrl;
             actor.PictureUrl = a.PictureUrl;
-            actor.MoviesPosters = this.actorService.GetActorsMoviesAndPosters(actorId);
+            actor.Movies = this.actorService.GetActorsMoviesAndPosters(actorId);
 
             return View(actor);
-        }
-
-        [HttpGet("/Actors/")]
-        public IActionResult Actors()
-        {
-            ActorsListingModel actors = new ActorsListingModel
-            {
-                Actors = this.actorService.GetAllActors()
-                                          .Select(a => new ActorsListModelView()
-                                          {
-                                              Id = a.Id,
-                                              Name = a.Name
-                                          })
-            };
-
-            return this.View(actors);
         }
     }
 

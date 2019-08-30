@@ -15,6 +15,7 @@ namespace UltimateMovies.Services
         {
             this.db = db;
         }
+
         public void CreateActor(string name)
         {
             Actor actor = new Actor
@@ -32,41 +33,22 @@ namespace UltimateMovies.Services
 
         public Actor GetActor(int id)
         {
+            if (!this.db.Actors.Any(a => a.Id == id))
+            {
+                return null;
+            }
+
             return this.db.Actors.FirstOrDefault(a => a.Id == id);
         }
 
-        public IDictionary<int, KeyValuePair<string, string>> GetActorsMoviesAndPosters(int actorId)
+        public ICollection<Movie> GetActorsMoviesAndPosters(int actorId)
         {
-            Dictionary<int, KeyValuePair<string, string>> result = new Dictionary<int, KeyValuePair<string, string>>();
-
-            foreach (var am in this.db.ActorsMovies)
-            {
-                if (am.ActorId == actorId)
-                {
-                    result[am.MovieId] = new KeyValuePair<string, string>
-                        (this.db.Movies.FirstOrDefault(m => m.Id == am.MovieId).Name,
-                         this.db.Movies.FirstOrDefault(m => m.Id == am.MovieId).PosterUrl);
-                }
-            }
-
-            return result;
+            return this.db.ActorsMovies.ToList().FindAll(am => am.ActorId == actorId).Select(am => this.db.Movies.FirstOrDefault(m => m.Id == am.MovieId)).ToList();
         }
 
         public IEnumerable<Actor> GetAllActors()
         {
             return this.db.Actors;
-        }
-
-        private int ActorsCount()
-        {
-            int count = 0;
-
-            foreach (var actor in this.db.Actors)
-            {
-                count++;
-            }
-
-            return count;
         }
     }
 }

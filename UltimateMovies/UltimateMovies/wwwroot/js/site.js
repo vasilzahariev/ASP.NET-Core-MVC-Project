@@ -19,6 +19,6 @@ else {
 }
 
 
-$('input[type=radio]').on('change', function () {
+$('input[type=radio].submiter').on('change', function () {
     $("form").submit();
 });

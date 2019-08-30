@@ -102,18 +102,6 @@ namespace UltimateMovies.Services
             this.db.SaveChanges();
         }
 
-        private int MoviesCount()
-        {
-            int count = 0;
-
-            foreach (var movie in this.db.Movies)
-            {
-                count++;
-            }
-
-            return count;
-        }
-
         public Movie GetMovie(int id)
         {
             Movie resultMovie = null;
@@ -144,15 +132,15 @@ namespace UltimateMovies.Services
             return resultMovie;
         }
 
-        public Dictionary<string, int> GetActorsNames(int movieId)
+        public ICollection<Actor> GetActorsNames(int movieId)
         {
-            Dictionary<string, int> results = new Dictionary<string, int>();
+            List<Actor> results = new List<Actor>();
 
             foreach (var am in this.db.ActorsMovies)
             {
                 if (am.MovieId == movieId)
                 {
-                    results[this.db.Actors.FirstOrDefault(x => x.Id == am.ActorId).Name] = am.ActorId;
+                    results.Add(this.db.Actors.FirstOrDefault(a => a.Id == am.ActorId));
                 }
             }
 
@@ -161,7 +149,7 @@ namespace UltimateMovies.Services
 
         public IEnumerable<Movie> GetAllMovies()
         {
-            return this.db.Movies;
+            return this.db.Movies.ToList();
         }
 
         public bool IsMovieInUserWishList(string username, int movieId)

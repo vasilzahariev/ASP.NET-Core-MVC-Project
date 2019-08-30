@@ -1,5 +1,14 @@
 Reviews
 Admin Panel
+Suggest A Movie
 Tests
 Azure
 Redesign
+Add Digital Movie Payment
+
+Additional Stuff:
+Sending Emails,
+Ordering being POST (ViewData)
+Take Ordering into methods
+Add AutoMapper
+When User deletes his profile, you should delete everything associated with him from the DB

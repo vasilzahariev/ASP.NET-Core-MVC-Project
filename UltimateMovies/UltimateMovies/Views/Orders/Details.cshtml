@@ -38,7 +38,7 @@
             {
                 <p><b>Processed Date: </b> @Convert.ToDateTime(Model.ProcesedDate).ToString()</p>
             }
-            @if (Model.ProcesedDate == null)
+            @if (Model.DeliveredDate == null)
             {
                 <p><b>Delivered Date: <span class="text-danger">The order hasn't been delivered yet!</span> </b> </p>
             }

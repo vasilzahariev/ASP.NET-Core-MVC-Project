@@ -210,6 +210,19 @@ namespace UltimateMovies.Data.Migrations
                     b.ToTable("CartMovies");
                 });
 
+            modelBuilder.Entity("UltimateMovies.Models.LibraryMovie", b =>
+                {
+                    b.Property<string>("UserId");
+
+                    b.Property<int>("MovieId");
+
+                    b.HasKey("UserId", "MovieId");
+
+                    b.HasIndex("MovieId");
+
+                    b.ToTable("LibraryMovies");
+                });
+
             modelBuilder.Entity("UltimateMovies.Models.Movie", b =>
                 {
                     b.Property<int>("Id")
@@ -310,6 +323,23 @@ namespace UltimateMovies.Data.Migrations
                     b.HasIndex("OrderId");
 
                     b.ToTable("OrderMovies");
+                });
+
+            modelBuilder.Entity("UltimateMovies.Models.SuggestedMovie", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("IMDbUrl")
+                        .IsRequired();
+
+                    b.Property<string>("Name")
+                        .IsRequired();
+
+                    b.HasKey("Id");
+
+                    b.ToTable("SuggestedMovies");
                 });
 
             modelBuilder.Entity("UltimateMovies.Models.UMUser", b =>
@@ -456,6 +486,19 @@ namespace UltimateMovies.Data.Migrations
 
                     b.HasOne("UltimateMovies.Models.UMUser", "User")
                         .WithMany("Cart")
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade);
+                });
+
+            modelBuilder.Entity("UltimateMovies.Models.LibraryMovie", b =>
+                {
+                    b.HasOne("UltimateMovies.Models.Movie", "Movie")
+                        .WithMany("Libraries")
+                        .HasForeignKey("MovieId")
+                        .OnDelete(DeleteBehavior.Cascade);
+
+                    b.HasOne("UltimateMovies.Models.UMUser", "User")
+                        .WithMany("Library")
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade);
                 });

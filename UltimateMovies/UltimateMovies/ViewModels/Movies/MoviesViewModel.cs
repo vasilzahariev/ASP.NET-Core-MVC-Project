@@ -39,7 +39,7 @@ namespace UltimateMovies.ViewModels.Movies
 
         public string IMDbUrl { get; set; }
 
-        public IDictionary<string, int> Actors { get; set; }
+        public ICollection<Actor> Actors { get; set; }
 
         public string PosterUrl { get; set; }
 

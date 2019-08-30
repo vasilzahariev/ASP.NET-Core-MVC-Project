@@ -1,0 +1,42 @@
+﻿@using UltimateMovies.Areas.Admin.ViewModels
+@model ActorsListingModel
+
+@{
+    ViewData["Title"] = "Actors";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+}
+
+<div class="text-center text-primary" style="margin-bottom: 30px;">
+    <h1 class="" style="margin-bottom: 30px">Actors</h1>
+
+    <div>
+        <a href="/Admin/Actors/Create" class="btn btn-primary">Create</a>
+    </div>
+</div>
+
+<div class="container">
+    <table class="table table-hover">
+        <thead>
+            <tr class="row">
+                <th scope="col" class="col-lg-4">Id</th>
+                <th scope="col" class="col-lg-4">Name</th>
+                <th scope="col" class="col-lg-4">Functionalities</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var actor in Model.Actors)
+            {
+            <tr class="row">
+                <th class="col-lg-4">@actor.Id</th>
+                <th class="col-lg-4">@actor.Name</th>
+                <th class="col-lg-4">
+                <a href="/Admin/Actors/Edit/@actor.Id" class="btn btn-success">Edit</a>
+                <a href="/Actors/Details/@actor.Id" class="btn btn-info">Details</a>
+                <a href="/Actors/Remove/@actor.Id" class="btn btn-danger">Delete</a>
+                </th>
+            </tr>
+            }
+        </tbody>
+    </table>
+</div>
+

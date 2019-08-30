@@ -19,7 +19,7 @@ namespace UltimateMovies.Components
             this.cartsService = cartsService;
         }
 
-        public IViewComponentResult Invoke()
+        public async Task<IViewComponentResult> InvokeAsync()
         {
             Dictionary<Movie, int> movies = this.cartsService.GetAllMoviesFromUserCart(this.User.Identity.Name);
 

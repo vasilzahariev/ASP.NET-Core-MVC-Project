@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using UltimateMovies.Models;
 
 namespace UltimateMovies.ViewModels.Actors
 {
@@ -15,7 +16,7 @@ namespace UltimateMovies.ViewModels.Actors
 
         public string PictureUrl { get; set; }
 
-        public IDictionary<int, KeyValuePair<string, string>> MoviesPosters { get; set; }
+        public ICollection<Movie> Movies { get; set; }
 
     }
 }

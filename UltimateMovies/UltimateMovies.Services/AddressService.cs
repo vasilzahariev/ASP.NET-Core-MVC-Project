@@ -52,7 +52,7 @@ namespace UltimateMovies.Services
             return this.db.Addresses.FirstOrDefault(a => a.Id == id);
         }
 
-        public List<Address> GetAllUserAddresses(string username)
+        public ICollection<Address> GetAllUserAddresses(string username)
         {
             List<Address> result = new List<Address>();
 

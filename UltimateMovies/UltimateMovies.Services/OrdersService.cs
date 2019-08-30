@@ -17,7 +17,7 @@ namespace UltimateMovies.Services
             this.db = db;
         }
 
-        public List<Address> GetAllUserAddresses(string username)
+        public ICollection<Address> GetAllUserAddresses(string username)
         {
             List<Address> result = new List<Address>();
 
@@ -187,6 +187,27 @@ namespace UltimateMovies.Services
         public Order GetOrder(int id)
         {
             return this.db.Orders.FirstOrDefault(o => o.Id == id);
+        }
+
+        public List<Order> GetAllOrders()
+        {
+            return this.db.Orders.ToList();
+        }
+
+        public void ProcessOrder(int id)
+        {
+            this.db.Orders.FirstOrDefault(o => o.Id == id).OrderStatus = OrderStatus.Procesed;
+            this.db.Orders.FirstOrDefault(o => o.Id == id).ProcesedDate = DateTime.Now;
+
+            this.db.SaveChanges();
+        }
+
+        public void DeliverOrder(int id)
+        {
+            this.db.Orders.FirstOrDefault(o => o.Id == id).OrderStatus = OrderStatus.Delivered;
+            this.db.Orders.FirstOrDefault(o => o.Id == id).DeliveredDate = DateTime.Now;
+
+            this.db.SaveChanges();
         }
     }
 }

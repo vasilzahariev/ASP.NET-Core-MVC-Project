@@ -8,7 +8,7 @@ namespace UltimateMovies.Services
 {
     public interface IOrdersService
     {
-        List<Address> GetAllUserAddresses(string username);
+        ICollection<Address> GetAllUserAddresses(string username);
 
         UMUser GetUser(string username);
 
@@ -27,5 +27,11 @@ namespace UltimateMovies.Services
         List<Order> GetAllUserOrders(string username);
 
         bool CheckIfOrderBelongsToUser(int orderId, string username);
+
+        List<Order> GetAllOrders();
+
+        void ProcessOrder(int id);
+
+        void DeliverOrder(int id);
     }
 }

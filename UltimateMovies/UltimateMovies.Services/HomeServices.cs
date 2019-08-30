@@ -16,7 +16,7 @@ namespace UltimateMovies.Services
             this.db = db;
         }
 
-        public List<Movie> GetMovies()
+        public ICollection<Movie> GetMovies()
         {
             return this.db.Movies.ToList();
         }

@@ -1,0 +1,46 @@
+﻿@using UltimateMovies.Areas.Admin.ViewModels
+@model UserListingModel
+
+@{
+    ViewData["Title"] = "Users";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+}
+
+<div class="text-center" style="margin-bottom: 30px">
+    <h1>Users</h1>
+</div>
+
+<div class="container">
+    <table class="table table-hover text-center">
+        <thead>
+            <tr class="row">
+                <th scope="col" class="col-lg-3">Username</th>
+                <th scope="col" class="col-lg-3">Full Name</th>
+                <th scope="col" class="col-lg-3">Email</th>
+                <th scope="col" class="col-lg-3"></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model.Users)
+            {
+                <tr class="row">
+                    <th scope="col" class="col-lg-3">@item.Username</th>
+                    <th scope="col" class="col-lg-3">@item.FullName</th>
+                    <th scope="col" class="col-lg-3">@item.Email</th>
+                    @if (item.Role == "Admin")
+                    {
+                        <th scope="col" class="col-lg-3">
+                            <a href="/Admin/Users/RemoveAdmin/@item.Id" class="btn btn-danger">Remove Admin</a>
+                        </th>
+                    }
+                    else
+                    {
+                        <th scope="col" class="col-lg-3">
+                            <a href="/Admin/Users/MakeAdmin/@item.Id" class="btn btn-success text-center">Make Admin</a>
+                        </th>
+                    }
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>

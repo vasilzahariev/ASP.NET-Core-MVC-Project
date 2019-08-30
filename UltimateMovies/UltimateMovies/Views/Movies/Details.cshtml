@@ -24,13 +24,13 @@
         <b>Actors: </b>
         @foreach (var am in Model.Actors)
         {
-            if (am.Value == Model.Actors.Last().Value)
+            if (am.Name == Model.Actors.Last().Name)
             {
-                <a href="/Actors/Details/@am.Value">@am.Key</a>
+                <a href="/Actors/Details/@am.Id">@am.Name</a>
             }
             else
             {
-                <a href="/Actors/Details/@am.Value">@am.Key</a><span>, </span>
+                <a href="/Actors/Details/@am.Id">@am.Name</a><span>, </span>
             }
         }
         <br />

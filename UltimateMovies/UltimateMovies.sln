@@ -3,21 +3,23 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.28922.388
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UltimateMovies", "UltimateMovies\UltimateMovies.csproj", "{098F2300-36FA-4792-B2EB-5126AA70DBD1}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "UltimateMovies", "UltimateMovies\UltimateMovies.csproj", "{098F2300-36FA-4792-B2EB-5126AA70DBD1}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UltimateMovies.Data", "UltimateMovies.Data\UltimateMovies.Data.csproj", "{F8AEA916-C243-4FBD-B40A-5E4F67978301}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "UltimateMovies.Data", "UltimateMovies.Data\UltimateMovies.Data.csproj", "{F8AEA916-C243-4FBD-B40A-5E4F67978301}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UltimateMovies.Models", "UltimateMovies.Models\UltimateMovies.Models.csproj", "{26530F0E-CAB1-434E-A039-E4E2546FCD52}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "UltimateMovies.Models", "UltimateMovies.Models\UltimateMovies.Models.csproj", "{26530F0E-CAB1-434E-A039-E4E2546FCD52}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UltimateMovies.Services", "UltimateMovies.Services\UltimateMovies.Services.csproj", "{31D94208-44CD-4645-A929-F40FF06EBC20}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "UltimateMovies.Services", "UltimateMovies.Services\UltimateMovies.Services.csproj", "{31D94208-44CD-4645-A929-F40FF06EBC20}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Web", "Web", "{82ECD6A2-F4DC-4746-A3EC-AC13B6D46D3A}"
-EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{4ED664BC-0ED2-49B6-97FC-765F0223D608}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Data", "Data", "{87992CBB-67F0-47D8-98DD-39129563F647}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Services", "Services", "{14E272F2-0EA9-4EA0-A18F-2DFB3398E3A6}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UltimateMovies.Services.Tests", "Tests\UltimateMovies.Services.Tests\UltimateMovies.Services.Tests.csproj", "{D691DE83-CF4B-4E21-B62B-0A3461031BA1}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{EBF2C5CA-4CF4-4CC1-AF0E-203C3731022D}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -41,6 +43,10 @@ Global
 		{31D94208-44CD-4645-A929-F40FF06EBC20}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{31D94208-44CD-4645-A929-F40FF06EBC20}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{31D94208-44CD-4645-A929-F40FF06EBC20}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D691DE83-CF4B-4E21-B62B-0A3461031BA1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D691DE83-CF4B-4E21-B62B-0A3461031BA1}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D691DE83-CF4B-4E21-B62B-0A3461031BA1}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D691DE83-CF4B-4E21-B62B-0A3461031BA1}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -50,6 +56,7 @@ Global
 		{F8AEA916-C243-4FBD-B40A-5E4F67978301} = {87992CBB-67F0-47D8-98DD-39129563F647}
 		{26530F0E-CAB1-434E-A039-E4E2546FCD52} = {87992CBB-67F0-47D8-98DD-39129563F647}
 		{31D94208-44CD-4645-A929-F40FF06EBC20} = {14E272F2-0EA9-4EA0-A18F-2DFB3398E3A6}
+		{D691DE83-CF4B-4E21-B62B-0A3461031BA1} = {EBF2C5CA-4CF4-4CC1-AF0E-203C3731022D}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {21811FB6-FDCC-4EA4-83BF-E9B0C27737EA}

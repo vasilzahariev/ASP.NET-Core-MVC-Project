@@ -13,6 +13,6 @@ namespace UltimateMovies.Services
 
         IEnumerable<Actor> GetAllActors();
 
-        IDictionary<int, KeyValuePair<string, string>> GetActorsMoviesAndPosters(int actorId);
+        ICollection<Movie> GetActorsMoviesAndPosters(int actorId);
     }
 }

@@ -9,12 +9,18 @@ namespace UltimateMovies.Services
     {
         void AddMovieToWishList(string username, int movieId);
 
-        List<Movie> GetMoviesFromWishList(string username);
+        ICollection<Movie> GetMoviesFromWishList(string username);
 
         void RemoveMovieFromWishList(string username, int movieId);
 
         UMUser GetUser(string username);
 
         void AddPhoneToUser(string username, string phone);
+
+        UMUser GetUserById(string id);
+
+        ICollection<UMUser> GetAllUsers();
+
+        string GetUserRole(string id);
     }
 }

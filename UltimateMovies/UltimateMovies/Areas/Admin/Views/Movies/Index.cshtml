@@ -1,0 +1,52 @@
+﻿@model IEnumerable<UltimateMovies.Models.Movie>
+
+@{
+    ViewData["Title"] = "Movies";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+}
+
+<div class="text-center text-primary" style="margin-bottom: 30px;">
+    <h1 style="margin-bottom: 30px">Movies</h1>
+
+    <div>
+        <a href="/Admin/Movies/Create" class="btn btn-primary">Create</a>
+    </div>
+</div>
+
+<div class="container">
+    <table class="table table-hover text-center">
+        <thead>
+            <tr class="row">
+                <th scope="col" class="col-lg-1">
+                    Id
+                </th>
+                <th scope="col" class="col-lg-3">
+                </th>
+                <th scope="col" class="col-lg-4">
+                    Name
+                </th>
+                <th scope="col" class="col-lg-4"></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr class="row">
+                    <td class="col-lg-1" style="margin-top: auto; margin-bottom: auto; border-top: none">
+                        @item.Id
+                    </td>
+                    <td class="col-lg-3" style="border: none;">
+                        <img src="@item.PosterUrl" width="50%" />
+                    </td>
+                    <td class="col-lg-4" style="margin-top: auto; margin-bottom: auto; border-top: none">
+                        @item.Name
+                    </td>
+                    <td class="col-lg-4" style="margin-top: auto; margin-bottom: auto; text-align: center; border-top: none">
+                        <a href="/Admin/Moives/Edit/@item.Id" class="btn btn-success">Edit</a>
+                        <a href="/Movies/Details/@item.Id" class="btn btn-info">Details</a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>

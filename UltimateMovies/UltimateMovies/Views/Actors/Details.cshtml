@@ -25,12 +25,12 @@
             </tr>
         </thead>
         <tbody>
-            @foreach (var mp in Model.MoviesPosters)
+            @foreach (var movie in Model.Movies)
             {
                 <tr class="row">
-                    <td class="col-lg-4"><img src="@mp.Value.Value" alt="Alternate Text" width="100" height="150" /></td>
-                    <td class="col-lg-4" style="margin-top: auto; margin-bottom: auto; border-top: none">@mp.Value.Key</td>
-                    <td class="col-lg-4" style="margin-top: auto; margin-bottom: auto; border-top: none"><a href="/Movies/Details/@mp.Key" class="btn btn-outline-primary"><i class="fas fa-film"></i> Watch now!</a></td>
+                    <td class="col-lg-4"><img src="@movie.PosterUrl" alt="Alternate Text" width="100" height="150" /></td>
+                    <td class="col-lg-4" style="margin-top: auto; margin-bottom: auto; border-top: none">@movie.Name</td>
+                    <td class="col-lg-4" style="margin-top: auto; margin-bottom: auto; border-top: none"><a href="/Movies/Details/@movie.Id" class="btn btn-outline-primary"><i class="fas fa-film"></i> Watch now!</a></td>
                 </tr>
             }
         </tbody>

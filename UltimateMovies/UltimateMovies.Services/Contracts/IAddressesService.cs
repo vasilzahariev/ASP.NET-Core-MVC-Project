@@ -9,7 +9,7 @@ namespace UltimateMovies.Services
     {
         void CreateANewAddress(string country, string city, string street, string additionalInformation, int postCode, string username);
 
-        List<Address> GetAllUserAddresses(string username);
+        ICollection<Address> GetAllUserAddresses(string username);
 
         void RemoveAddress(int addressId);
 

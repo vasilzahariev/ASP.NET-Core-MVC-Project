@@ -26,5 +26,7 @@ namespace UltimateMovies.Models
         public virtual ICollection<WishListMovie> WishList { get; set; }
 
         public virtual ICollection<Order> Orders { get; set; }
+
+        public virtual ICollection<LibraryMovie> Library { get; set; }
     }
 }
