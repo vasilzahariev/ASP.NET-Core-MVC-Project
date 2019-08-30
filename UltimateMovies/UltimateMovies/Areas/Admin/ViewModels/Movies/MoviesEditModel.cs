@@ -3,12 +3,15 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Threading.Tasks;
+using UltimateMovies.Models;
 using UltimateMovies.Models.Enums;
 
-namespace UltimateMovies.ViewModels.Home
+namespace UltimateMovies.Areas.Admin.ViewModels
 {
-    public class MoviesInputModel
+    public class MoviesEditModel
     {
+        public int Id { get; set; }
+
         [Display(Name = "Movie's  name")]
         [Required]
         [MaxLength(50)]
@@ -66,10 +69,6 @@ namespace UltimateMovies.ViewModels.Home
         [Required]
         public string IMDbUrl { get; set; }
 
-        [Display(Name = "List of the Actors (Please add a new line after every Actor's name!)")]
-        [Required]
-        public string Actors { get; set; }
-
         [Display(Name = "Movie's Poster Url")]
         [Required]
         public string PosterUrl { get; set; }
@@ -77,5 +76,11 @@ namespace UltimateMovies.ViewModels.Home
         [Display(Name = "Movie's Trailer Url")]
         [Required]
         public string TrailerUrl { get; set; }
+
+        public List<Actor> Actors { get; set; }
+
+        public List<Actor> ActorWANFTM { get; set; }
+
+        public string Result { get; set; }
     }
 }

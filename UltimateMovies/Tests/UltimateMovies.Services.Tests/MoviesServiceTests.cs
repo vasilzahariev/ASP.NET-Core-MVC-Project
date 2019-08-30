@@ -152,5 +152,89 @@ namespace UltimateMovies.Services.Tests
             Assert.Equal("In", movie1);
             Assert.Equal("Out", movie2);
         }
+
+        [Fact]
+        public void SuggestAMovieShouldAddSuggestedMovieToDatabase()
+        {
+            DbContextOptions<UltimateMoviesDbContext> options = new DbContextOptionsBuilder<UltimateMoviesDbContext>()
+                  .UseInMemoryDatabase(databaseName: "Movies_SuggestAMovie_Database")
+                  .Options;
+            UltimateMoviesDbContext db = new UltimateMoviesDbContext(options);
+
+            IMoviesService moviesService = new MoviesService(db);
+
+            moviesService.SuggestAMovie("Test", "TestUrl");
+
+            int suggestedMoviesCount = db.SuggestedMovies.Count();
+
+            Assert.Equal(1, suggestedMoviesCount);
+        }
+
+        [Fact]
+        public void EditAMovieShouldReplaceTheOldInformationWithNewInTheDB()
+        {
+            DbContextOptions<UltimateMoviesDbContext> options = new DbContextOptionsBuilder<UltimateMoviesDbContext>()
+                  .UseInMemoryDatabase(databaseName: "Movies_EditAMovie_Database")
+                  .Options;
+            UltimateMoviesDbContext db = new UltimateMoviesDbContext(options);
+
+            IMoviesService moviesService = new MoviesService(db);
+
+            db.Movies.Add(new Movie
+            {
+                BluRayPrice = 1,
+                Description = "1",
+                Directors = "1",
+                DvdPrice = 1,
+                Genre = MovieGenre.Action,
+                Genre2 = MovieGenre.Adventure,
+                IMDbScore = 1,
+                IMDbUrl = "1",
+                Length = 1,
+                Name = "",
+                OnlinePrice = 1,
+                PosterUrl = "1",
+                RottenTomatoes = 1,
+                ReleaseDate = DateTime.Now,
+                TrailerUrl = "1"
+            });
+
+            db.SaveChanges();
+
+            moviesService.EditAMovie(db.Movies.Last().Id, "2", 2, 2, 2, "2", "2", MovieGenre.Adventure, MovieGenre.Comedy, MovieGenre.Drama, DateTime.Now, 2, 2, 2, "2", "2", "2");
+
+            Movie movie = db.Movies.Last();
+
+            Assert.Equal("2", movie.Name);
+            Assert.Equal(2, movie.BluRayPrice);
+            Assert.Equal(2, movie.OnlinePrice);
+            Assert.Equal(2, movie.DvdPrice);
+            Assert.Equal(2, movie.IMDbScore);
+            Assert.Equal(2, movie.RottenTomatoes);
+            Assert.Equal("2", movie.IMDbUrl);
+            Assert.Equal(2, movie.Length);
+            Assert.Equal("2", movie.Description);
+        }
+
+        [Fact]
+        public void RemoveActorFromMovieShouldDeleteActorMovie()
+        {
+            DbContextOptions<UltimateMoviesDbContext> options = new DbContextOptionsBuilder<UltimateMoviesDbContext>()
+                  .UseInMemoryDatabase(databaseName: "Movies_RemoveActorFromMovie_Database")
+                  .Options;
+            UltimateMoviesDbContext db = new UltimateMoviesDbContext(options);
+
+            IMoviesService moviesService = new MoviesService(db);
+
+            db.ActorsMovies.Add(new ActorMovie { ActorId = 1, MovieId = 1 });
+
+            db.SaveChanges();
+
+            moviesService.RemoveActorFromMovie(1, 1);
+
+            int count = db.ActorsMovies.Count();
+
+            Assert.Equal(0, count);
+        }
     }
 }

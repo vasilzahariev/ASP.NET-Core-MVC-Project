@@ -104,7 +104,7 @@ namespace UltimateMovies.Services.Tests
 
             db.SaveChanges();
 
-            usersService.RemoveMovieFromWishList("Tester", 1);
+            usersService.RemoveMovieFromWishList("Tester", db.Movies.Last().Id);
 
             Assert.Equal(0, db.WishListMovies.Count());
         }

@@ -22,3 +22,7 @@ else {
 $('input[type=radio].submiter').on('change', function () {
     $("form").submit();
 });
+
+$('a.makeSureYouSaveEverything').on('click', function () {
+    alert("Make sure you save everything before doing that action!");
+});

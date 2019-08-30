@@ -6,14 +6,20 @@ using System.Threading.Tasks;
 
 namespace UltimateMovies.Areas.Admin.ViewModels
 {
-    public class ActorsListModelView
+    public class ActorsEditModel
     {
-        [Display(Name = "Id")]
         public int Id { get; set; }
 
-        [Display(Name = "Actor's Name")]
+        [Required]
         public string Name { get; set; }
 
+        [Required]
+        public DateTime BirthDate { get; set; }
+
+        [Required]
+        public string IMDbUrl { get; set; }
+
+        [Required]
         public string PictureUrl { get; set; }
     }
 }

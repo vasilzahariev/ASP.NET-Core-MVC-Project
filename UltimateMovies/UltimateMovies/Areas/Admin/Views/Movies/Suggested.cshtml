@@ -1,0 +1,50 @@
+﻿@model IEnumerable<UltimateMovies.Models.SuggestedMovie>
+
+@{
+    ViewData["Title"] = "Suggested Movies";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+}
+
+<div style="margin-bottom: 30px">
+    <h1>Suggested Movies</h1>
+</div>
+<div class="container">
+    <table class="table table-hover text-center">
+        <thead>
+            <tr class="row">
+                <th scope="col" class="col-lg-4">
+                    Name
+                </th>
+                <th scope="col" class="col-lg-4">
+                    IMDbUrl
+                </th>
+                <th scope="col" class="col-lg-4"></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr class="row">
+                    <td class="col-lg-4">
+                        @item.Name
+                    </td>
+                    <td class="col-lg-4">
+                        @item.IMDbUrl
+                    </td>
+                    <td class="col-lg-4">
+                        <div class="d-inline-block">
+                            <form asp-area="Admin" asp-controller="Movies" asp-action="Suggested" method="post">
+                                <input type="hidden" name="Id" value="@item.Id" />
+                                <input type="hidden" name="Name" value="@item.Name" />
+                                <input type="hidden" name="IMDbUrl" value="@item.IMDbUrl" />
+
+                                <input type="submit" value="Create Movie" class="btn btn-primary" />
+                            </form>
+                        </div>
+                        <a href="/Admin/Movies/Suggested/Remove/@item.Id" class="btn btn-danger">Delete</a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>

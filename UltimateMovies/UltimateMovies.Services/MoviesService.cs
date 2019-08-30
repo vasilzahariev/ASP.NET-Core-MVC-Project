@@ -161,5 +161,97 @@ namespace UltimateMovies.Services
 
             return this.db.WishListMovies.Any(x => x.MovieId == movieId && x.UserId == this.db.Users.FirstOrDefault(u => u.UserName == username).Id);
         }
+
+        public void SuggestAMovie(string name, string imdburl)
+        {
+            if (!this.db.SuggestedMovies.Any(s => s.Name.ToLower() == name.ToLower() && s.IMDbUrl.ToLower() == imdburl.ToLower()))
+            {
+                SuggestedMovie suggestedMovie = new SuggestedMovie
+                {
+                    Name = name,
+                    IMDbUrl = imdburl
+                };
+
+                this.db.SuggestedMovies.Add(suggestedMovie);
+
+                this.db.SaveChanges();
+            }
+        }
+
+        public void EditAMovie(int id, string name, double onlinePrice, double bluRayPrice, double dvdPrice,
+                                string description, string directors, MovieGenre genre, MovieGenre? genre2,
+                                MovieGenre? genre3, DateTime releaseDate, int length, double imdbScore,
+                                int rottenTomatoes, string imdbUrl, string posterUrl,
+                                string trailerUrl)
+        {
+            this.db.Movies.FirstOrDefault(m => m.Id == id).Name = name;
+            this.db.Movies.FirstOrDefault(m => m.Id == id).OnlinePrice = onlinePrice;
+            this.db.Movies.FirstOrDefault(m => m.Id == id).BluRayPrice = bluRayPrice;
+            this.db.Movies.FirstOrDefault(m => m.Id == id).DvdPrice = dvdPrice;
+            this.db.Movies.FirstOrDefault(m => m.Id == id).Description = description;
+            this.db.Movies.FirstOrDefault(m => m.Id == id).Directors = directors;
+            this.db.Movies.FirstOrDefault(m => m.Id == id).Genre = genre;
+            this.db.Movies.FirstOrDefault(m => m.Id == id).Genre2 = (MovieGenre)genre2;
+            this.db.Movies.FirstOrDefault(m => m.Id == id).Genre3 = (MovieGenre)genre3;
+            this.db.Movies.FirstOrDefault(m => m.Id == id).ReleaseDate = releaseDate;
+            this.db.Movies.FirstOrDefault(m => m.Id == id).Length = length;
+            this.db.Movies.FirstOrDefault(m => m.Id == id).IMDbScore = imdbScore;
+            this.db.Movies.FirstOrDefault(m => m.Id == id).RottenTomatoes = rottenTomatoes;
+            this.db.Movies.FirstOrDefault(m => m.Id == id).IMDbUrl = imdbUrl;
+            this.db.Movies.FirstOrDefault(m => m.Id == id).PosterUrl = posterUrl;
+            this.db.Movies.FirstOrDefault(m => m.Id == id).TrailerUrl = trailerUrl;
+
+            this.db.SaveChanges();
+        }
+
+        public void RemoveActorFromMovie(int actorId, int movieId)
+        {
+            this.db.ActorsMovies.Remove(this.db.ActorsMovies.FirstOrDefault(am => am.ActorId == actorId && am.MovieId == movieId));
+
+            this.db.SaveChanges();
+        }
+
+        public ICollection<Actor> GetActorsWhoAreNotInThisMovie(int movieId)
+        {
+            List<Actor> result = new List<Actor>();
+
+            foreach (var actor in this.db.Actors)
+            {
+                if (!this.db.ActorsMovies.Any(am => am.ActorId == actor.Id && am.MovieId == movieId))
+                {
+                    result.Add(actor);
+                }
+            }
+
+            return result;
+        }
+
+        public void AddActorToMovie(int actorId, int movieId)
+        {
+            this.db.ActorsMovies.Add(new ActorMovie
+            {
+                ActorId = actorId,
+                MovieId = movieId
+            });
+
+            this.db.SaveChanges();
+        }
+
+        public ICollection<SuggestedMovie> GetAllSuggestedMovies()
+        {
+            return this.db.SuggestedMovies.ToList();
+        }
+
+        public void RemoveSuggestedMovie(int id)
+        {
+            this.db.SuggestedMovies.Remove(this.db.SuggestedMovies.FirstOrDefault(s => s.Id == id));
+
+            this.db.SaveChanges();
+        }
+
+        public int GetMovieId(string name)
+        {
+            return this.db.Movies.FirstOrDefault(m => m.Name == name).Id;
+        }
     }
 }

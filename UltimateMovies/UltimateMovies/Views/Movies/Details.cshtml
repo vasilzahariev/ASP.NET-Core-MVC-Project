@@ -6,7 +6,13 @@
     CultureInfo us = CultureInfo.GetCultureInfo("en-US");
 }
 
-<h1 style="margin-bottom: 10px; margin-left: 13px">@Model.Name (@Model.ReleaseDate.Year)</h1>
+<div style="margin-bottom: 10px; margin-left: 13px">
+    <h1 style="margin-bottom: 20px">@Model.Name (@Model.ReleaseDate.Year)</h1>
+    @if (this.User.IsInRole("Admin"))
+    {
+        <a href="/Admin/Movies/Edit/@Model.Id" class="btn btn-outline-success">Edit</a>
+    }
+</div>
 
 <hr />
 
@@ -35,13 +41,16 @@
         }
         <br />
         <br />
+        <b>More Info on IMDb: <a href="@Model.IMDbUrl">@Model.IMDbUrl</a></b>
+        <br />
+        <br />
 
         <div class="col-md-7 mt-4">
             <div class="mb-2" style="padding-bottom: 10px">
                 <img src="https://upload.wikimedia.org/wikipedia/commons/8/8c/Blu_ray_logo.png" alt="Alternate Text" width="50" height="40" style="margin-right: 41px" /> <a href="/Cart/Add/@Model.Id" class="btn btn-success">@(string.Format(us, "{0:C}", Model.BlueRayPrice))</a>
             </div>
             <div class="mb-2">
-                <a href="/Movies/Details/@Model.Id" class="btn btn-primary">Buy Digital! (@(string.Format(us, "{0:C}", Model.OnlinePrice)))</a>
+                <a href="/Movies/BuyDigital/@Model.Id" class="btn btn-primary">Buy Digital! (@(string.Format(us, "{0:C}", Model.OnlinePrice)))</a>
             </div>
         </div>
 

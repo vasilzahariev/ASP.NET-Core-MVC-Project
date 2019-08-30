@@ -1,0 +1,45 @@
+﻿@using UltimateMovies.Areas.Admin.ViewModels
+@model ActorInputModel
+
+@{
+    ViewData["Title"] = "Create";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+}
+
+<h1>Create</h1>
+<hr />
+<div class="row">
+    <div class="col-md-4 text-center" style="margin: 0 auto">
+        <form asp-area="Admins" asp-controller="Actors" asp-action="Create" method="post">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="Name" class="control-label"></label>
+                <input asp-for="Name" class="form-control" />
+                <span asp-validation-for="Name" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="BirthDate" class="control-label"></label>
+                <input asp-for="BirthDate" class="form-control" />
+                <span asp-validation-for="BirthDate" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="IMDbUrl" class="control-label"></label>
+                <input asp-for="IMDbUrl" class="form-control" />
+                <span asp-validation-for="IMDbUrl" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="PictureUrl" class="control-label">Picture Url (You can change it)</label>
+                <input asp-for="PictureUrl" class="form-control" value="https://upload.wikimedia.org/wikipedia/commons/thumb/a/ac/No_image_available.svg/1024px-No_image_available.svg.png" />
+                <span asp-validation-for="PictureUrl" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Create" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+

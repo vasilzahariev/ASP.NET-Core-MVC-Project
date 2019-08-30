@@ -1,0 +1,119 @@
+﻿@using UltimateMovies.Areas.Admin.ViewModels
+@model MoviesInputModel
+
+@{
+    ViewData["Title"] = "Create A Movies";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+}
+
+<h1>Create A Movie</h1>
+
+<div class="row">
+    <div class="col-md-10">
+        <form class="mx-auto half-width col-5" asp-area="Admin" asp-controller="Movies" asp-action="Create" method="post">
+            <div class="form-group">
+                <label asp-for="Name" class="control-label"></label>
+                <input asp-for="Name" class="form-control" />
+                <span asp-validation-for="Name" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="OnlinePrice" class="control-label">Online Price</label>
+                <input asp-for="OnlinePrice" class="form-control" />
+                <span asp-validation-for="OnlinePrice" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="BluRayPrice" class="control-label">Blu-Ray Price</label>
+                <input asp-for="BluRayPrice" class="form-control" />
+                <span asp-validation-for="BluRayPrice" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="DvdPrice" class="control-label">Dvd Price</label>
+                <input asp-for="DvdPrice" class="form-control" />
+                <span asp-validation-for="DvdPrice" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Description" class="control-label"></label>
+                <input asp-for="Description" class="form-control" />
+                <span asp-validation-for="Description" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Directors" class="control-label"></label>
+                <input asp-for="Directors" class="form-control" />
+                <span asp-validation-for="Directors" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Genre" class="control-label"></label>
+                <select asp-for="Genre" class="form-control">
+                    @foreach (var genre in (MovieGenre[])Enum.GetValues(typeof(MovieGenre)))
+                    {
+                        <option value="@genre.ToString()">@genre.ToString()</option>
+                    }
+                </select>
+                <span asp-validation-for="Genre" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Genre2" class="control-label">Genre 2</label>
+                <select asp-for="Genre2" class="form-control">
+                    @foreach (var genre in (MovieGenre[])Enum.GetValues(typeof(MovieGenre)))
+                    {
+                        <option value="@genre.ToString()">@genre.ToString()</option>
+                    }
+                </select>
+                <span asp-validation-for="Genre2" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Genre3" class="control-label">Genre 3</label>
+                <select asp-for="Genre3" class="form-control">
+                    @foreach (var genre in (MovieGenre[])Enum.GetValues(typeof(MovieGenre)))
+                    {
+                        <option value="@genre.ToString()">@genre.ToString()</option>
+                    }
+                </select>
+                <span asp-validation-for="Genre3" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="ReleaseDate" class="control-label">Release Date</label>
+                <input asp-for="ReleaseDate" class="form-control" />
+                <span asp-validation-for="ReleaseDate" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Length" class="control-label"></label>
+                <input asp-for="Length" class="form-control" />
+                <span asp-validation-for="Length" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="IMDbScore" class="control-label">IMDb Score</label>
+                <input asp-for="IMDbScore" class="form-control" />
+                <span asp-validation-for="IMDbScore" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="RottenTomatoes" class="control-label">Rotten Tomatoes Score</label>
+                <input asp-for="RottenTomatoes" class="form-control" />
+                <span asp-validation-for="RottenTomatoes" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="IMDbUrl" class="control-label">IMDb Url</label>
+                <input asp-for="IMDbUrl" class="form-control" />
+                <span asp-validation-for="IMDbUrl" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label for="Actors" class="control-label">Actors (Please add a new line after every Actor's name!)</label>
+                <textarea name="Actors" id="Actors" class="form-control" value=""></textarea>
+            </div>
+            <div class="form-group">
+                <label asp-for="PosterUrl" class="control-label">Poster Url</label>
+                <input asp-for="PosterUrl" class="form-control" />
+                <span asp-validation-for="PosterUrl" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="TrailerUrl" class="control-label">Trailer Url</label>
+                <input asp-for="TrailerUrl" class="form-control" />
+                <span asp-validation-for="TrailerUrl" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Create" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+

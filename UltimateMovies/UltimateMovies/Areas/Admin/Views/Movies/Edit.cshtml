@@ -1,32 +1,35 @@
-﻿@model Movie
+﻿@using UltimateMovies.Areas.Admin.ViewModels
+@model MoviesEditModel
 
 @{
-    ViewData["Title"] = "CreateMovie";
-    Layout = "~/Views/Shared/_Layout.cshtml";
+    ViewData["Title"] = "Edit";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
 }
 
-<h1>Create A Movie</h1>
-
+<h1>Edit</h1>
+<hr />
 <div class="row">
-    <div class="col-md-10">
-        <form class="mx-auto half-width col-5" action="/Movies/CreateMovie" method="post">
+    <div class="col-md-4 text-center" style="margin-left: auto; margin-right: auto;">
+        <form asp-area="Admin" asp-controller="Movies" asp-action="Edit" method="post">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input type="hidden" asp-for="Id" />
             <div class="form-group">
                 <label asp-for="Name" class="control-label"></label>
                 <input asp-for="Name" class="form-control" />
                 <span asp-validation-for="Name" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="OnlinePrice" class="control-label">Online Price</label>
+                <label asp-for="OnlinePrice" class="control-label"></label>
                 <input asp-for="OnlinePrice" class="form-control" />
                 <span asp-validation-for="OnlinePrice" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="BluRayPrice" class="control-label">Blu-Ray Price</label>
+                <label asp-for="BluRayPrice" class="control-label"></label>
                 <input asp-for="BluRayPrice" class="form-control" />
                 <span asp-validation-for="BluRayPrice" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="DvdPrice" class="control-label">Dvd Price</label>
+                <label asp-for="DvdPrice" class="control-label"></label>
                 <input asp-for="DvdPrice" class="form-control" />
                 <span asp-validation-for="DvdPrice" class="text-danger"></span>
             </div>
@@ -51,7 +54,7 @@
                 <span asp-validation-for="Genre" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="Genre2" class="control-label">Genre 2</label>
+                <label asp-for="Genre2" class="control-label"></label>
                 <select asp-for="Genre2" class="form-control">
                     @foreach (var genre in (MovieGenre[])Enum.GetValues(typeof(MovieGenre)))
                     {
@@ -61,7 +64,7 @@
                 <span asp-validation-for="Genre2" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="Genre3" class="control-label">Genre 3</label>
+                <label asp-for="Genre3" class="control-label"></label>
                 <select asp-for="Genre3" class="form-control">
                     @foreach (var genre in (MovieGenre[])Enum.GetValues(typeof(MovieGenre)))
                     {
@@ -71,7 +74,7 @@
                 <span asp-validation-for="Genre3" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="ReleaseDate" class="control-label">Release Date</label>
+                <label asp-for="ReleaseDate" class="control-label"></label>
                 <input asp-for="ReleaseDate" class="form-control" />
                 <span asp-validation-for="ReleaseDate" class="text-danger"></span>
             </div>
@@ -81,35 +84,76 @@
                 <span asp-validation-for="Length" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="IMDbScore" class="control-label">IMDb Score</label>
+                <label asp-for="IMDbScore" class="control-label"></label>
                 <input asp-for="IMDbScore" class="form-control" />
                 <span asp-validation-for="IMDbScore" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="RottenTomatoes" class="control-label">Rotten Tomatoes Score</label>
+                <label asp-for="RottenTomatoes" class="control-label"></label>
                 <input asp-for="RottenTomatoes" class="form-control" />
                 <span asp-validation-for="RottenTomatoes" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="IMDbUrl" class="control-label">IMDb Url</label>
+                <label asp-for="IMDbUrl" class="control-label"></label>
                 <input asp-for="IMDbUrl" class="form-control" />
                 <span asp-validation-for="IMDbUrl" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label for="Actors" class="control-label">Actors</label>
-                <textarea name="Actors" id="Actors" class="form-control" value=""></textarea>
+                <label asp-for="TrailerUrl" class="control-label"></label>
+                <input asp-for="TrailerUrl" class="form-control" />
+                <span asp-validation-for="TrailerUrl" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label for="PosterUrl" class="control-label">Poster Url</label>
-                <input type="text" class="form-control" name="PosterUrl" id="PosterUrl" value="" />
+                <label asp-for="PosterUrl" class="control-label"></label>
+                <input asp-for="PosterUrl" class="form-control" />
+                <span asp-validation-for="PosterUrl" class="text-danger"></span>
+            </div>
+            <div class="form-grop container" style="margin-bottom: 20px">
+                <table class="table table-hover">
+                    <thead>
+                        <tr class="row">
+                            <th scope="col" class="col-lg-4"></th>
+                            <th scope="col" class="col-lg-4">Name</th>
+                            <th scope="col" class="col-lg-4"></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var actor in Model.Actors)
+                        {
+                            <tr class="row">
+                                <th class="col-lg-4"><img src="@actor.PictureUrl" alt="Alternate Text" width="50%" /></th>
+                                <th class="col-lg-4">@actor.Name</th>
+                                <th class="col-lg-4">
+                                    @*<a href="/Admin/Movies/RemoveActor/@actor.Id" class="btn btn-danger makeSureYouSaveEverything">Remove</a>*@
+                                    <input type="hidden" />
+                                    <button type="submit" name="actorId" value="@actor.Id.ToString()" class="btn btn-danger">Remove</button>
+                                </th>
+                            </tr>
+                        }
+                    </tbody>
+                    <tfoot>
+                        <tr class="row">
+                            <th class="col-lg-7">
+                                <select name="adding" class="form-control">
+                                    @foreach (var actor in Model.ActorWANFTM.OrderBy(a => a.Name))
+                                    {
+                                        <option value="@actor.Id">@actor.Name</option>
+                                    }
+                                </select>
+                            </th>
+                            <th class="col-lg-5"><button type="submit" name="adding" value="adding" class="btn btn-success">Add Actor</button></th>
+                        </tr>
+                    </tfoot>
+                </table>
             </div>
             <div class="form-group">
-                <label asp-for="TrailerUrl" class="control-label">Trailer Url</label>
-                <input type="text" class="form-control" name="TrailerUrl" id="TrailerUrl" value="" />
-            </div>
-            <div class="form-group">
-                <input type="submit" value="Create" class="btn btn-primary" />
+                <button type="submit" name="actorId" value="No" class="btn btn-primary">Save</button>
             </div>
         </form>
     </div>
 </div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+

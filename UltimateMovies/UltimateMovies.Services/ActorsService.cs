@@ -31,6 +31,29 @@ namespace UltimateMovies.Services
             this.db.SaveChanges();
         }
 
+        public void CreateActor(string name, DateTime birthDate, string imdbUrl, string pictureUrl)
+        {
+            this.db.Actors.Add(new Actor
+            {
+                Name = name,
+                BirthDate = birthDate,
+                ImdbUrl = imdbUrl,
+                PictureUrl = pictureUrl
+            });
+
+            this.db.SaveChanges();
+        }
+
+        public void Edit(int id, string name, DateTime birthDate, string iMDbUrl, string pictureUrl)
+        {
+            this.db.Actors.FirstOrDefault(a => a.Id == id).Name = name;
+            this.db.Actors.FirstOrDefault(a => a.Id == id).BirthDate = birthDate;
+            this.db.Actors.FirstOrDefault(a => a.Id == id).ImdbUrl = iMDbUrl;
+            this.db.Actors.FirstOrDefault(a => a.Id == id).PictureUrl = pictureUrl;
+
+            this.db.SaveChanges();
+        }
+
         public Actor GetActor(int id)
         {
             if (!this.db.Actors.Any(a => a.Id == id))
@@ -49,6 +72,15 @@ namespace UltimateMovies.Services
         public IEnumerable<Actor> GetAllActors()
         {
             return this.db.Actors;
+        }
+
+        public void Remove(int actorId)
+        {
+            this.db.ActorsMovies.RemoveRange(this.db.ActorsMovies.ToList().FindAll(am => am.ActorId == actorId));
+
+            this.db.Actors.Remove(this.db.Actors.FirstOrDefault(a => a.Id == actorId));
+
+            this.db.SaveChanges();
         }
     }
 }

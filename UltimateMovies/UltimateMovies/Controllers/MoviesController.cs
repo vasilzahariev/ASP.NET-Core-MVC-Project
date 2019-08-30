@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using UltimateMovies.Models;
+using UltimateMovies.Models.Enums;
 using UltimateMovies.Services;
 using UltimateMovies.ViewModels.Home;
 using UltimateMovies.ViewModels.Movies;
@@ -49,28 +50,28 @@ namespace UltimateMovies.Controllers
             return this.View(movie);
         }
 
-        [HttpGet]
-        [Authorize]
-        public IActionResult CreateMovie()
+        [HttpGet("/Movies/Suggest/")]
+        public IActionResult Suggest(string movieName)
         {
+            SuggestMovieInputModel model = new SuggestMovieInputModel { Name = movieName };
 
-            return this.View();
+            return this.View(model);
         }
 
-        [HttpPost]
-        public IActionResult CreateMovie(MoviesInputModel movie)
+        // TODO: Make it so you get message of success
+        [HttpPost("/Movies/Suggest/")]
+        public IActionResult Suggest(SuggestMovieInputModel input)
         {
             if (!this.ModelState.IsValid)
             {
-                this.ViewData["ValidationError"] = this.ModelState.ValidationState.ToString();
-                return this.Redirect("/");
+                return this.View("Suggest");
             }
 
-            this.moviesService.CreateMovie(movie.Name, movie.OnlinePrice, movie.BluRayPrice, movie.DvdPrice,
-                movie.Description, movie.Directors, movie.Genre, movie.Genre2, movie.Genre3, movie.ReleaseDate,
-                movie.Length, movie.IMDbScore, movie.RottenTomatoes, movie.IMDbUrl, movie.Actors, movie.PosterUrl, movie.TrailerUrl);
+            this.moviesService.SuggestAMovie(input.Name, input.IMDbUrl);
 
-            return this.Redirect("~/");
+            ViewData["Message"] = "Thank you for the suggestion, we are going to look at it and try to get the movie up as soon as possible!";
+
+            return this.Redirect("/");
         }
     }
 }
