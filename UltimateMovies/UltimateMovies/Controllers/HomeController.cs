@@ -2,8 +2,11 @@
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
+using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using UltimateMovies.Models;
 using UltimateMovies.Models.Enums;
 using UltimateMovies.Services;
 using UltimateMovies.ViewModels;
@@ -14,10 +17,18 @@ namespace UltimateMovies.Controllers
     public class HomeController : Controller
     {
         private IHomeServices homeServices;
+        private readonly UserManager<UMUser> userManager;
+        private readonly RoleManager<IdentityRole> roleManager;
+        private readonly IUsersService usersService;
+        private string name;
 
-        public HomeController(IHomeServices homeServices)
+        public HomeController(IHomeServices homeServices, UserManager<UMUser> userManager, RoleManager<IdentityRole> roleManager, IUsersService usersService)
         {
             this.homeServices = homeServices;
+            this.userManager = userManager;
+            this.roleManager = roleManager;
+            this.usersService = usersService;
+            this.name = roleManager.Roles.ToList()[0].Name;
         }
 
         //[HttpGet("/{genre}")]

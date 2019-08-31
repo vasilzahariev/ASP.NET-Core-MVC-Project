@@ -10,14 +10,14 @@
     <h1 style="margin-bottom: 20px">@Model.Name (@Model.ReleaseDate.Year)</h1>
     @if (this.User.IsInRole("Admin"))
     {
-        <a href="/Admin/Movies/Edit/@Model.Id" class="btn btn-outline-success">Edit</a>
+    <a href="/Admin/Movies/Edit/@Model.Id" class="btn btn-outline-success">Edit</a>
     }
 </div>
 
 <hr />
 
 <div class="col-md-5 d-inline-block">
-    <p style="font-size: 20px; width: 700px;">
+    <div style="font-size: 20px; width: 170%; margin-bottom: 15px">
         <b>Story:</b>
         <i>@Model.Description</i>
         <br />
@@ -32,11 +32,11 @@
         {
             if (am.Name == Model.Actors.Last().Name)
             {
-                <a href="/Actors/Details/@am.Id">@am.Name</a>
+        <a href="/Actors/Details/@am.Id">@am.Name</a>
             }
             else
             {
-                <a href="/Actors/Details/@am.Id">@am.Name</a><span>, </span>
+        <a href="/Actors/Details/@am.Id">@am.Name</a><span>, </span>
             }
         }
         <br />
@@ -44,32 +44,32 @@
         <b>More Info on IMDb: <a href="@Model.IMDbUrl">@Model.IMDbUrl</a></b>
         <br />
         <br />
+    </div>
 
-        <div class="col-md-8 mt-4">
-            <div class="mb-2" style="padding-bottom: 10px">
-                <a href="/Cart/Add/@Model.Id" class="btn btn-success">Add to Cart (Blu-Ray: @(string.Format(us, "{0:C}", Model.BlueRayPrice)))</a>
-            </div>
-            @if (!Model.IsInUserLibrary)
+    <div class="col-md-8 mt-4" style="margin-left: -14px;padding-top: 10px;">
+        <div class="mb-2" style="padding-bottom: 10px">
+            <a href="/Cart/Add/@Model.Id" class="btn btn-success">Add to Cart (Blu-Ray: @(string.Format(us, "{0:C}", Model.BlueRayPrice)))</a>
+        </div>
+        @if (!Model.IsInUserLibrary)
             {
-                <div class="mb-2">
-                    <a href="/Movies/BuyDigital/@Model.Id" class="btn btn-primary">Buy Digital! (@(string.Format(us, "{0:C}", Model.OnlinePrice)))</a>
-                </div>
+        <div class="mb-2">
+            <a href="/Movies/BuyDigital/@Model.Id" class="btn btn-primary">Buy Digital! (@(string.Format(us, "{0:C}", Model.OnlinePrice)))</a>
+        </div>
             }
             else
             {
-                <div class="mb-2">
-                    <a href="/User/Library" class="btn btn-primary">Library</a>
-                </div>
+        <div class="mb-2">
+            <a href="/User/Library" class="btn btn-primary">Library</a>
+        </div>
             }
-        </div>
+    </div>
 
-        <br />
-        <br />
+    <br />
+    <br />
 
-        <div>
-            <iframe width="700" height="400" src="@Model.TrailerUrl" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-        </div>
-    </p>
+    <div style="margin-top: 25px">
+        <iframe width="160%" height="400" src="@Model.TrailerUrl" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+    </div>
 </div>
 
 <div class="col-md-4 d-inline-block float-right" style="margin-bottom: 40px; margin-top: 7px">
@@ -87,11 +87,11 @@
             <div style="text-align: center; margin-top: 70px">
                 @if (Model.IsInUserWishList)
                 {
-                    <a href="/User/AddToWishList/@Model.Id" class="btn btn-danger"><i class="fas fa-heart"></i></a>
+                <a href="/User/AddToWishList/@Model.Id" class="btn btn-danger"><i class="fas fa-heart"></i></a>
                 }
                 else
                 {
-                    <a href="/User/AddToWishList/@Model.Id" class="btn btn-outline-danger"><i class="fas fa-heart"></i></a>
+                <a href="/User/AddToWishList/@Model.Id" class="btn btn-outline-danger"><i class="fas fa-heart"></i></a>
                 }
             </div>
         </div>
@@ -99,29 +99,29 @@
 </div>
 <hr />
 <div class="col-md-12">
-    <form asp-controller="Movies" asp-action="Details" method="post" class="col-md-5" style="margin-bottom: 40px">
+    <form asp-controller="Movies" asp-action="Details" method="post" class="col-md-5" style="margin-bottom: 40px; margin-left: -13px">
         <label for="score" class="control-label">Score:</label>
         <input type="number" name="score" value="" placeholder="0.01 to 10.00" class="form-control" style="margin-bottom: 10px" />
         <label for="comment" class="control-label">Comment:</label>
         <textarea name="comment" class="form-control" style="margin-bottom: 10px"></textarea>
 
-        <input type="submit" value="Add Review" class="btn btn-primary" />
+        <input type="submit" value="Add Review" class="btn btn-primary" style="margin-top: 10px" />
     </form>
     <h3>Reviews (@Model.Reviews.Count())</h3>
     <hr />
     <ul style="margin-left: -40px" type="none">
         @foreach (var review in Model.Reviews)
         {
-            <li>
-                <div class="border shadow-lg border-primary" style="padding: 20px">
-                    <div style="margin-bottom: 25px">
-                        <h5><b>User: </b>@(review.Username)</h5>
-                        <h6><b>Score:</b> @(review.Score)</h6>
-                        <hr class="bg-primary" />
-                    </div>
-                    <p>@review.Comment</p>
+        <li>
+            <div class="border shadow-lg border-primary" style="padding: 20px">
+                <div style="margin-bottom: 25px">
+                    <h5><b>User: </b>@(review.Username)</h5>
+                    <h6><b>Score:</b> @(review.Score)</h6>
+                    <hr class="bg-primary" />
                 </div>
-            </li>
+                <p>@review.Comment</p>
+            </div>
+        </li>
         }
     </ul>
 </div>

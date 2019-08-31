@@ -13,7 +13,7 @@
     @if (SignInManager.IsSignedIn(User))
     {
         <li class="nav-item dropdown justThis">
-            <a class="nav-link text-white dropdown-toggle" role="button" data-toggle="dropdown" data-hover="dropdown" href="#"><i class="fas fa-user"></i> Hello @User.Identity.Name!</a>
+            <a class="nav-link text-white dropdown-toggle" role="button" data-toggle="dropdown" data-hover="dropdown" href="#"><i class="fas fa-user"></i> Hello, @User.Identity.Name!</a>
             <ul class="dropdown-menu bg-primary keep-open">
                 <li><a class="btn text-white dropdown" href="/User/WishList" style="width: 100%; text-align: left"><i class="fas fa-heart"></i> Wish List</a></li>
                 <li><a class="btn text-white dropdown" href="/User/Library" style="width: 100%; text-align: left"><i class="fas fa-film"></i> Library</a></li>
