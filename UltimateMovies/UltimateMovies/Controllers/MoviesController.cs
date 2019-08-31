@@ -46,6 +46,7 @@ namespace UltimateMovies.Controllers
             movie.Actors = this.moviesService.GetActorsNames(m.Id);
             movie.TrailerUrl = m.TrailerUrl;
             movie.IsInUserWishList = this.User.Identity.IsAuthenticated ? this.moviesService.IsMovieInUserWishList(this.User.Identity.Name, m.Id) : false;
+            movie.IsInUserLibrary = this.User.Identity.IsAuthenticated ? this.moviesService.IsMovieInUserLibrary(this.User.Identity.Name, m.Id) : false;
 
             return this.View(movie);
         }
@@ -70,6 +71,58 @@ namespace UltimateMovies.Controllers
             this.moviesService.SuggestAMovie(input.Name, input.IMDbUrl);
 
             ViewData["Message"] = "Thank you for the suggestion, we are going to look at it and try to get the movie up as soon as possible!";
+
+            return this.Redirect("/");
+        }
+
+        [Authorize]
+        [HttpGet("/Movies/BuyDigital/{id}")]
+        public IActionResult BuyDigital(int id)
+        {
+            if (this.moviesService.Exists(id) && !this.moviesService.IsMovieInUserLibrary(this.User.Identity.Name, id))
+            {
+                Movie movie = this.moviesService.GetMovie(id);
+
+                DigitalMoviePayModel model = new DigitalMoviePayModel
+                {
+                    Id = movie.Id,
+                    Name = movie.Name,
+                    PosterUrl = movie.PosterUrl,
+                    Price = movie.OnlinePrice
+                };
+
+                return this.View(model);
+            }
+
+            return this.Redirect("/");
+        }
+
+        [Authorize]
+        [HttpPost("/Movies/BuyDigital/{id}")]
+        public IActionResult BuyDigital(int Id, double Price)
+        {
+            this.moviesService.BuyDigital(Id, this.User.Identity.Name);
+
+            return this.Redirect("/User/Library");
+        }
+
+        [Authorize]
+        [HttpGet("/Movies/Watch/{id}")]
+        public IActionResult Watch(int id)
+        {
+            if (this.moviesService.IsMovieInUserLibrary(this.User.Identity.Name, id))
+            {
+                Movie movie = this.moviesService.GetMovie(id);
+
+                WatchMovieViewModel model = new WatchMovieViewModel
+                {
+                    Id = movie.Id,
+                    MovieUrl = movie.TrailerUrl,
+                    Name = movie.Name
+                };
+
+                return this.View(model);
+            }
 
             return this.Redirect("/");
         }

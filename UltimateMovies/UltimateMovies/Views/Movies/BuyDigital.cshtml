@@ -1,0 +1,28 @@
+﻿@using UltimateMovies.ViewModels.Movies
+@model DigitalMoviePayModel
+
+@{
+    ViewData["Title"] = "Buy Digital";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    CultureInfo us = CultureInfo.GetCultureInfo("en-US");
+}
+
+<h1>Buy Digital</h1>
+<hr />
+<div class="row">
+    <div class="col-md-6">
+        <a href="/Movies/Details/@Model.Id">
+            <img src="@Model.PosterUrl" alt="Alternate Text" width="90%" />
+        </a>
+    </div>
+    <div class="col-md-6 text-primary text-center">
+        <h3><b style="color: black;">Movie: </b><a href="/Movies/Details/@Model.Id">@Model.Name</a></h3>
+        <h4><b style="color: black">Price: </b>@string.Format(us, "{0:C}", Model.Price)</h4>
+        <form asp-controller="Movies" asp-action="BuyDigital" method="post">
+            <input type="hidden" name="Id" value="@Model.Id" />
+            <input type="hidden" name="Price" value="@Model.Price" />
+            <input type="submit" value="Buy!" class="btn btn-success" style="width: 100%; margin-top: 50px" />
+        </form>
+    </div>
+</div>
+

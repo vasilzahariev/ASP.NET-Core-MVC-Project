@@ -25,6 +25,15 @@
                 .nav-item:hover::after {
                     width: 100%;
                 }
+
+                .nav-item::after {
+                    content: '';
+                    display: block;
+                    width: 0px;
+                    height: 2px;
+                    background: white;
+                    transition: 0.2s;
+                }
             </style>
             @*navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3*@
             <nav class="navbar sticky-top navbar-expand-lg navbar-dark bg-primary pb-1 pt-1navbar sticky-top navbar-expand-lg navbar-dark pb-1 pt-1">

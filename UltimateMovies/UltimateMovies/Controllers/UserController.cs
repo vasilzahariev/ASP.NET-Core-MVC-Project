@@ -13,10 +13,12 @@ namespace UltimateMovies.Controllers
     public class UserController : Controller
     {
         private IUsersService usersService;
+        private readonly IMoviesService moviesService;
 
-        public UserController(IUsersService usersService)
+        public UserController(IUsersService usersService, IMoviesService moviesService)
         {
             this.usersService = usersService;
+            this.moviesService = moviesService;
         }
         [HttpGet("/User/AddToWishList/{movieId}")]
         public IActionResult AddToWishList(int movieId)
@@ -35,7 +37,8 @@ namespace UltimateMovies.Controllers
                 {
                     MovieId = m.Id,
                     MovieName = m.Name,
-                    PosterUrl = m.PosterUrl
+                    PosterUrl = m.PosterUrl,
+                    IsMovieInUserLibrary = this.moviesService.IsMovieInUserLibrary(this.User.Identity.Name, m.Id)
                 }).ToList()
             };
 
@@ -48,6 +51,22 @@ namespace UltimateMovies.Controllers
             this.usersService.RemoveMovieFromWishList(this.User.Identity.Name, movieId);
 
             return this.Redirect(this.Request.Headers["Referer"].ToString());
+        }
+
+        [HttpGet("/User/Library")]
+        public IActionResult Library()
+        {
+            LibraryListingModel model = new LibraryListingModel
+            {
+                Movies = this.usersService.GetMoviesFromLibrary(this.User.Identity.Name).Select(x => new LibraryMovieViewModel
+                {
+                    Id = x.Id,
+                    Name = x.Name,
+                    PosterUrl = x.PosterUrl
+                }).ToList()
+            };
+
+            return this.View(model);
         }
     }
 }

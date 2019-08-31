@@ -33,5 +33,11 @@ namespace UltimateMovies.Services
         void RemoveSuggestedMovie(int id);
 
         int GetMovieId(string name);
+
+        bool Exists(int id);
+
+        void BuyDigital(int id, string username);
+
+        bool IsMovieInUserLibrary(string username, int movieId);
     }
 }

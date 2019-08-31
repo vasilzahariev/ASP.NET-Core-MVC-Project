@@ -5,14 +5,12 @@ using System.Threading.Tasks;
 
 namespace UltimateMovies.ViewModels.Users
 {
-    public class WishListModelView
+    public class LibraryMovieViewModel
     {
-        public int MovieId { get; set; }
+        public int Id { get; set; }
 
-        public string MovieName { get; set; }
+        public string Name { get; set; }
 
         public string PosterUrl { get; set; }
-
-        public bool IsMovieInUserLibrary { get; set; }
     }
 }

@@ -1,0 +1,33 @@
+﻿@using UltimateMovies.ViewModels.Users
+@model LibraryListingModel
+
+@{
+    ViewData["Title"] = "Library";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h1>Library</h1>
+
+<div class="container justify-content-center">
+    <table class="table table-hover text-center">
+        <thead>
+            <tr class="row">
+                <th scope="col" class="col-lg-3">Poster</th>
+                <th scope="col" class="col-lg-3">Name</th>
+                <th scope="col" class="col-lg-6"></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var movie in Model.Movies)
+            {
+                <tr class="row">
+                    <th class="col-lg-3" style="margin-top: auto; margin-bottom: auto; border-top: none"><a href="/Movies/Details/@movie.Id"><img src="@movie.PosterUrl" alt="Alternate Text" width="100" height="150" /></a></th>
+                    <th class="col-lg-3" style="margin-top: auto; margin-bottom: auto; border-top: none"><a href="/Movies/Details/@movie.Id">@movie.Name</a></th>
+                    <th class="col-lg-6" style="margin-top: auto; margin-bottom: auto; border-top: none">
+                        <a href="/Movies/Watch/@movie.Id" class="btn btn-primary">Watch</a>
+                    </th>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>

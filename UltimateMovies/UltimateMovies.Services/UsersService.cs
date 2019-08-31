@@ -1,7 +1,9 @@
-﻿using System;
+﻿using Microsoft.AspNetCore.Identity;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Threading.Tasks;
 using UltimateMovies.Data;
 using UltimateMovies.Models;
 
@@ -10,6 +12,8 @@ namespace UltimateMovies.Services
     public class UsersService : IUsersService
     {
         private UltimateMoviesDbContext db;
+        private readonly UserManager<UMUser> userManager;
+        private readonly RoleManager<IdentityRole> roleManager;
 
         public UsersService(UltimateMoviesDbContext db)
         {
@@ -119,6 +123,26 @@ namespace UltimateMovies.Services
             }
 
             string result = this.db.Roles.FirstOrDefault(r => r.Id == this.db.UserRoles.FirstOrDefault(ur => ur.UserId == id).RoleId).Name;
+
+            return result;
+        }
+
+        public bool CheckIfReal(string id)
+        {
+            return this.db.Users.Any(u => u.Id == id);
+        }
+
+        public ICollection<Movie> GetMoviesFromLibrary(string username)
+        {
+            List<Movie> result = new List<Movie>();
+
+            foreach (var libMovie in this.db.LibraryMovies)
+            {
+                if (libMovie.UserId == this.db.Users.FirstOrDefault(u => u.UserName == username).Id)
+                {
+                    result.Add(this.db.Movies.FirstOrDefault(m => m.Id == libMovie.MovieId));
+                }
+            }
 
             return result;
         }

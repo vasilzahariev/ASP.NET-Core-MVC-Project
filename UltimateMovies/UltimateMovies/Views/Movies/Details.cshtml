@@ -45,13 +45,22 @@
         <br />
         <br />
 
-        <div class="col-md-7 mt-4">
+        <div class="col-md-8 mt-4">
             <div class="mb-2" style="padding-bottom: 10px">
-                <img src="https://upload.wikimedia.org/wikipedia/commons/8/8c/Blu_ray_logo.png" alt="Alternate Text" width="50" height="40" style="margin-right: 41px" /> <a href="/Cart/Add/@Model.Id" class="btn btn-success">@(string.Format(us, "{0:C}", Model.BlueRayPrice))</a>
+                <a href="/Cart/Add/@Model.Id" class="btn btn-success">Add to Cart (Blu-Ray: @(string.Format(us, "{0:C}", Model.BlueRayPrice)))</a>
             </div>
-            <div class="mb-2">
-                <a href="/Movies/BuyDigital/@Model.Id" class="btn btn-primary">Buy Digital! (@(string.Format(us, "{0:C}", Model.OnlinePrice)))</a>
-            </div>
+            @if (!Model.IsInUserLibrary)
+            {
+                <div class="mb-2">
+                    <a href="/Movies/BuyDigital/@Model.Id" class="btn btn-primary">Buy Digital! (@(string.Format(us, "{0:C}", Model.OnlinePrice)))</a>
+                </div>
+            }
+            else
+            {
+                <div class="mb-2">
+                    <a href="/User/Library" class="btn btn-primary">Library</a>
+                </div>
+            }
         </div>
 
         <br />

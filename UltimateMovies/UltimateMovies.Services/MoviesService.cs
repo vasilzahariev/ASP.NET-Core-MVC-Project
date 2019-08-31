@@ -253,5 +253,31 @@ namespace UltimateMovies.Services
         {
             return this.db.Movies.FirstOrDefault(m => m.Name == name).Id;
         }
+
+        public bool Exists(int id)
+        {
+            return this.db.Movies.Any(m => m.Id == id);
+        }
+
+        public void BuyDigital(int id, string username)
+        {
+            if (this.db.LibraryMovies.Any(l => l.MovieId == id && l.UserId == this.db.Users.FirstOrDefault(u => u.UserName == username).Id))
+            {
+                return;
+            }
+
+            this.db.LibraryMovies.Add(new LibraryMovie
+            {
+                MovieId = id,
+                UserId = this.db.Users.FirstOrDefault(u => u.UserName == username).Id
+            });
+
+            this.db.SaveChanges();
+        }
+
+        public bool IsMovieInUserLibrary(string username, int movieId)
+        {
+            return this.db.LibraryMovies.Any(l => l.MovieId == movieId && l.UserId == this.db.Users.FirstOrDefault(u => u.UserName == username).Id);
+        }
     }
 }

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Threading.Tasks;
 using UltimateMovies.Models;
 
 namespace UltimateMovies.Services
@@ -22,5 +23,9 @@ namespace UltimateMovies.Services
         ICollection<UMUser> GetAllUsers();
 
         string GetUserRole(string id);
+
+        bool CheckIfReal(string id);
+
+        ICollection<Movie> GetMoviesFromLibrary(string username);
     }
 }

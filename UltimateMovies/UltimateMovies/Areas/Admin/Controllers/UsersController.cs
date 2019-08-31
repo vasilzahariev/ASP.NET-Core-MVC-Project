@@ -23,7 +23,7 @@ namespace UltimateMovies.Areas.Admin.Controllers
             this.usersService = usersService;
         }
 
-        [HttpGet]
+        [HttpGet("/Admin/Users/")]
         public IActionResult Index()
         {
             UserListingModel model = new UserListingModel
@@ -39,6 +39,28 @@ namespace UltimateMovies.Areas.Admin.Controllers
             };
 
             return View(model);
+        }
+
+        [HttpGet("/Admin/Users/AddAdmin")]
+        public async Task<IActionResult> AddAdmin(string id)
+        {
+            if (this.usersService.CheckIfReal(id))
+            {
+                await this.userManager.AddToRoleAsync(this.usersService.GetUserById(id), "Admin");
+            }
+
+            return this.Redirect("/Admin/Users/");
+        }
+
+        [HttpGet("Admin/Users/RemoveAdmin")]
+        public async Task<IActionResult> RemoveAdmin(string id)
+        {
+            if (this.usersService.CheckIfReal(id))
+            {
+                await this.userManager.RemoveFromRoleAsync(this.usersService.GetUserById(id), "Admin");
+            }
+
+            return this.Redirect("/Admin/Users");
         }
     }
 }

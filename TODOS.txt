@@ -1,6 +1,4 @@
-Admin Panel
 Azure
-Add Digital Movie Payment
 
 Additional Stuff:
 Sending Emails,
