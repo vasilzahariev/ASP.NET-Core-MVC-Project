@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.Extensions.Logging;
 using UltimateMovies.Models;
+using UltimateMovies.Services;
 
 namespace UltimateMovies.Areas.Identity.Pages.Account.Manage
 {
@@ -14,15 +15,18 @@ namespace UltimateMovies.Areas.Identity.Pages.Account.Manage
         private readonly UserManager<UMUser> _userManager;
         private readonly SignInManager<UMUser> _signInManager;
         private readonly ILogger<DeletePersonalDataModel> _logger;
+        private readonly IUsersService usersService;
 
         public DeletePersonalDataModel(
             UserManager<UMUser> userManager,
             SignInManager<UMUser> signInManager,
-            ILogger<DeletePersonalDataModel> logger)
+            ILogger<DeletePersonalDataModel> logger,
+            IUsersService usersService)
         {
             _userManager = userManager;
             _signInManager = signInManager;
             _logger = logger;
+            this.usersService = usersService;
         }
 
         [BindProperty]
@@ -66,6 +70,8 @@ namespace UltimateMovies.Areas.Identity.Pages.Account.Manage
                     return Page();
                 }
             }
+
+            this.usersService.Delete(user.Id);
 
             var result = await _userManager.DeleteAsync(user);
             var userId = await _userManager.GetUserIdAsync(user);

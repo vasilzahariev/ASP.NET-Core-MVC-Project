@@ -29,6 +29,8 @@ namespace UltimateMovies.Data
 
         public DbSet<SuggestedMovie> SuggestedMovies { get; set; }
 
+        public DbSet<Review> Reviews { get; set; }
+
         public UltimateMoviesDbContext(DbContextOptions<UltimateMoviesDbContext> options)
             : base(options)
         {
@@ -94,6 +96,10 @@ namespace UltimateMovies.Data
                 .HasOne(lm => lm.Movie)
                 .WithMany(m => m.Libraries)
                 .HasForeignKey(lm => lm.MovieId);
+
+            modelBuilder.Entity<Movie>()
+                .HasMany(m => m.Reviews)
+                .WithOne(r => r.Movie);
 
             base.OnModelCreating(modelBuilder);
         }

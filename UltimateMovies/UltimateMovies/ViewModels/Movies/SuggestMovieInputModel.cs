@@ -9,6 +9,7 @@ namespace UltimateMovies.ViewModels.Movies
     public class SuggestMovieInputModel
     {
         [Required]
+        [MaxLength(100)]
         public string Name { get; set; }
 
         [Display(Name = "IMDb Url")]

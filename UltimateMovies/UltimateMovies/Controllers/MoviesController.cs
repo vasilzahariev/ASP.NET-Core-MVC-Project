@@ -15,13 +15,15 @@ namespace UltimateMovies.Controllers
     public class MoviesController : Controller
     {
         private IMoviesService moviesService;
+        private readonly IUsersService usersService;
 
-        public MoviesController(IMoviesService moviesService)
+        public MoviesController(IMoviesService moviesService, IUsersService usersService)
         {
             this.moviesService = moviesService;
+            this.usersService = usersService;
         }
 
-        [HttpGet("Movies/Details/{movieId}")]
+        [HttpGet("/Movies/Details/{movieId}")]
         public IActionResult Details(int movieId)
         {
             Movie m = this.moviesService.GetMovie(movieId);
@@ -47,9 +49,32 @@ namespace UltimateMovies.Controllers
             movie.TrailerUrl = m.TrailerUrl;
             movie.IsInUserWishList = this.User.Identity.IsAuthenticated ? this.moviesService.IsMovieInUserWishList(this.User.Identity.Name, m.Id) : false;
             movie.IsInUserLibrary = this.User.Identity.IsAuthenticated ? this.moviesService.IsMovieInUserLibrary(this.User.Identity.Name, m.Id) : false;
+            movie.Reviews = this.moviesService.GetMovieReviews(m.Id).Select(x => new ReviewViewModel
+            {
+                Comment = x.Comment,
+                MovieId = x.MovieId,
+                Id = x.Id,
+                Score = x.Score,
+                UserId = x.UserId,
+                Username = this.usersService.GetUserById(x.UserId).UserName
+            }).ToList();
 
             return this.View(movie);
         }
+
+        [HttpPost("/Movies/Details/{movieId}")]
+        public IActionResult Details(int movieId, double score, string comment)
+        {
+            if (string.IsNullOrEmpty(comment) || (score > 0 && score <= 10) == false)
+            {
+                return this.Redirect($"/Movies/Details/{movieId}");
+            }
+
+            this.moviesService.AddComment(movieId, this.User.Identity.Name, score, comment);
+
+            return this.Redirect($"/Movies/Details/{movieId}");
+        }
+
 
         [HttpGet("/Movies/Suggest/")]
         public IActionResult Suggest(string movieName)

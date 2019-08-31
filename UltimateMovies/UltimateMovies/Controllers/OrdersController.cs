@@ -121,6 +121,37 @@ namespace UltimateMovies.Controllers
         [HttpPost("/Orders/Create")]
         public IActionResult Create(OrderInputModel input)
         {
+            if (!this.ModelState.IsValid)
+            {
+                OrdersListingModel model = new OrdersListingModel
+                {
+                    Addresses = this.ordersService.GetAllUserAddresses(this.User.Identity.Name).Select(x => new AddressViewModel
+                    {
+                        Id = x.Id,
+                        AdditionalInformation = x.AdditionalInformation,
+                        City = x.City,
+                        Country = x.Country,
+                        Postcode = x.Postcode,
+                        Street = x.Street
+                    }).ToList(),
+                    ResipientInformation = new UserViewModel
+                    {
+                        FullName = input.ResipientName,
+                        PhoneNumber = input.PhoneNumber
+                    },
+                    CartMovies = this.ordersService.GetCartMovies(this.User.Identity.Name).Select(x => new CartMovieViewModel
+                    {
+                        Id = x.Key.Id,
+                        Name = x.Key.Name,
+                        PosterUrl = x.Key.PosterUrl,
+                        Price = x.Key.BluRayPrice,
+                        Quantity = x.Value
+                    }).ToList()
+                };
+
+                return this.View(model);
+            }
+
             this.ordersService.CreateAnOrder(input.CartPrice, input.DeliveryType, input.PaymentType, input.AddressId, this.User.Identity.Name, input.PhoneNumber);
 
             return this.Redirect("/Orders/Summary");

@@ -48,5 +48,7 @@ namespace UltimateMovies.ViewModels.Movies
         public bool IsInUserWishList { get; set; }
 
         public bool IsInUserLibrary { get; set; }
+
+        public IEnumerable<ReviewViewModel> Reviews { get; set; }
     }
 }

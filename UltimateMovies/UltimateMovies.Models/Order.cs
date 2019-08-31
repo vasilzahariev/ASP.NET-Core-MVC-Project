@@ -20,12 +20,16 @@ namespace UltimateMovies.Models
 
         public DateTime? DeliveredDate { get; set; }
 
+        [Required]
         public double DeliveryPrice { get; set; }
 
+        [Required]
         public double TotalPrice { get; set; }
 
+        [Required]
         public DeliveryType DeliveryType { get; set; }
 
+        [Required]
         public PaymentType PaymentType { get; set; }
 
         public string UserId { get; set; }

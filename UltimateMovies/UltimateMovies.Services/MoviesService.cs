@@ -279,5 +279,23 @@ namespace UltimateMovies.Services
         {
             return this.db.LibraryMovies.Any(l => l.MovieId == movieId && l.UserId == this.db.Users.FirstOrDefault(u => u.UserName == username).Id);
         }
+
+        public ICollection<Review> GetMovieReviews(int movieId)
+        {
+            return this.db.Reviews.ToList().FindAll(x => x.MovieId == movieId);
+        }
+
+        public void AddComment(int movieId, string username, double score, string comment)
+        {
+            this.db.Reviews.Add(new Review
+            {
+                Comment = comment,
+                MovieId = movieId,
+                Score = score,
+                UserId = this.db.Users.FirstOrDefault(u => u.UserName == username).Id
+            });
+
+            this.db.SaveChanges();
+        }
     }
 }

@@ -27,5 +27,7 @@ namespace UltimateMovies.Services
         bool CheckIfReal(string id);
 
         ICollection<Movie> GetMoviesFromLibrary(string username);
+
+        void Delete(string id);
     }
 }

@@ -39,5 +39,9 @@ namespace UltimateMovies.Services
         void BuyDigital(int id, string username);
 
         bool IsMovieInUserLibrary(string username, int movieId);
+
+        ICollection<Review> GetMovieReviews(int movieId);
+
+        void AddComment(int movieId, string username, double score, string comment);
     }
 }

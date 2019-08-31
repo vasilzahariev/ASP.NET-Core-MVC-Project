@@ -13,16 +13,19 @@ namespace UltimateMovies.Models
         public int Id { get; set; }
 
         [Required]
-        [MaxLength(50)]
+        [MaxLength(100)]
         public string Name { get; set; }
 
         [Required]
+        [Range(1, 1000, ErrorMessage = "Price should be between $1 and $1000")]
         public double OnlinePrice { get; set; }
 
         [Required]
+        [Range(1, 1000, ErrorMessage = "Price should be between $1 and $1000")]
         public double BluRayPrice { get; set; }
 
         [Required]
+        [Range(1, 1000, ErrorMessage = "Price should be between $1 and $1000")]
         public double DvdPrice { get; set; }
 
         [Required]
@@ -42,12 +45,15 @@ namespace UltimateMovies.Models
         public DateTime ReleaseDate { get; set; }
 
         [Required]
+        [Range(1, 1000, ErrorMessage = "Length should be between 1 and 1000 mins!")]
         public int Length { get; set; }
 
         [Required]
+        [Range(0.00, 10.00, ErrorMessage = "The IMDb score should be between 0.00 and 10.00")]
         public double IMDbScore { get; set; }
 
         [Required]
+        [Range(0, 100, ErrorMessage = "The Rotten Tomatoes score should be between 0 and 100")]
         public int RottenTomatoes { get; set; }
 
         [Required]
@@ -66,5 +72,7 @@ namespace UltimateMovies.Models
         public virtual ICollection<CartMovie> Cart { get; set; }
 
         public virtual ICollection<LibraryMovie> Libraries { get; set; }
+
+        public virtual ICollection<Review> Reviews { get; set; }
     }
 }

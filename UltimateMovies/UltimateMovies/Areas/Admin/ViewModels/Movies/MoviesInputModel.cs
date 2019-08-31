@@ -11,19 +11,22 @@ namespace UltimateMovies.Areas.Admin.ViewModels
     {
         [Display(Name = "Movie's  name")]
         [Required]
-        [MaxLength(50)]
+        [MaxLength(100)]
         public string Name { get; set; }
 
         [Display(Name = "Online Price")]
         [Required]
+        [Range(1, 1000, ErrorMessage = "Price should be between $1 and $1000")]
         public double OnlinePrice { get; set; }
 
         [Display(Name = "Blu-Ray Price")]
         [Required]
+        [Range(1, 1000, ErrorMessage = "Price should be between $1 and $1000")]
         public double BluRayPrice { get; set; }
 
         [Display(Name = "DVD Price")]
         [Required]
+        [Range(1, 1000, ErrorMessage = "Price should be between $1 and $1000")]
         public double DvdPrice { get; set; }
 
         [Display(Name = "Description")]
@@ -50,6 +53,7 @@ namespace UltimateMovies.Areas.Admin.ViewModels
 
         [Required]
         [Display(Name = "Movie's Length")]
+        [Range(1, 1000, ErrorMessage = "Length should be between 1 and 1000 mins!")]
         public int Length { get; set; }
 
         [Required]

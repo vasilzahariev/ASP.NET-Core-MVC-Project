@@ -146,5 +146,22 @@ namespace UltimateMovies.Services
 
             return result;
         }
+
+        public void Delete(string id)
+        {
+            this.db.Addresses.RemoveRange(this.db.Addresses.ToList().FindAll(a => a.UserId == id));
+            this.db.CartMovies.RemoveRange(this.db.CartMovies.ToList().FindAll(a => a.UserId == id));
+            this.db.LibraryMovies.RemoveRange(this.db.LibraryMovies.ToList().FindAll(a => a.UserId == id));
+            this.db.WishListMovies.RemoveRange(this.db.WishListMovies.ToList().FindAll(a => a.UserId == id));
+            this.db.Reviews.RemoveRange(this.db.Reviews.ToList().FindAll(a => a.UserId == id));
+
+            List<int> removableOrders = this.db.Orders.ToList().FindAll(o => o.UserId == id).Select(x => x.Id).ToList();
+
+            this.db.OrderMovies.RemoveRange(this.db.OrderMovies.ToList().FindAll(o => removableOrders.Contains(o.OrderId) == true));
+
+            this.db.Orders.RemoveRange(this.db.Orders.ToList().FindAll(a => a.UserId == id));
+
+            this.db.SaveChanges();
+        }
     }
 }

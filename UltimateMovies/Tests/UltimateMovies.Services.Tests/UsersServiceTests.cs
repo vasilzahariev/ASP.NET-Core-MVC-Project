@@ -109,5 +109,73 @@ namespace UltimateMovies.Services.Tests
 
             Assert.Equal(0, db.WishListMovies.Count());
         }
+
+        [Fact]
+        public void DeleteShouldDeleteAllDataAssociatedWithTheUser()
+        {
+            DbContextOptions<UltimateMoviesDbContext> options = new DbContextOptionsBuilder<UltimateMoviesDbContext>()
+                  .UseInMemoryDatabase(databaseName: "Users_Delete_Database")
+                  .Options;
+            UltimateMoviesDbContext db = new UltimateMoviesDbContext(options);
+
+            IUsersService usersService = new UsersService(db);
+
+            db.Users.Add(new UMUser { UserName = "Tester" });
+
+            db.SaveChanges();
+
+            string id = db.Users.Last().Id;
+
+            db.Addresses.Add(new Address { UserId = id});
+            db.Addresses.Add(new Address { UserId = id});
+            db.Addresses.Add(new Address { UserId = id});
+
+            db.SaveChanges();
+
+            db.CartMovies.Add(new CartMovie { UserId = id, MovieId = 1, Quantity = 1 });
+            db.CartMovies.Add(new CartMovie { UserId = id, MovieId = 2, Quantity = 1 });
+            db.CartMovies.Add(new CartMovie { UserId = id, MovieId = 3, Quantity = 1 });
+
+            db.SaveChanges();
+
+            db.LibraryMovies.Add(new LibraryMovie { UserId = id, MovieId = 1 });
+            db.LibraryMovies.Add(new LibraryMovie { UserId = id, MovieId = 2 });
+            db.LibraryMovies.Add(new LibraryMovie { UserId = id, MovieId = 3 });
+
+            db.SaveChanges();
+
+            db.WishListMovies.Add(new WishListMovie { UserId = id, MovieId = 1 });
+            db.WishListMovies.Add(new WishListMovie { UserId = id, MovieId = 2 });
+            db.WishListMovies.Add(new WishListMovie { UserId = id, MovieId = 3 });
+
+            db.SaveChanges();
+
+            db.Reviews.Add(new Review { UserId = id });
+            db.Reviews.Add(new Review { UserId = id });
+
+            db.SaveChanges();
+
+            db.Orders.Add(new Order { UserId = id });
+            db.Orders.Add(new Order { UserId = id });
+            db.Orders.Add(new Order { UserId = id });
+
+            db.SaveChanges();
+
+            db.OrderMovies.Add(new OrderMovie { OrderId = db.Orders.ToList()[0].Id, MovieId = 1 });
+            db.OrderMovies.Add(new OrderMovie { OrderId = db.Orders.ToList()[1].Id, MovieId = 2 });
+            db.OrderMovies.Add(new OrderMovie { OrderId = db.Orders.ToList()[2].Id, MovieId = 3 });
+
+            db.SaveChanges();
+
+            usersService.Delete(id);
+
+            Assert.Equal(0, db.Addresses.Count());
+            Assert.Equal(0, db.CartMovies.Count());
+            Assert.Equal(0, db.LibraryMovies.Count());
+            Assert.Equal(0, db.WishListMovies.Count());
+            Assert.Equal(0, db.Reviews.Count());
+            Assert.Equal(0, db.Orders.Count());
+            Assert.Equal(0, db.OrderMovies.Count());
+        }
     }
 }

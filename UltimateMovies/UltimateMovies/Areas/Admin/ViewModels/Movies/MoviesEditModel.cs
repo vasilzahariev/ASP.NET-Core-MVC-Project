@@ -14,19 +14,22 @@ namespace UltimateMovies.Areas.Admin.ViewModels
 
         [Display(Name = "Movie's  name")]
         [Required]
-        [MaxLength(50)]
+        [MaxLength(100)]
         public string Name { get; set; }
 
         [Display(Name = "Online Price")]
         [Required]
+        [Range(1, 1000, ErrorMessage = "Price should be between $1 and $1000")]
         public double OnlinePrice { get; set; }
 
         [Display(Name = "Blu-Ray Price")]
         [Required]
+        [Range(1, 1000, ErrorMessage = "Price should be between $1 and $1000")]
         public double BluRayPrice { get; set; }
 
         [Display(Name = "DVD Price")]
         [Required]
+        [Range(1, 1000, ErrorMessage = "Price should be between $1 and $1000")]
         public double DvdPrice { get; set; }
 
         [Display(Name = "Description")]
@@ -53,16 +56,17 @@ namespace UltimateMovies.Areas.Admin.ViewModels
 
         [Required]
         [Display(Name = "Movie's Length")]
+        [Range(1, 1000, ErrorMessage = "Length should be between 1 and 1000 mins!")]
         public int Length { get; set; }
 
         [Required]
-        [Range(0, 10)]
         [Display(Name = "IMDb Score")]
+        [Range(0.00, 10.00, ErrorMessage = "The IMDb score should be between 0.00 and 10.00")]
         public double IMDbScore { get; set; }
 
         [Display(Name = "Rotten Tomatoes Score")]
         [Required]
-        [Range(0, 100)]
+        [Range(0, 100, ErrorMessage = "The Rotten Tomatoes score should be between 0 and 100")]
         public int RottenTomatoes { get; set; }
 
         [Display(Name = "IMDb's Page Url")]

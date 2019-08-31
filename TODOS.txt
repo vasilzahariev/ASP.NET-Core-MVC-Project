@@ -5,7 +5,3 @@ Sending Emails,
 Ordering being POST (ViewData)
 Take Ordering into methods
 Add AutoMapper
-When User deletes his profile, you should delete everything associated with him from the DB
-Update Validation
-Add restrictions to the models
-Reviews

@@ -9,6 +9,7 @@ namespace UltimateMovies.Areas.Admin.ViewModels
     public class ActorInputModel
     {
         [Required]
+        [MaxLength(50)]
         public string Name { get; set; }
 
         [Required]

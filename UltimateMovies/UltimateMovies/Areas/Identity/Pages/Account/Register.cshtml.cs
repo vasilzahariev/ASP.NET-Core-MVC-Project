@@ -46,10 +46,12 @@ namespace UltimateMovies.Areas.Identity.Pages.Account
 
             [Required]
             [Display(Name = "First Name")]
+            [MaxLength(20)]
             public string FirstName { get; set; }
 
             [Required]
             [Display(Name = "Last Name")]
+            [MaxLength(20)]
             public string LastName { get; set; }
 
             [Required]
